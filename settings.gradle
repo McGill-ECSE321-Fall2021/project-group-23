@@ -1,1 +1,2 @@
-include ':LibrarySystem_Backend'
+rootProject.name = 'project-group-23'
+include 'LibrarySystem_Backend'
