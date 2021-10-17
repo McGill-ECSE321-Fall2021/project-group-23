@@ -34,14 +34,14 @@ public class Library
         this.items = itemss;
     }
 
-    private Set<User> users;
+    private Set<Customer> customers;
     @OneToMany(cascade = {CascadeType.ALL})
-    public Set<User> getUsers() {
-        return this.users;
+    public Set<Customer> getCustomers() {
+        return this.customers;
 
     }
-    public void setUsers(Set<User> userss) {
-        this.users = userss;
+    public void setCustomers(Set<Customer> customerss) {
+        this.customers = customerss;
     }
 
     private Set<Librarian> librarians;
@@ -50,8 +50,8 @@ public class Library
         return this.librarians;
 
     }
-    public void setLibrarians(Set<Librarian> userss) {
-        this.librarians = userss;
+    public void setLibrarians(Set<Librarian> librarianss) {
+        this.librarians = librarianss;
     }
 
     private HeadLibrarian headLibrarian;
@@ -60,8 +60,8 @@ public class Library
         return this.headLibrarian;
 
     }
-    public void setHeadLibrarian(HeadLibrarian userss) {
-        this.headLibrarian = userss;
+    public void setHeadLibrarian(HeadLibrarian headLibrarian) {
+        this.headLibrarian = headLibrarian;
     }
 
     private Set<LibraryBooking> libraryBookings;

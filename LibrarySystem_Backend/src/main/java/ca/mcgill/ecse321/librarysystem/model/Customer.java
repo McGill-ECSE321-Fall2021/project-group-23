@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class User extends Account {
+public class Customer extends Account {
   private String email;
 
   public String getEmail() {

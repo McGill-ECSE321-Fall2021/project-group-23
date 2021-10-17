@@ -59,13 +59,13 @@ public class LibraryBooking
         this.endTime = newTime;
     }
 
-    private User user;
+    private Customer customer;
 
     @ManyToOne(optional = false)
-    public User getUser() {
-        return this.user;
+    public Customer getCustomer() {
+        return this.customer;
     }
-    public void setUser(User userr){
-        this.user = userr;
+    public void setCustomer(Customer customerr){
+        this.customer = customerr;
     }
 }

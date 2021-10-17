@@ -47,7 +47,7 @@ public class Reservation
 	public void setIsCheckedOut(boolean checkout) {
 		this.isCheckedOut = checkout;
 	}
-	
+
 	private Item item;
 	@OneToOne(optional = false)
 	public Item getItem() {
@@ -57,15 +57,15 @@ public class Reservation
 		this.item = item;
 	}
 	
-	private User user;
+	private Customer customer;
 	
 	@ManyToOne(optional = false)
-	public User getUser() {
-		return this.user;
+	public Customer getCustomer() {
+		return this.customer;
 	}
 	
-	public void setUser(User user) {
-		this.user = user;
+	public void setCustomer(Customer Customer) {
+		this.customer = Customer;
 	}
 	
 }
