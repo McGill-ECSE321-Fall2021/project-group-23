@@ -44,7 +44,7 @@ public abstract class Item {
         this.title = newTitle;
     }
 
-    enum Status {
+    public enum Status {
         AVAILABLE, BORROWED, RESERVED, DAMAGED, INCOMING
     }
 
