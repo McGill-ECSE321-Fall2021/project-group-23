@@ -3,5 +3,8 @@ import java.util.*;
 
 public class Newspapers extends Item
 {
-
+    @Override
+    public boolean canBeBorrowed(){
+        return false;
+    }
 }

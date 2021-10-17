@@ -3,5 +3,8 @@ import java.util.*;
 
 public class Album extends Item
 {
-
+    @Override
+    public boolean canBeBorrowed(){
+        return true;
+    }
 }
