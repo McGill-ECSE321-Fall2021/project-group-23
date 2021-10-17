@@ -3,6 +3,7 @@ import java.util.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import java.sql.Date;
 
@@ -17,6 +18,16 @@ public int getItemId(){
 }
 public void setItemId(int id){
     this.itemId = id;
+}
+
+private Library library;
+@ManyToOne(optional=false)
+public Library getLibrary() {
+   return this.library;
+}
+
+public void setLibrary(Library newLibrary) {
+    this.library = newLibrary;
 }
 
 private String title;
