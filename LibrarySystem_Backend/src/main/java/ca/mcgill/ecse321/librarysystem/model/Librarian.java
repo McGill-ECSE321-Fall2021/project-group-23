@@ -3,11 +3,13 @@ import java.util.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Librarian extends Account
 {
 	private WeeklySchedule librarianSchedule;
+	@OneToOne
 	public WeeklySchedule getLibrarianSchedule() {
 		return this.librarianSchedule;
 	}

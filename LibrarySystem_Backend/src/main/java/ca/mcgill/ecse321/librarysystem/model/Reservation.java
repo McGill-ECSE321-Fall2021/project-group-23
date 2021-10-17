@@ -47,8 +47,8 @@ public class Reservation
 	public void setIsCheckedOut(boolean checkout) {
 		this.isCheckedOut = checkout;
 	}
-	private Item item;
 	
+	private Item item;
 	@OneToOne(optional = false)
 	public Item getItem() {
 		return this.item;
