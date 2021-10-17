@@ -3,14 +3,18 @@ package ca.mcgill.ecse321.librarysystem.model;
 import java.util.*;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
-@Entity
+
+@MappedSuperclass
 public abstract class Account
 {
   private int accountId;
 
   @Id
+  @GeneratedValue(generator = "idGenerator")
   public int getAccountId() {
     return this.accountId;
   }

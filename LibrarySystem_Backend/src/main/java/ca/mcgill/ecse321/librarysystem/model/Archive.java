@@ -3,8 +3,11 @@ import java.util.*;
 
 public class Archive extends Item
 {
-    @Override
+    /*@Override
     public boolean canBeBorrowed(){
         return false;
+    }*/
+    public Archive(){
+        super.canBeBorrowed = false;
     }
 }

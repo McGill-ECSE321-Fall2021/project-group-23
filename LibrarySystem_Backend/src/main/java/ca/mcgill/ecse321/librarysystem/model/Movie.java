@@ -3,8 +3,12 @@ import java.util.*;
 
 public class Movie extends Item
 {
-    @Override
+    /*@Override
     public boolean canBeBorrowed(){
         return true;
+    }*/
+
+    public Movie() {
+        super.canBeBorrowed = true;
     }
 }

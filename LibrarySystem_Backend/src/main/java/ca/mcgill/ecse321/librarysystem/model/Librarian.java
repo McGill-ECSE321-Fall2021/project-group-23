@@ -8,7 +8,6 @@ import javax.persistence.Id;
 public class Librarian extends Account
 {
 	private WeeklySchedule librarianSchedule;
-	@Id
 	public WeeklySchedule getLibrarianSchedule() {
 		return this.librarianSchedule;
 	}

@@ -3,8 +3,12 @@ import java.util.*;
 
 public class Book extends Item
 {
-    @Override
+    /*@Override
     public boolean canBeBorrowed(){
         return true;
+    }*/
+
+    public Book() {
+        super.canBeBorrowed = true;
     }
 }

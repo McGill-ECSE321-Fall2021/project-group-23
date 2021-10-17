@@ -2,17 +2,20 @@ package ca.mcgill.ecse321.librarysystem.model;
 import java.util.*;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 import java.sql.Date;
 
-@Entity
+@MappedSuperclass
 public abstract class Item
 {
 private int itemId;
 
 @Id
+@GeneratedValue(generator = "idGenerator")
 public int getItemId(){
     return this.itemId;
 }
@@ -20,7 +23,7 @@ public void setItemId(int id){
     this.itemId = id;
 }
 
-private Library library;
+/*private Library library;
 @ManyToOne(optional=false)
 public Library getLibrary() {
    return this.library;
@@ -28,7 +31,7 @@ public Library getLibrary() {
 
 public void setLibrary(Library newLibrary) {
     this.library = newLibrary;
-}
+}*/
 
 private String title;
 public String getTitle() {
@@ -76,5 +79,6 @@ public void setStatus(String newStatus){
  * Returns whether or not an item can be borrowed
  * @return
  */
-abstract boolean canBeBorrowed();
+//abstract boolean canBeBorrowed();
+public boolean canBeBorrowed;
 }
