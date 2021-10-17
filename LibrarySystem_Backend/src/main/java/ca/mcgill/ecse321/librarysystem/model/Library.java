@@ -5,6 +5,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -33,14 +34,34 @@ public class Library
         this.items = itemss;
     }
 
-    private Set<Account> accounts;
+    private Set<Customer> customers;
     @OneToMany(cascade = {CascadeType.ALL})
-    public Set<Account> getAccounts() {
-        return this.accounts;
+    public Set<Customer> getCustomers() {
+        return this.customers;
 
     }
-    public void setAccounts(Set<Account> accountss) {
-        this.accounts = accountss;
+    public void setCustomers(Set<Customer> customerss) {
+        this.customers = customerss;
+    }
+
+    private Set<Librarian> librarians;
+    @OneToMany(cascade = {CascadeType.ALL})
+    public Set<Librarian> getLibrarians() {
+        return this.librarians;
+
+    }
+    public void setLibrarians(Set<Librarian> librarianss) {
+        this.librarians = librarianss;
+    }
+
+    private HeadLibrarian headLibrarian;
+    @OneToOne(cascade = {CascadeType.ALL})
+    public HeadLibrarian getHeadLibrarian() {
+        return this.headLibrarian;
+
+    }
+    public void setHeadLibrarian(HeadLibrarian headLibrarian) {
+        this.headLibrarian = headLibrarian;
     }
 
     private Set<LibraryBooking> libraryBookings;

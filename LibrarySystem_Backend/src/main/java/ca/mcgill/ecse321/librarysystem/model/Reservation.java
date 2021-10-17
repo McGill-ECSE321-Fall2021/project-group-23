@@ -2,9 +2,11 @@ package ca.mcgill.ecse321.librarysystem.model;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Reservation
@@ -12,6 +14,7 @@ public class Reservation
 	private int id;
 	
 	@Id
+	@GeneratedValue(generator = "idGenerator")
 	public int getid() {
 		return this.id;
 	}
@@ -44,27 +47,25 @@ public class Reservation
 	public void setIsCheckedOut(boolean checkout) {
 		this.isCheckedOut = checkout;
 	}
+
 	private Item item;
-	
-	@OneToMany
+	@OneToOne(optional = false)
 	public Item getItem() {
 		return this.item;
 	}
-	
-	
 	public void setItem(Item item) {
 		this.item = item;
 	}
 	
-	private User user;
+	private Customer customer;
 	
 	@ManyToOne(optional = false)
-	public User getUser() {
-		return this.user;
+	public Customer getCustomer() {
+		return this.customer;
 	}
 	
-	public void setUser(User user) {
-		this.user = user;
+	public void setCustomer(Customer Customer) {
+		this.customer = Customer;
 	}
 	
 }

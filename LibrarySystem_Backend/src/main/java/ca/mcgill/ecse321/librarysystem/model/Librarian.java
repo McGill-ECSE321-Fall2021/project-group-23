@@ -1,14 +1,19 @@
 package ca.mcgill.ecse321.librarysystem.model;
 import java.util.*;
 
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.OneToOne;
+import javax.persistence.InheritanceType;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "LIBRARIAN_TYPE")
 public class Librarian extends Account
 {
 	private WeeklySchedule librarianSchedule;
-	@Id
+	@OneToOne
 	public WeeklySchedule getLibrarianSchedule() {
 		return this.librarianSchedule;
 	}

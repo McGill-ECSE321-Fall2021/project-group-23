@@ -2,15 +2,19 @@ package ca.mcgill.ecse321.librarysystem.model;
 import java.sql.Date;
 import java.sql.Time;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+@Entity
 public class LibraryBooking
 {
 
     private int id;
 
     @Id
+    @GeneratedValue(generator = "idGenerator")
     public int getId() {
         return this.id;
     }
@@ -55,10 +59,13 @@ public class LibraryBooking
         this.endTime = newTime;
     }
 
-    private User user;
+    private Customer customer;
 
     @ManyToOne(optional = false)
-    public User getUser() {
-        return this.user;
+    public Customer getCustomer() {
+        return this.customer;
+    }
+    public void setCustomer(Customer customerr){
+        this.customer = customerr;
     }
 }
