@@ -163,15 +163,13 @@ public class TestLibraryBookingPersistence {
 
         testLibraryBooking = libraryBookingRepository.findByLibraryBookingById(id1);
 
-        libraryBooking1 = testLibraryBooking;
-
-        assertNotNull(libraryBooking1);
-        assertEquals(startDate1, libraryBooking1.getStartDate());
-        assertEquals(endDate1, libraryBooking1.getEndDate());
-        assertEquals(startTime1, libraryBooking1.getStartTime());
-        assertEquals(endTime1, libraryBooking1.getEndTime());
-        assertEquals(id1, libraryBooking1.getId());
-        assertEquals(newCustomer, libraryBooking1.getCustomer());
+        assertNotNull(testLibraryBooking);
+        assertEquals(startDate1, testLibraryBooking.getStartDate());
+        assertEquals(endDate1, testLibraryBooking.getEndDate());
+        assertEquals(startTime1, testLibraryBooking.getStartTime());
+        assertEquals(endTime1, testLibraryBooking.getEndTime());
+        assertEquals(id1, testLibraryBooking.getId());
+        assertEquals(newCustomer, testLibraryBooking.getCustomer());
 
 
 
