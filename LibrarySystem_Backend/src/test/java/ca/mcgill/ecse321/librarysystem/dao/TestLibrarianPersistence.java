@@ -82,6 +82,6 @@ public class TestLibrarianPersistence {
 		librarian = librarianRepository.findByLibrarianSchedule(weeklySchedule);
 		
 		assertNotNull(librarian);
-		assertEquals(librarian.getLibrarianSchedule(), weeklySchedule);
+		assertEquals(librarian.getLibrarianSchedule().getWeeklyScheduleId(), weeklySchedule.getWeeklyScheduleId());
 	}
 }
