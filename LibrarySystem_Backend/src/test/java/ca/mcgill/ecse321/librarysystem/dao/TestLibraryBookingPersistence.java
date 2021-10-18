@@ -29,8 +29,9 @@ public class TestLibraryBookingPersistence {
 
     @AfterEach
     public void clearDatabase() {
-        customerRepository.deleteAll();
         libraryBookingRepository.deleteAll();
+        customerRepository.deleteAll();
+        
     }
 
     @Test

@@ -38,8 +38,9 @@ public class TestReservationPersistence {
 
     @AfterEach
     public void clearDatabase() {
-        customerRepository.deleteAll();
+        //delete reservation first because of dependencies
         reservationRepository.deleteAll();
+        customerRepository.deleteAll();
         itemRepository.deleteAll();
 
     }
@@ -189,9 +190,9 @@ public class TestReservationPersistence {
         testReservation = reservationRepository.findByItem(newItem1);
 
         assertNotNull(testReservation);
-        assertEquals(reservation1Id, reservation1.getid());
-        assertEquals(reservation1StartDate, reservation1.getReservationStartDate());
-        assertEquals(reservation1EndDate, reservation1.getReservationEndDate());
+        assertEquals(reservation1Id, testReservation.getid());
+        assertEquals(reservation1StartDate, testReservation.getReservationStartDate());
+        assertEquals(reservation1EndDate, testReservation.getReservationEndDate());
 
 
     }
