@@ -14,7 +14,7 @@ import javax.persistence.InheritanceType;
 public class Librarian extends Account
 {
 	private WeeklySchedule librarianSchedule;
-	@OneToOne
+	@OneToOne(optional = true)
 	public WeeklySchedule getLibrarianSchedule() {
 		return this.librarianSchedule;
 	}
