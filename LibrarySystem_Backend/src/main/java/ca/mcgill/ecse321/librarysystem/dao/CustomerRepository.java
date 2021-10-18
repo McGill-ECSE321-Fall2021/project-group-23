@@ -51,6 +51,6 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer> {
    * @param firstName,lastName
    * @return boolean
    */
-  boolean existsByName(String firstName, String lastName);
+  boolean existsByFirstNameAndLastName(String firstName, String lastName);
 
 }

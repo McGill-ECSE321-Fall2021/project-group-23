@@ -1,9 +1,14 @@
 package ca.mcgill.ecse321.librarysystem.dao;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Month;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,11 +35,11 @@ public class TestHolidayPersistence {
 		holiday.setName(name);
 		holiday.setStartDate(startDate);
 		holiday.setEndDate(endDate);
-		HolidayRepository.save(holiday);
+		holidayRepository.save(holiday);
 
 		holiday = null;
 
-		holiday = HolidayRepository.findHolidayByName(name);
+		holiday = holidayRepository.findHolidayByName(name);
 
 		assertNotNull(holiday);
 		assertEquals(name, holiday.getName());
