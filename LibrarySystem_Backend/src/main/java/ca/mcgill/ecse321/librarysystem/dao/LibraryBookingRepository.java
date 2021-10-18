@@ -10,7 +10,8 @@ public interface LibraryBookingRepository extends CrudRepository<LibraryBooking,
 
     LibraryBooking findByLibraryBookingById(int id);
 
-    List<LibraryBooking> findByCustomer(Customer user);
+
+   List<LibraryBooking> findByCustomer(Customer customer);
 
     
 }
