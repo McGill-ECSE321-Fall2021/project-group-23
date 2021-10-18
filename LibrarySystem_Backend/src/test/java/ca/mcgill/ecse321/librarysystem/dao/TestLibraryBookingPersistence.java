@@ -161,7 +161,7 @@ public class TestLibraryBookingPersistence {
 
         LibraryBooking testLibraryBooking = new LibraryBooking();
 
-        testLibraryBooking = libraryBookingRepository.findByLibraryBookingById(id1);
+        testLibraryBooking = libraryBookingRepository.findById(id1);
 
         assertNotNull(testLibraryBooking);
         assertEquals(startDate1, testLibraryBooking.getStartDate());

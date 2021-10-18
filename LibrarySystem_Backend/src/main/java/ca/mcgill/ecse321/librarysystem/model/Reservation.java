@@ -49,7 +49,7 @@ public class Reservation
 	}
 
 	private Item item;
-	@OneToOne(optional = false)
+	@OneToOne(optional = true)
 	public Item getItem() {
 		return this.item;
 	}
