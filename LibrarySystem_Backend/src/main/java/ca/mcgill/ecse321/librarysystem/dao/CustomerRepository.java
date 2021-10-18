@@ -19,10 +19,11 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer> {
     /**
    * Find a customer by full name
    * 
-   * @param firstName,lastName
+   * @param firstName
+   * @param lastName
    * @return customer (Customer)
    */
-  Customer findCustomerByName(String firstName, String lastName);
+  Customer findCustomerByFirstNameAndLastName(String firstName, String lastName);
 
   /**
    * @return all customers
