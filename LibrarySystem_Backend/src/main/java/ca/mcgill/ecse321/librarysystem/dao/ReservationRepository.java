@@ -11,8 +11,7 @@ public interface ReservationRepository extends CrudRepository<Reservation, Integ
 	
 	List<Reservation> findByCustomer(Customer customer);
 
-    boolean existsByCustomerAndItem(Customer customer, Item item);
+    Reservation findByItem(Item item);
 
-    Reservation findByCustomerAndItem(Customer customer, Item item);
 
 }
