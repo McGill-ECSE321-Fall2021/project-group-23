@@ -103,7 +103,7 @@ public class TestCustomerPersistence {
     assertEquals(customer2LastName, customer2.getLastName());
     assertEquals(customer2Email, customer2.getEmail());
     assertEquals(customer2Address, customer2.getAddress());
-		//assertEquals(customerAccountId, customer.getAccountId());
+		assertEquals(savedCustomer2.getAccountId(), customer2.getAccountId());
     assertEquals(customer2Password, customer2.getPassword());
     assertEquals(customer2AccountBalance, customer2.getAccountBalance());
     assertEquals(customer2VerificationStatus, customer2.getIsVerified());
