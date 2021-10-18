@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.librarysystem.model;
 import java.util.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -13,7 +14,7 @@ import javax.persistence.InheritanceType;
 public class Librarian extends Account
 {
 	private WeeklySchedule librarianSchedule;
-	@OneToOne
+	@OneToOne(optional=true)
 	public WeeklySchedule getLibrarianSchedule() {
 		return this.librarianSchedule;
 	}

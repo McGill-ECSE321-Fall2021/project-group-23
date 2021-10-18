@@ -1,33 +1,20 @@
 package ca.mcgill.ecse321.librarysystem.dao;
 
-import java.util.Set;
+import org.springframework.data.repository.CrudRepository;
 
-import javax.persistence.EntityManager;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
+import ca.mcgill.ecse321.librarysystem.model.Librarian;
 import ca.mcgill.ecse321.librarysystem.model.WeeklySchedule;
-import ca.mcgill.ecse321.librarysystem.model.Shift;
 
-@Repository
-public class LibrarianRepository {
-	@Autowired
-	EntityManager entityManager;
+public interface LibrarianRepository extends CrudRepository<Librarian, Integer>{
+	Librarian findByAccountId(int accountId);
 	
-	@Transactional
-	public WeeklySchedule createSchedule(int scheduleId, Set<Shift> shiftsToAdd) {
-		WeeklySchedule newSchedule = new WeeklySchedule();
-		newSchedule.setWeeklyScheduleId(scheduleId);
-		newSchedule.setLibrarianShifts(shiftsToAdd);
-		entityManager.persist(newSchedule);
-		return newSchedule;
-	}
+	Librarian findByFirstNameAndLastName(String firstName, String lastName);
 	
-	@Transactional
-	public WeeklySchedule getSchedule(int scheduleId) {
-		WeeklySchedule schedule = entityManager.find(WeeklySchedule.class, scheduleId);
-		return schedule;
-	}
+	Librarian findByLibrarianSchedule(WeeklySchedule librarianSchedule);
+	
+	boolean existsByAccountId(int accountId);
+	
+	boolean existsByLibrarianSchedule(WeeklySchedule librarianSchedule);
+	
+	boolean existsByFirstNameAndLastName(String firstName, String lastName);
 }
