@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.librarysystem.model;
 import java.util.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;

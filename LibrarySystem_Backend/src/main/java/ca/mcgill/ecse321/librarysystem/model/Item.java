@@ -15,6 +15,7 @@ import javax.persistence.Id;
 public abstract class Item {
     private int itemId;
 
+ 
     @Id
     @GeneratedValue(generator = "idGenerator")
     public int getItemId() {
