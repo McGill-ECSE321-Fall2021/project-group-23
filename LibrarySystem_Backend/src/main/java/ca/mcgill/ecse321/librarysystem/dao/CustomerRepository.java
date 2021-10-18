@@ -14,7 +14,15 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer> {
    * @param accountId
    * @return customer (Customer)
    */
-  Customer findCustomerByAccountId(int accountId);
+  Customer findCustomerByAccountId(Integer accountId);
+
+    /**
+   * Find a customer by full name
+   * 
+   * @param firstName,lastName
+   * @return customer (Customer)
+   */
+  Customer findCustomerByName(String firstName, String lastName);
 
   /**
    * @return all customers
@@ -26,6 +34,22 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer> {
    * 
    * @param email
    */
-  void deleteByAccountId(int accountId);
+  void deleteByAccountId(Integer accountId);
+
+  /**
+   * Check if customer account exists by account ID
+   * 
+   * @param accountId
+   * @return boolean
+   */
+  boolean existsByAccountId(Integer accountId);
+
+  /**
+   * Check if customer account exists by full name
+   * 
+   * @param firstName,lastName
+   * @return boolean
+   */
+  boolean existsByName(String firstName, String lastName);
 
 }
