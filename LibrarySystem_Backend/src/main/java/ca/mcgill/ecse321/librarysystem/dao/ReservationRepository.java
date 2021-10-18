@@ -9,10 +9,8 @@ import ca.mcgill.ecse321.librarysystem.model.Item;
 
 public interface ReservationRepository extends CrudRepository<Reservation, Integer> {
 	
-	List<Reservation> findByUser(Customer customer);
+	List<Reservation> findByCustomer(Customer customer);
 
-    boolean existsByUserandItem(Customer customer, Item item);
-
-    Reservation findByUserAndItem(Customer customer, Item item);
+    Reservation findByItem(Item item);
 
 }

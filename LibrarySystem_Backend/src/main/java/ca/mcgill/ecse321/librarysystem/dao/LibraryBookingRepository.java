@@ -8,9 +8,9 @@ import ca.mcgill.ecse321.librarysystem.model.Customer;
 
 public interface LibraryBookingRepository extends CrudRepository<LibraryBooking, Integer> {
 
-    LibraryBooking findLibraryBookingById(int id);
+    LibraryBooking findByLibraryBookingById(int id);
 
-    List<LibraryBooking> findByUser(Customer user);
+    List<LibraryBooking> findByCustomer(Customer user);
 
     
 }
