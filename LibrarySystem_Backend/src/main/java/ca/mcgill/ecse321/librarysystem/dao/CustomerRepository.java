@@ -48,7 +48,8 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer> {
   /**
    * Check if customer account exists by full name
    * 
-   * @param firstName,lastName
+   * @param firstName
+   * @param lastName
    * @return boolean
    */
   boolean existsByFirstNameAndLastName(String firstName, String lastName);

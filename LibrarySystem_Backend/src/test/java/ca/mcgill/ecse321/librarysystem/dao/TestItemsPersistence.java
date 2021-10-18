@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.librarysystem.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -131,6 +132,42 @@ public class TestItemsPersistence {
         archive = (Archive) itemRepository.findItemByItemId(id);
         assertNotNull(archive);
         assertEquals(id, archive.getItemId());
+        
+
+    }
+
+    @Test
+    public void testSearchItemByTitle() {
+        
+        String name = "Encyclopedia Vol.3";
+        Status status = Archive.Status.AVAILABLE;
+        Archive archive = new Archive();
+        archive.setTitle(name);
+        archive.setStatus(status);
+        int id = itemRepository.save(archive).getItemId();
+
+        archive = null;
+
+        archive = (Archive) itemRepository.findItemByTitle(name).get(0);
+        assertNotNull(archive);
+        assertEquals(id, archive.getItemId());
+        
+
+    }
+
+    @Test
+    public void deleteItemById() {
+        
+        String name = "Encyclopedia Vol.3";
+        Status status = Archive.Status.AVAILABLE;
+        Archive archive = new Archive();
+        archive.setTitle(name);
+        archive.setStatus(status);
+        int id = itemRepository.save(archive).getItemId();
+
+        itemRepository.deleteById(id);
+        assertNull(itemRepository.findItemByItemId(id));
+        
         
 
     }
