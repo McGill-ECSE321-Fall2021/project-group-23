@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.librarysystem.dao;
 
 import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import ca.mcgill.ecse321.librarysystem.model.Reservation;
@@ -12,6 +13,8 @@ public interface ReservationRepository extends CrudRepository<Reservation, Integ
 	List<Reservation> findByCustomer(Customer customer);
 
     Reservation findByItem(Item item);
+
+    Reservation findByReservationId(int Id);
 
 
 }

@@ -197,6 +197,66 @@ public class TestReservationPersistence {
 
     }
 
+    @Test
+    public void testPersistAndLoadReservationViaId() {
+
+        Customer newCustomer = new Customer();
+        String firstName = "Abdouallah";
+        String lastName = "Tahdi";
+        int accountId = 1;
+        String password = "password123";
+        String email = "Abdouallah.Tahdi@gmail.com";
+        boolean isVerified = true;
+        boolean isLocal = true;
+        String address = "1 Mcgill street";
+        int balance = 0;
+        newCustomer.setAccountBalance(balance);
+        newCustomer.setAccountId(accountId);
+        newCustomer.setAddress(address);
+        newCustomer.setEmail(email);
+        newCustomer.setFirstName(firstName);
+        newCustomer.setIsLocal(isLocal);
+        newCustomer.setIsVerified(isVerified);
+        newCustomer.setLastName(lastName);
+        newCustomer.setPassword(password);
+        
+        Item newItem1 = new Book();
+        Status status1 = Item.Status.BORROWED;
+        int itemId1 = 2;
+        String title1 = "Harry Potter";
+        newItem1.setItemId(itemId1);
+        newItem1.setStatus(status1);
+        newItem1.setTitle(title1);
+
+        Reservation reservation1 = new Reservation();
+        int reservation1Id = 123;
+        Date reservation1StartDate = java.sql.Date.valueOf(LocalDate.of(2021, Month.DECEMBER, 1));
+		Date reservation1EndDate = java.sql.Date.valueOf(LocalDate.of(2021, Month.DECEMBER, 14));
+        boolean isCheckedOut1 = true;
+        reservation1.setId(reservation1Id);
+        reservation1.setReservationStartDate(reservation1StartDate);
+        reservation1.setReservationEndDate(reservation1EndDate);
+        reservation1.setCustomer(newCustomer);
+        reservation1.setIsCheckedOut(isCheckedOut1);
+        reservation1.setItem(newItem1);
+
+        customerRepository.save(newCustomer);
+        itemRepository.save(newItem1);
+        reservationRepository.save(reservation1);
+
+        reservation1 = null;
+
+        Reservation testReservation = new Reservation();
+
+        testReservation = reservationRepository.findByReservationId(reservation1Id);
+
+        assertNotNull(testReservation);
+        assertEquals(reservation1Id, testReservation.getid());
+        assertEquals(reservation1StartDate, testReservation.getReservationStartDate());
+        assertEquals(reservation1EndDate, testReservation.getReservationEndDate());
+
+    }
+
     
     
 }
