@@ -10,6 +10,9 @@ import javax.persistence.OneToOne;
 @Entity
 public class Library
 {
+    public Library(){
+        
+    }
     public Library(String name, String address, String phoneNum, String emailAddress){
         this.name= name;
         this.address = address;
