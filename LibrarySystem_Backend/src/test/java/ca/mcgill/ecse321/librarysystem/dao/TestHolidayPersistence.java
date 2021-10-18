@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.librarysystem.model.Holiday;
 
-@RestController
-@SpringBootApplication
+//@RestController
+//@SpringBootApplication
 public class TestHolidayPersistence {
 	@Autowired
 	private HolidayRepository holidayRepository;

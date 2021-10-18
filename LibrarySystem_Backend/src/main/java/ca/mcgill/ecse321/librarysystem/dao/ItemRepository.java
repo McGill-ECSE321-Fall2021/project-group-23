@@ -3,9 +3,13 @@ package ca.mcgill.ecse321.librarysystem.dao;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import ca.mcgill.ecse321.librarysystem.model.Item;
 
+
+
+@Repository
 public interface ItemRepository extends CrudRepository<Item, Integer>{
 /**
      * Finds an item using the Item Id (unique)
@@ -21,7 +25,7 @@ public interface ItemRepository extends CrudRepository<Item, Integer>{
      * @param Name
      * @return
      */
-    List<Item> findItemByName(String Name);
+    List<Item> findItemByTitle(String title);
 
     /**
      * Deletes an item using the Item Id

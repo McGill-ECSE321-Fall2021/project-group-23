@@ -16,8 +16,8 @@ import ca.mcgill.ecse321.librarysystem.model.Holiday;
 import ca.mcgill.ecse321.librarysystem.model.OpeningsHours;
 import ca.mcgill.ecse321.librarysystem.model.OpeningsHours.DayOfWeek;
 
-@RestController
-@SpringBootApplication
+//@RestController
+//@SpringBootApplication
 public class TestOpeningsHoursPersistence {
 	@Autowired
 	private HolidayRepository holidayRepository;
