@@ -10,6 +10,8 @@ class LibrarySystemApplicationTests {
 
 	@Test
 	void contextLoads() {
+		//Library lib = new Library();
+		//lib.setName("abdul international library");
 	}
 
 }

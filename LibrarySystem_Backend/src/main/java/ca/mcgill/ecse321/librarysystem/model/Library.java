@@ -7,12 +7,48 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import java.sql.Date;
-import java.sql.Time;
-
 @Entity
 public class Library
 {
+    public Library(String name, String address, String phoneNum, String emailAddress){
+        this.name= name;
+        this.address = address;
+        this.phoneNumber=phoneNum;
+        this.emailAddress= emailAddress;
+    }
+
+    private String name;
+    
+    public String getName() {
+        return this.name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private String address;
+    public String getAddress() {
+        return this.address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    private String phoneNumber;
+    public String getPhoneNumber() {
+        return this.phoneNumber;
+    }
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    private String emailAddress;
+    public String getEmailAddress() {
+        return this.emailAddress;
+    }
+    public void setEmailAddress(String address) {
+        this.emailAddress = address;
+    }
 
     private Set<Reservation> reservations;
     @OneToMany(cascade = {CascadeType.ALL})
