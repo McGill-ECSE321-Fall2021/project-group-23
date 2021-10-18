@@ -52,7 +52,7 @@ public class Shift {
 	}
 
 	public void setEndTime(Time endTime) {
-		this.startTime = endTime;
+		this.endTime = endTime;
 	}
 
 }
