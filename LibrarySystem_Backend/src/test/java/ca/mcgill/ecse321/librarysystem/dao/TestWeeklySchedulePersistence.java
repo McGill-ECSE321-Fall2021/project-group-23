@@ -7,7 +7,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -24,11 +24,13 @@ import ca.mcgill.ecse321.librarysystem.model.Shift.DayOfWeek;
 public class TestWeeklySchedulePersistence {
 	@Autowired
 	private WeeklyScheduleRepository weeklyScheduleRepository;
-
+	@Autowired
+	private ShiftRepository shiftRepository;
 	
-	@BeforeEach
-	public void clearDatabase() {
+	@AfterEach
+	public void clearDatabaseAfter() {
 		weeklyScheduleRepository.deleteAll();
+		shiftRepository.deleteAll();
 	}
 	
 	@Test
@@ -54,6 +56,7 @@ public class TestWeeklySchedulePersistence {
 		newShift.setWorkingDay(DayOfWeek.Monday);
 		newShift.setStartTime(Time.valueOf("10:00:00"));
 		newShift.setEndTime(Time.valueOf("16:00:00"));
+		shiftRepository.save(newShift);
 		
 		shifts.add(newShift);
 		

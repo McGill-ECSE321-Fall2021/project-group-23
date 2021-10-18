@@ -2,9 +2,10 @@ package ca.mcgill.ecse321.librarysystem.dao;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.AfterEach;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -19,11 +20,14 @@ import ca.mcgill.ecse321.librarysystem.model.WeeklySchedule;
 @SpringBootTest
 public class TestLibrarianPersistence {
 	@Autowired
+	private WeeklyScheduleRepository weeklyScheduleRepository;
+	@Autowired
 	private LibrarianRepository librarianRepository;
 	
-	@BeforeEach
-	public void clearDatabase() {
+	@AfterEach
+	public void clearDatabaseAfter() {
 		librarianRepository.deleteAll();
+		weeklyScheduleRepository.deleteAll();
 	}
 	
 	@Test
@@ -69,6 +73,7 @@ public class TestLibrarianPersistence {
 		WeeklySchedule weeklySchedule = new WeeklySchedule();
 		Librarian librarian = new Librarian();
 		librarian.setLibrarianSchedule(weeklySchedule);
+		weeklyScheduleRepository.save(weeklySchedule);
 		
 		librarianRepository.save(librarian);
 		
