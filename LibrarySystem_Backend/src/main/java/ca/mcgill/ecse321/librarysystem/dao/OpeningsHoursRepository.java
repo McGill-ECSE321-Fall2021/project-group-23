@@ -6,5 +6,5 @@ import ca.mcgill.ecse321.librarysystem.model.OpeningsHours;
 import ca.mcgill.ecse321.librarysystem.model.OpeningsHours.DayOfWeek;
 
 public interface OpeningsHoursRepository extends CrudRepository<OpeningsHours, DayOfWeek> {
-	//OpeningsHours findOpeningsHoursByDayOfWeek(DayOfWeek dayOfWeek);
+	OpeningsHours findOpeningsHoursByDayOfWeek(DayOfWeek dayOfWeek);
 }
