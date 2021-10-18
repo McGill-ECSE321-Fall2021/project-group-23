@@ -41,7 +41,7 @@ public class TestOpeningsHoursPersistence {
 		openingsHoursRepository.save(oh);
 
 		oh = null;
-		oh = openingsHoursRepository.findOpeningsHoursByDayOfWeek(dayOfWeek);
+		oh = openingsHoursRepository.findOpeningsHoursByOpeningDay(dayOfWeek);
 
 		assertNotNull(oh);
 		assertEquals(dayOfWeek, oh.getOpeningDay());
