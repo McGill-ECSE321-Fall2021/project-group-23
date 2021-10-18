@@ -2,7 +2,10 @@ package ca.mcgill.ecse321.librarysystem.dao;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ca.mcgill.ecse321.librarysystem.model.Customer;
 import ca.mcgill.ecse321.librarysystem.model.LibraryBooking;
@@ -18,6 +21,8 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
 public class TestLibraryBookingPersistence {
 
     @Autowired
@@ -39,7 +44,7 @@ public class TestLibraryBookingPersistence {
         Customer newCustomer = new Customer();
         String firstName = "Abdouallah";
         String lastName = "Tahdi";
-        int accountId = 1;
+        //int accountId = 1;
         String password = "password123";
         String email = "Abdouallah.Tahdi@gmail.com";
         boolean isVerified = true;
@@ -47,7 +52,7 @@ public class TestLibraryBookingPersistence {
         String address = "1 Mcgill street";
         int balance = 0;
         newCustomer.setAccountBalance(balance);
-        newCustomer.setAccountId(accountId);
+        //newCustomer.setAccountId(accountId);
         newCustomer.setAddress(address);
         newCustomer.setEmail(email);
         newCustomer.setFirstName(firstName);
@@ -61,12 +66,12 @@ public class TestLibraryBookingPersistence {
 		Date endDate1 = java.sql.Date.valueOf(LocalDate.of(2021, Month.DECEMBER, 1));
 		Time startTime1 = java.sql.Time.valueOf(LocalTime.of(10, 00));
 		Time endTime1 = java.sql.Time.valueOf(LocalTime.of(11, 00));
-        int id1 = 1;
+        //int id1 = 1;
         libraryBooking1.setStartDate(startDate1);
         libraryBooking1.setStartTime(startTime1);
         libraryBooking1.setEndDate(endDate1);
         libraryBooking1.setEndTime(endTime1);
-        libraryBooking1.setId(id1);
+        //libraryBooking1.setId(id1);
         libraryBooking1.setCustomer(newCustomer);
 
         LibraryBooking libraryBooking2 = new LibraryBooking();
@@ -74,17 +79,17 @@ public class TestLibraryBookingPersistence {
 		Date endDate2 = java.sql.Date.valueOf(LocalDate.of(2021, Month.DECEMBER, 2));
 		Time startTime2 = java.sql.Time.valueOf(LocalTime.of(11, 00));
 		Time endTime2 = java.sql.Time.valueOf(LocalTime.of(12, 00));
-        int id2 = 2;
+        //int id2 = 2;
         libraryBooking2.setStartDate(startDate2);
         libraryBooking2.setStartTime(startTime2);
         libraryBooking2.setEndDate(endDate2);
         libraryBooking2.setEndTime(endTime2);
-        libraryBooking2.setId(id2);
+        //libraryBooking2.setId(id2);
         libraryBooking2.setCustomer(newCustomer);
 
         customerRepository.save(newCustomer);
-        libraryBookingRepository.save(libraryBooking1);
-        libraryBookingRepository.save(libraryBooking2);
+        int id1 = libraryBookingRepository.save(libraryBooking1).getId();
+        int id2 =libraryBookingRepository.save(libraryBooking2).getId();
 
         libraryBooking1 = null;
         libraryBooking2 = null;
@@ -103,14 +108,14 @@ public class TestLibraryBookingPersistence {
         assertEquals(startTime1, libraryBooking1.getStartTime());
         assertEquals(endTime1, libraryBooking1.getEndTime());
         assertEquals(id1, libraryBooking1.getId());
-        assertEquals(newCustomer, libraryBooking1.getCustomer());
+        assertEquals(newCustomer.getAccountId(), libraryBooking1.getCustomer().getAccountId());
 
         assertEquals(startDate2, libraryBooking2.getStartDate());
         assertEquals(endDate2, libraryBooking2.getEndDate());
         assertEquals(startTime2, libraryBooking2.getStartTime());
         assertEquals(endTime2, libraryBooking2.getEndTime());
         assertEquals(id2, libraryBooking2.getId());
-        assertEquals(newCustomer, libraryBooking2.getCustomer());
+        assertEquals(newCustomer.getAccountId(), libraryBooking2.getCustomer().getAccountId());
 
 
 
@@ -122,7 +127,7 @@ public class TestLibraryBookingPersistence {
         Customer newCustomer = new Customer();
         String firstName = "Abdouallah";
         String lastName = "Tahdi";
-        int accountId = 1;
+        //int accountId = 1;
         String password = "password123";
         String email = "Abdouallah.Tahdi@gmail.com";
         boolean isVerified = true;
@@ -130,7 +135,7 @@ public class TestLibraryBookingPersistence {
         String address = "1 Mcgill street";
         int balance = 0;
         newCustomer.setAccountBalance(balance);
-        newCustomer.setAccountId(accountId);
+        //newCustomer.setAccountId(accountId);
         newCustomer.setAddress(address);
         newCustomer.setEmail(email);
         newCustomer.setFirstName(firstName);
@@ -144,17 +149,17 @@ public class TestLibraryBookingPersistence {
 		Date endDate1 = java.sql.Date.valueOf(LocalDate.of(2021, Month.DECEMBER, 1));
 		Time startTime1 = java.sql.Time.valueOf(LocalTime.of(10, 00));
 		Time endTime1 = java.sql.Time.valueOf(LocalTime.of(11, 00));
-        int id1 = 1;
+        //int id1 = 1;
         libraryBooking1.setStartDate(startDate1);
         libraryBooking1.setStartTime(startTime1);
         libraryBooking1.setEndDate(endDate1);
         libraryBooking1.setEndTime(endTime1);
-        libraryBooking1.setId(id1);
+        //libraryBooking1.setId(id1);
         libraryBooking1.setCustomer(newCustomer);
 
 
         customerRepository.save(newCustomer);
-        libraryBookingRepository.save(libraryBooking1);
+        int id1 =libraryBookingRepository.save(libraryBooking1).getId();
 
         libraryBooking1 = null;
         
@@ -169,7 +174,7 @@ public class TestLibraryBookingPersistence {
         assertEquals(startTime1, testLibraryBooking.getStartTime());
         assertEquals(endTime1, testLibraryBooking.getEndTime());
         assertEquals(id1, testLibraryBooking.getId());
-        assertEquals(newCustomer, testLibraryBooking.getCustomer());
+        assertEquals(newCustomer.getAccountId(), testLibraryBooking.getCustomer().getAccountId());
 
 
 

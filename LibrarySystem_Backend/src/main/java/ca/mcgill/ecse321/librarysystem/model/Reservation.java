@@ -15,7 +15,7 @@ public class Reservation
 	
 	@Id
 	@GeneratedValue(generator = "idGenerator")
-	public int getid() {
+	public int getId() {
 		return this.id;
 	}
 	public void setId(int newId) {

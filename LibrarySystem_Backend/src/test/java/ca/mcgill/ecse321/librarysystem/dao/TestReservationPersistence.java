@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.Month;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,15 @@ public class TestReservationPersistence {
 
     }
 
+    @BeforeEach
+    public void clearrDatabase() {
+        //delete reservation first because of dependencies
+        reservationRepository.deleteAll();
+        customerRepository.deleteAll();
+        itemRepository.deleteAll();
+
+    }
+
 
     @Test
     public void testPersistAndLoadReservationViaCustomer() {
@@ -52,7 +62,7 @@ public class TestReservationPersistence {
         Customer newCustomer = new Customer();
         String firstName = "Abdouallah";
         String lastName = "Tahdi";
-        int accountId = 1;
+        //int accountId = 1;
         String password = "password123";
         String email = "Abdouallah.Tahdi@gmail.com";
         boolean isVerified = true;
@@ -60,7 +70,7 @@ public class TestReservationPersistence {
         String address = "1 Mcgill street";
         int balance = 0;
         newCustomer.setAccountBalance(balance);
-        newCustomer.setAccountId(accountId);
+        //newCustomer.setAccountId(accountId);
         newCustomer.setAddress(address);
         newCustomer.setEmail(email);
         newCustomer.setFirstName(firstName);
@@ -71,26 +81,26 @@ public class TestReservationPersistence {
         
         Item newItem1 = new Book();
         Status status1 = Item.Status.BORROWED;
-        int itemId1 = 2;
+        //int itemId1 = 2;
         String title1 = "Harry Potter";
-        newItem1.setItemId(itemId1);
+        //newItem1.setItemId(itemId1);
         newItem1.setStatus(status1);
         newItem1.setTitle(title1);
 
         Item newItem2 = new Book();
         Status status2 = Item.Status.BORROWED;
-        int itemId2 = 2;
+        //int itemId2 = 2;
         String title2 = "Harry Potter 2";
-        newItem2.setItemId(itemId2);
+        //newItem2.setItemId(itemId2);
         newItem2.setStatus(status2);
         newItem2.setTitle(title2);
         
         Reservation reservation1 = new Reservation();
-        int reservation1Id = 123;
+        //int reservation1Id = 123;
         Date reservation1StartDate = java.sql.Date.valueOf(LocalDate.of(2021, Month.DECEMBER, 1));
 		Date reservation1EndDate = java.sql.Date.valueOf(LocalDate.of(2021, Month.DECEMBER, 14));
         boolean isCheckedOut1 = true;
-        reservation1.setId(reservation1Id);
+        //reservation1.setId(reservation1Id);
         reservation1.setReservationStartDate(reservation1StartDate);
         reservation1.setReservationEndDate(reservation1EndDate);
         reservation1.setCustomer(newCustomer);
@@ -98,11 +108,11 @@ public class TestReservationPersistence {
         reservation1.setItem(newItem1);
 
         Reservation reservation2 = new Reservation();
-        int reservation2Id = 456;
+        //int reservation2Id = 456;
         Date reservation2StartDate = java.sql.Date.valueOf(LocalDate.of(2021, Month.DECEMBER, 15));
 		Date reservation2EndDate = java.sql.Date.valueOf(LocalDate.of(2021, Month.DECEMBER, 28));
         boolean isCheckedOut2 = true;
-        reservation2.setId(reservation2Id);
+        //reservation2.setId(reservation2Id);
         reservation2.setReservationStartDate(reservation2StartDate);
         reservation2.setReservationEndDate(reservation2EndDate);
         reservation2.setCustomer(newCustomer);
@@ -110,10 +120,11 @@ public class TestReservationPersistence {
         reservation2.setItem(newItem2);
 
         customerRepository.save(newCustomer);
-        reservationRepository.save(reservation1);
-        reservationRepository.save(reservation2);
         itemRepository.save(newItem1);
         itemRepository.save(newItem2);
+        int reservation1Id = reservationRepository.save(reservation1).getId();
+        int reservation2Id = reservationRepository.save(reservation2).getId();
+        
 
 
         List<Reservation> reservations = new ArrayList<Reservation>();
@@ -128,10 +139,10 @@ public class TestReservationPersistence {
 
         assertNotNull(reservation1);
 		assertNotNull(reservation2);
-        assertEquals(reservation1Id, reservation1.getid());
+        assertEquals(reservation1Id, reservation1.getId());
         assertEquals(reservation1StartDate, reservation1.getReservationStartDate());
         assertEquals(reservation1EndDate, reservation1.getReservationEndDate());
-        assertEquals(reservation2Id, reservation2.getid());
+        assertEquals(reservation2Id, reservation2.getId());
         assertEquals(reservation2StartDate, reservation2.getReservationStartDate());
         assertEquals(reservation2EndDate, reservation2.getReservationEndDate());
 
@@ -142,7 +153,7 @@ public class TestReservationPersistence {
         Customer newCustomer = new Customer();
         String firstName = "Abdouallah";
         String lastName = "Tahdi";
-        int accountId = 1;
+        //int accountId = 1;
         String password = "password123";
         String email = "Abdouallah.Tahdi@gmail.com";
         boolean isVerified = true;
@@ -150,7 +161,7 @@ public class TestReservationPersistence {
         String address = "1 Mcgill street";
         int balance = 0;
         newCustomer.setAccountBalance(balance);
-        newCustomer.setAccountId(accountId);
+        //newCustomer.setAccountId(accountId);
         newCustomer.setAddress(address);
         newCustomer.setEmail(email);
         newCustomer.setFirstName(firstName);
@@ -161,18 +172,18 @@ public class TestReservationPersistence {
         
         Item newItem1 = new Book();
         Status status1 = Item.Status.BORROWED;
-        int itemId1 = 2;
+        //int itemId1 = 2;
         String title1 = "Harry Potter";
-        newItem1.setItemId(itemId1);
+        //newItem1.setItemId(itemId1);
         newItem1.setStatus(status1);
         newItem1.setTitle(title1);
 
         Reservation reservation1 = new Reservation();
-        int reservation1Id = 123;
+        //int reservation1Id = 123;
         Date reservation1StartDate = java.sql.Date.valueOf(LocalDate.of(2021, Month.DECEMBER, 1));
 		Date reservation1EndDate = java.sql.Date.valueOf(LocalDate.of(2021, Month.DECEMBER, 14));
         boolean isCheckedOut1 = true;
-        reservation1.setId(reservation1Id);
+        //reservation1.setId(reservation1Id);
         reservation1.setReservationStartDate(reservation1StartDate);
         reservation1.setReservationEndDate(reservation1EndDate);
         reservation1.setCustomer(newCustomer);
@@ -181,7 +192,7 @@ public class TestReservationPersistence {
 
         customerRepository.save(newCustomer);
         itemRepository.save(newItem1);
-        reservationRepository.save(reservation1);
+        int reservation1Id = reservationRepository.save(reservation1).getId();
 
         reservation1 = null;
 
@@ -190,7 +201,7 @@ public class TestReservationPersistence {
         testReservation = reservationRepository.findByItem(newItem1);
 
         assertNotNull(testReservation);
-        assertEquals(reservation1Id, testReservation.getid());
+        assertEquals(reservation1Id, testReservation.getId());
         assertEquals(reservation1StartDate, testReservation.getReservationStartDate());
         assertEquals(reservation1EndDate, testReservation.getReservationEndDate());
 
@@ -203,7 +214,7 @@ public class TestReservationPersistence {
         Customer newCustomer = new Customer();
         String firstName = "Abdouallah";
         String lastName = "Tahdi";
-        int accountId = 1;
+        //int accountId = 1;
         String password = "password123";
         String email = "Abdouallah.Tahdi@gmail.com";
         boolean isVerified = true;
@@ -211,7 +222,7 @@ public class TestReservationPersistence {
         String address = "1 Mcgill street";
         int balance = 0;
         newCustomer.setAccountBalance(balance);
-        newCustomer.setAccountId(accountId);
+        //newCustomer.setAccountId(accountId);
         newCustomer.setAddress(address);
         newCustomer.setEmail(email);
         newCustomer.setFirstName(firstName);
@@ -222,18 +233,18 @@ public class TestReservationPersistence {
         
         Item newItem1 = new Book();
         Status status1 = Item.Status.BORROWED;
-        int itemId1 = 2;
+        //int itemId1 = 2;
         String title1 = "Harry Potter";
-        newItem1.setItemId(itemId1);
+        //newItem1.setItemId(itemId1);
         newItem1.setStatus(status1);
         newItem1.setTitle(title1);
 
         Reservation reservation1 = new Reservation();
-        int reservation1Id = 123;
+        //int reservation1Id = 123;
         Date reservation1StartDate = java.sql.Date.valueOf(LocalDate.of(2021, Month.DECEMBER, 1));
 		Date reservation1EndDate = java.sql.Date.valueOf(LocalDate.of(2021, Month.DECEMBER, 14));
         boolean isCheckedOut1 = true;
-        reservation1.setId(reservation1Id);
+        //reservation1.setId(reservation1Id);
         reservation1.setReservationStartDate(reservation1StartDate);
         reservation1.setReservationEndDate(reservation1EndDate);
         reservation1.setCustomer(newCustomer);
@@ -242,7 +253,7 @@ public class TestReservationPersistence {
 
         customerRepository.save(newCustomer);
         itemRepository.save(newItem1);
-        reservationRepository.save(reservation1);
+        int reservation1Id = reservationRepository.save(reservation1).getId();
 
         reservation1 = null;
 
@@ -251,7 +262,7 @@ public class TestReservationPersistence {
         testReservation = reservationRepository.findById(reservation1Id);
 
         assertNotNull(testReservation);
-        assertEquals(reservation1Id, testReservation.getid());
+        assertEquals(reservation1Id, testReservation.getId());
         assertEquals(reservation1StartDate, testReservation.getReservationStartDate());
         assertEquals(reservation1EndDate, testReservation.getReservationEndDate());
 
