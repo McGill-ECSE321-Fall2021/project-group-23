@@ -8,14 +8,14 @@ import ca.mcgill.ecse321.librarysystem.model.WeeklySchedule;
 
 public interface ScheduleRepository extends CrudRepository<WeeklySchedule, Integer> {
 	
-	WeeklySchedule findByScheduleId(Integer scheduleId);
+	//WeeklySchedule findByWeeklyScheduleId(Integer weeklyScheduleId);
 	
 	// may or may not need
-	WeeklySchedule findByLibrarianAndScheduleId(Librarian librarian, Integer scheduleId);
+	//WeeklySchedule findByLibrarianAndWeeklyScheduleId(Librarian librarian, Integer weeklyScheduleId);
 	
-	WeeklySchedule findByLibrarianAndShift(Shift shift, Librarian librarian);
+	//WeeklySchedule findByLibrarianAndShift(Shift shift, Librarian librarian);
 	
-	boolean existsByLibrarian(Librarian librarian);
+	//boolean existsByLibrarian(Librarian librarian);
 	
-	boolean existsByScheduleId(Integer id);
+	//boolean existsByWeeklyScheduleId(Integer weeklyScheduleId);
 }
