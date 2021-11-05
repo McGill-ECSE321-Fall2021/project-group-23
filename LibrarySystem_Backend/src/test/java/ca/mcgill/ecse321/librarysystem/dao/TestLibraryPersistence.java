@@ -2,7 +2,6 @@ package ca.mcgill.ecse321.librarysystem.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Iterator;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,8 +18,12 @@ import ca.mcgill.ecse321.librarysystem.model.Library;
 public class TestLibraryPersistence {
 	@Autowired
 	private LibraryRepository libraryRepository;
-	
-	//can't delete library since it is required for other classes
+
+	@AfterEach
+	public void clearDatabase() {
+		
+		libraryRepository.deleteAll();
+	}
 
 	@Test
 	void testPersistLibraray() {

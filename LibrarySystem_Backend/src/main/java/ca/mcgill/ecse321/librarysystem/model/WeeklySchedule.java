@@ -23,14 +23,14 @@ public class WeeklySchedule
     this.weeklyScheduleId = id;
   }
   
-  private Set<Shift> librarianShifts;
+  private Set<Shift> shifts;
 	
   @OneToMany(cascade={CascadeType.ALL})
-  public Set<Shift> getLibrarianShifts() {
-	  return this.librarianShifts;
+  public Set<Shift> getShifts() {
+	  return this.shifts;
   }
 	
-  public void setLibrarianShifts(Set<Shift> newShifts) {
-	  this.librarianShifts = newShifts;
+  public void setShifts(Set<Shift> newShifts) {
+	  this.shifts = newShifts;
   }
 }
