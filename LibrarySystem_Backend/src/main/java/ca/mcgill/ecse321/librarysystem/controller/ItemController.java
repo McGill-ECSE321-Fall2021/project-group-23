@@ -5,8 +5,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.librarysystem.dto.ItemDto;
@@ -54,14 +56,14 @@ public class ItemController {
      * @param type
      * @return
      */
-    @GetMapping(value = { "/createItem/{title}/{type}", "/createItem/{title}/{type}/" })
+    @PostMapping(value = { "/createItem/{title}/{type}", "/createItem/{title}/{type}/" })
     public ItemDto createItem(@PathVariable("title") String title, @PathVariable("type") String type) {
         Item item = itemService.createItem(title, type);
         return convertToDto(item);
     }
 
-    @GetMapping(value = { "/deleteItem/{stringId}", "/deleteItem/{stringId}/" })
-    public void createItem(@PathVariable("stringId") String stringId) {
+    @DeleteMapping(value = { "/deleteItem/{stringId}", "/deleteItem/{stringId}/" })
+    public void deleteItem(@PathVariable("stringId") String stringId) {
         itemService.deleteItem(Integer.valueOf(stringId));;
         return;
     }

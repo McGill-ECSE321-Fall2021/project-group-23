@@ -102,6 +102,7 @@ public class ItemService {
      * Deletes the item given an Id
      * @param id
      */
+    @Transactional
     public void deleteItem(int id) {
         itemRepository.deleteByItemId(id);
     }
