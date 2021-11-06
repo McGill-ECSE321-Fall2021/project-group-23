@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import ca.mcgill.ecse321.librarysystem.dao.ItemRepository;
 import ca.mcgill.ecse321.librarysystem.model.Album;
@@ -15,6 +16,7 @@ import ca.mcgill.ecse321.librarysystem.model.Item;
 import ca.mcgill.ecse321.librarysystem.model.Movie;
 import ca.mcgill.ecse321.librarysystem.model.Newspapers;
 
+@Service
 public class ItemService {
 
     @Autowired
