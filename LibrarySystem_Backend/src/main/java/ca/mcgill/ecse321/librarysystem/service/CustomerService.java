@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.librarysystem.dto;
+package ca.mcgill.ecse321.librarysystem.service;
 
 import java.util.ArrayList;
 import java.util.List;
