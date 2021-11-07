@@ -49,7 +49,7 @@ public class ReservationService {
             error = error + "item must be checkedout to create a reservation";
         }
         */
-
+        error = error.trim();
         if (error.length() >0) {
             throw new InvalidInputException(error);
         }
@@ -74,6 +74,7 @@ public class ReservationService {
         if (reservationRepository.findById(id) == null) {
             error = "reservation does not exist";
         }
+        error = error.trim();
         if (error.length() >0) {
             throw new InvalidInputException(error);
         }
@@ -86,6 +87,7 @@ public class ReservationService {
         if (reservationRepository.findByCustomer(customer) == null) {
             error = "reservation does not exist";
         }
+        error = error.trim();
         if (error.length() >0) {
             throw new InvalidInputException(error);
         }
@@ -98,6 +100,7 @@ public class ReservationService {
         if (reservationRepository.findByItem(item) == null) {
             error = "reservation does not exist";
         }
+        error = error.trim();
         if (error.length() >0) {
             throw new InvalidInputException(error);
         }
@@ -116,6 +119,7 @@ public class ReservationService {
         if (reservationRepository.findById(id) == null) {
             error = "reservation does not exist";
         }
+        error = error.trim();
         if (error.length() >0) {
             throw new InvalidInputException(error);
         }
@@ -147,6 +151,7 @@ public class ReservationService {
         if (endDate.before(startDate) ) {
             error = error + "EndDate cannot be before startDate";
         }
+        error = error.trim();
         if (error.length() >0) {
             throw new InvalidInputException(error);
         }
@@ -166,6 +171,7 @@ public class ReservationService {
         if (reservationRepository.findByItem(item) == null) {
             error = error + "reservation does not exist";
         }
+        error = error.trim();
         if (error.length() >0) {
             throw new InvalidInputException(error);   
         }
@@ -185,6 +191,7 @@ public class ReservationService {
         if (reservationRepository.findByCustomer(customer) == null) {
             error = error + "reservation does not exist";
         }
+        error = error.trim();
         if (error.length() >0) {
             throw new InvalidInputException(error);   
         }

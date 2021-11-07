@@ -13,12 +13,13 @@ public class ReservationDto {
     private Item item;
     private Customer customer;
     private int id;
+    private boolean isCheckedout;
     
     public ReservationDto() {
 
     }
 
-    public ReservationDto(Customer customer, Item item, Date startDate, Date endDate, int id) {
+    public ReservationDto(Customer customer, Item item, Date startDate, Date endDate, int id, boolean isCheckedout) {
         this.customer = customer;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -41,6 +42,9 @@ public class ReservationDto {
     }
     public int getId() {
         return id;
+    }
+    public boolean getIsCheckedOut() {
+        return isCheckedout;
     }
 
     

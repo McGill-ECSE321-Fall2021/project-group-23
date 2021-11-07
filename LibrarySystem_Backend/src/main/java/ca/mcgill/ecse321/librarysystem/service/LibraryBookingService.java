@@ -49,6 +49,7 @@ public class LibraryBookingService {
         if (startDate.equals(endDate) && endTime.before(startTime)) {
             error = error +"The end time of a libraryBooking cannot be before the start time";
         }
+        error = error.trim();
         if (error.length() >0) {
             throw new InvalidInputException(error);
         }
@@ -68,6 +69,7 @@ public class LibraryBookingService {
         if (libraryBookingRepository.findById(id) == null) {
             error = "libraryBooking does not exist";
         }
+        error = error.trim();
         if (error.length() >0) {
             throw new InvalidInputException(error);
         }
@@ -80,6 +82,7 @@ public class LibraryBookingService {
         if (libraryBookingRepository.findByCustomer(customer) == null) {
             error = "libraryBooking does not exist";
         }
+        error = error.trim();
         if (error.length() >0) {
             throw new InvalidInputException(error);
         }
@@ -92,6 +95,7 @@ public class LibraryBookingService {
         if (libraryBookingRepository.findById(id) == null) {
             error = "libraryBooking does not exist";
         }
+        error = error.trim();
         if (error.length() >0) {
             throw new InvalidInputException(error);
         }
@@ -124,6 +128,7 @@ public class LibraryBookingService {
         if (endDate.equals(startDate) && startTime.before(endTime)) {
             error = error + "The end time of a libraryBooking cannot be before its start time";
         }
+        error = error.trim();
         if (error.length() >0) {
             throw new InvalidInputException(error);
         }
@@ -147,6 +152,7 @@ public class LibraryBookingService {
         if (customer == null ) {
             error = error + "Customer cannot be empty";
         }
+        error = error.trim();
         if (error.length() >0) {
             throw new InvalidInputException(error);
         }
