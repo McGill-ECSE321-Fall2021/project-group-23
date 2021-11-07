@@ -52,6 +52,7 @@ public class ShiftService {
 		}
 		
 		Shift shift = new Shift();
+		shift.setWorkingDay(dayOfWeek);
 		shift.setStartTime(startTime);
 		shift.setEndTime(endTime);
 		shiftRepository.save(shift);

@@ -27,7 +27,7 @@ public class ShiftRestController {
 	@Autowired
 	private ShiftService shiftService;
 	
-	@GetMapping(value = {"/shifts", "/shifts/"})
+	@GetMapping(value = {"/getAllShifts", "/getAllShifts/"})
 	public List<ShiftDto> getAllShifts() {
 		List<ShiftDto> shiftDtos = new ArrayList<>();
 		for (Shift shift : shiftService.getAllShifts()) {
@@ -36,18 +36,20 @@ public class ShiftRestController {
 		return shiftDtos;
 	}
 	
-	@GetMapping(value = { "/shift/{shiftId}", "/shift/{shiftId}/" })
+	@GetMapping(value = { "/getShiftById/{shiftId}", "/getShiftById/{shiftId}/" })
 	public ShiftDto getShiftById(@PathVariable("shiftId") int shiftId) throws IllegalArgumentException{
 		return convertToDto(shiftService.getShift(shiftId));
 	}
 	
-	@GetMapping(value = { "/shift/{dayOfWeek}/{startTime}/{endTime}", "/shift/{dayOfWeek}/{startTime}/{endTime}/" })
-	public ShiftDto getShiftByDayAndTimes(@PathVariable("dayOfWeek") DayOfWeek dayOfWeek, @PathVariable("startTime") Time startTime, @PathVariable("endTime") Time endTime) {
-		return convertToDto(shiftService.getShift(dayOfWeek, startTime, endTime));
+	@GetMapping(value = { "/getShiftByDayAndTimes", "/getShiftByDayAndTimes/" })
+	public ShiftDto getShiftByDayAndTimes(@RequestParam DayOfWeek dayOfWeek, 
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime) {
+		return convertToDto(shiftService.getShift(dayOfWeek, Time.valueOf(startTime), Time.valueOf(endTime)));
 	}
 	
-	@PostMapping(value = { "/createShift/{dayOfWeek}/{startTime}/{endTime}", "/createShift/{dayOfWeek}/{startTime}/{endTime}/"})
-	public ShiftDto createShift(@PathVariable("dayOfWeek") DayOfWeek dayOfWeek, 
+	@PostMapping(value = { "/createShift", "/createShift/"})
+	public ShiftDto createShift(@RequestParam DayOfWeek dayOfWeek, 
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime)
 			throws IllegalArgumentException{
@@ -55,9 +57,9 @@ public class ShiftRestController {
 		return convertToDto(shift);
 	}
 	
-	@PutMapping(value = { "/updateShift/{shiftId}/{dayOfWeek}/{startTime}/{endTime}", "/updateShift/{shiftId}/{dayOfWeek}/{startTime}/{endTime}/" })
+	@PutMapping(value = { "/updateShift/{shiftId}", "/updateShift/{shiftId}/" })
 	public ShiftDto updateShift(@PathVariable("shiftId") int shiftId,
-			@PathVariable("dayOfWeek") DayOfWeek dayOfWeek, 
+			@RequestParam DayOfWeek dayOfWeek, 
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime)
 			throws IllegalArgumentException{
@@ -65,7 +67,7 @@ public class ShiftRestController {
 		return convertToDto(shift);
 	}
 	
-	@DeleteMapping(value = { "/deleteShift/{shiftId}", "/deleteShift/{shiftId}/" })
+	@DeleteMapping(value = { "/deleteShiftById/{shiftId}", "/deleteShift/{shiftId}/" })
 	public ShiftDto deleteShiftById(@PathVariable("shiftId") int shiftId) throws IllegalArgumentException {
 		Shift shift = shiftService.deleteShift(shiftId);
 		return convertToDto(shift);

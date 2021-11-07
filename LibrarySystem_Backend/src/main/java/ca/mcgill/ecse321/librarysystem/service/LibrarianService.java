@@ -41,10 +41,10 @@ public class LibrarianService {
 	}
 	
 	@Transactional
-	public Librarian assignWeeklySchedule(int id, WeeklySchedule newSchedule) {
+	public Librarian assignWeeklySchedule(int id, int newScheduleId) {
 		// check if weekly schedule exists
-		if (!weeklyScheduleRepository.existsByWeeklyScheduleId(newSchedule.getWeeklyScheduleId())) {
-			throw new IllegalArgumentException("Provided weekly schedule could not be found in the database");
+		if (!weeklyScheduleRepository.existsByWeeklyScheduleId(newScheduleId)) {
+			throw new IllegalArgumentException("Weekly schedule with provided id could not be found in the database");
 		}
 		// check if librarian exists
 		if (!librarianRepository.existsByAccountId(id)) {
@@ -52,7 +52,7 @@ public class LibrarianService {
 		}
 		
 		Librarian librarian = librarianRepository.findByAccountId(id);
-		librarian.setLibrarianSchedule(newSchedule);
+		librarian.setLibrarianSchedule(weeklyScheduleRepository.findByWeeklyScheduleId(newScheduleId));
 		librarianRepository.save(librarian);
 		return librarian;
 	}
@@ -77,7 +77,7 @@ public class LibrarianService {
 	}
 	
 	@Transactional
-	public Librarian getLibrarian(int id) {
+	public Librarian getLibrarianByAccountId(int id) {
 		// check if librarian with provided id exists
 		if (!librarianRepository.existsByAccountId(id)) {
 			throw new IllegalArgumentException("Librarian with provided account id could not found.");
@@ -88,7 +88,7 @@ public class LibrarianService {
 	}
 	
 	@Transactional
-	public Librarian getLibrarian(String firstName, String lastName) {
+	public Librarian getLibrarianByNames(String firstName, String lastName) {
 		// check if librarian with first name and last name exists
 		if (!librarianRepository.existsByFirstNameAndLastName(firstName, lastName)) {
 			throw new IllegalArgumentException("Librarian with provided first name and last name could not be found.");
@@ -99,12 +99,13 @@ public class LibrarianService {
 	}
 	
 	@Transactional
-	public Librarian getLibrarian(WeeklySchedule schedule) {
+	public Librarian getLibrarianByScheduleId(int scheduleId) {
 		// Check if weekly schedule exists
-		if (!weeklyScheduleRepository.existsByWeeklyScheduleId(schedule.getWeeklyScheduleId())) {
+		if (!weeklyScheduleRepository.existsByWeeklyScheduleId(scheduleId)) {
 			throw new IllegalArgumentException("Provided weekly schedule could not be found in the database");
 		}
 		
+		WeeklySchedule schedule = weeklyScheduleRepository.findByWeeklyScheduleId(scheduleId);
 		Librarian librarian = librarianRepository.findByLibrarianSchedule(schedule);
 		return librarian;
 	}

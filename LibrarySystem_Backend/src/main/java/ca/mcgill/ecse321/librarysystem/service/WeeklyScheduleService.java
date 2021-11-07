@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.librarysystem.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -29,9 +30,9 @@ public class WeeklyScheduleService {
 	}
 	
 	@Transactional
-	public WeeklySchedule updateWeeklyScheduleShifts(int wsId, Set<Shift> shiftsToSet) {
-		for (Shift shift : shiftsToSet) {
-			if (!shiftRepository.existsByShiftId(shift.getShiftId())) {
+	public WeeklySchedule updateWeeklyScheduleShifts(int wsId, List<Integer> shiftIds) {
+		for (Integer shiftId : shiftIds) {
+			if (!shiftRepository.existsByShiftId(shiftId)) {
 				throw new IllegalArgumentException("Shift(s) could not be found");
 			}
 		}
@@ -40,7 +41,12 @@ public class WeeklyScheduleService {
 			throw new IllegalArgumentException("Weekly schedule with provided id does not exist");
 		}
 		WeeklySchedule wsToUpdate = weeklyScheduleRepository.findByWeeklyScheduleId(wsId);
-		wsToUpdate.setShifts(shiftsToSet);
+		Set<Shift> addedShifts = new HashSet<Shift>();
+		for (Integer shiftId : shiftIds) {
+			addedShifts.add(shiftRepository.findByShiftId(shiftId));
+		}
+		
+		wsToUpdate.setShifts(addedShifts);
 		weeklyScheduleRepository.save(wsToUpdate);
 		return wsToUpdate;	
 	}

@@ -2,7 +2,6 @@ package ca.mcgill.ecse321.librarysystem.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,16 +13,19 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.librarysystem.dto.WeeklyScheduleDto;
-import ca.mcgill.ecse321.librarysystem.model.Shift;
 import ca.mcgill.ecse321.librarysystem.model.WeeklySchedule;
+import ca.mcgill.ecse321.librarysystem.service.ShiftService;
 import ca.mcgill.ecse321.librarysystem.service.WeeklyScheduleService;
 
 @CrossOrigin(origins = "*")
 @RestController
 public class WeeklyScheduleRestController {
-	@Autowired WeeklyScheduleService weeklyScheduleService;
+	@Autowired 
+	WeeklyScheduleService weeklyScheduleService;
+	@Autowired
+	ShiftService shiftService;
 	
-	@GetMapping(value = { "/weeklySchedules", "/weeklySchedules/" })
+	@GetMapping(value = { "/getAllWeeklySchedules", "/getAllWeeklySchedules/" })
 	public List<WeeklyScheduleDto> getAllWeeklySchedules() {
 		List<WeeklyScheduleDto> weeklyScheduleDtos = new ArrayList<>();
 		for (WeeklySchedule weeklySchedule : weeklyScheduleService.getAllWeeklySchedules()) {
@@ -32,7 +34,7 @@ public class WeeklyScheduleRestController {
 		return weeklyScheduleDtos;
 	}
 	
-	@GetMapping(value = { "/weeklySchedule/{weeklyScheduleId}", "/weeklySchedule/{weeklyScheduleId}/" })
+	@GetMapping(value = { "/getWeeklyScheduleById/{weeklyScheduleId}", "/getWeeklyScheduleById/{weeklyScheduleId}/" })
 	public WeeklyScheduleDto getWeeklyScheduleById(@PathVariable("weeklyScheduleId") int weeklyScheduleId)
 	throws IllegalArgumentException{
 		return convertToDto(weeklyScheduleService.getWeeklySchedule(weeklyScheduleId));
@@ -44,7 +46,7 @@ public class WeeklyScheduleRestController {
 	}
 	
 	@PutMapping(value = { "/updateWeeklyScheduleShifts/{scheduleId}/{shiftsToSet}", "/updateWeeklyScheduleShifts/{scheduleId}/{shiftsToSet}/" })
-	public WeeklyScheduleDto updateScheduleShifts(@PathVariable("scheduleId") int scheduleId, @PathVariable("shiftsToSet") Set<Shift> shiftsToSet)
+	public WeeklyScheduleDto updateScheduleShifts(@PathVariable("scheduleId") int scheduleId, @PathVariable("shiftsToSet") List<Integer> shiftsToSet)
 	throws IllegalArgumentException{
 		return convertToDto(weeklyScheduleService.updateWeeklyScheduleShifts(scheduleId, shiftsToSet));
 	}
@@ -71,4 +73,5 @@ public class WeeklyScheduleRestController {
 		WeeklyScheduleDto weeklyScheduleDto = new WeeklyScheduleDto(ws.getWeeklyScheduleId(), ws.getShifts());
 		return weeklyScheduleDto;
 	}
+	
 }

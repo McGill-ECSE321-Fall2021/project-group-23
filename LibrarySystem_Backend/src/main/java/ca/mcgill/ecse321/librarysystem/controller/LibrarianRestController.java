@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.librarysystem.dto.LibrarianDto;
 import ca.mcgill.ecse321.librarysystem.model.Librarian;
-import ca.mcgill.ecse321.librarysystem.model.WeeklySchedule;
 import ca.mcgill.ecse321.librarysystem.service.LibrarianService;
 
 @CrossOrigin(origins = "*")
@@ -22,7 +21,7 @@ import ca.mcgill.ecse321.librarysystem.service.LibrarianService;
 public class LibrarianRestController {
 	@Autowired LibrarianService librarianService;
 	
-	@GetMapping(value = { "/librarians", "/librarians/" })
+	@GetMapping(value = { "/getAllLibrarians", "/getAllLibrarians/" })
 	public List<LibrarianDto> getAllLibrarians() {
 		List<LibrarianDto> librarianDtos = new ArrayList<>();
 		for (Librarian librarian : librarianService.getAllLibrarians()) {
@@ -31,22 +30,22 @@ public class LibrarianRestController {
 		return librarianDtos;
 	}
 	
-	@GetMapping(value = { "/librarian/{librarianId}", "librarian/{librarianId}/" })
+	@GetMapping(value = { "/getLibrarianById/{librarianId}", "getLibrarianById/{librarianId}/" })
 	public LibrarianDto getLibrarianById(@PathVariable("librarianId") int librarianId)
 	throws IllegalArgumentException{
-		return convertToDto(librarianService.getLibrarian(librarianId));
+		return convertToDto(librarianService.getLibrarianByAccountId(librarianId));
 	}
 	
-	@GetMapping(value = { "/librarian/{firstName}/{lastName}", "librarian/{firstName}/{lastName}/" })
+	@GetMapping(value = { "/getLibrarianByNames/{firstName}/{lastName}", "getLibrarianByNames/{firstName}/{lastName}/" })
 	public LibrarianDto getLibrarianByFirstAndLastName(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName)
 	throws IllegalArgumentException{
-		return convertToDto(librarianService.getLibrarian(firstName, lastName));
+		return convertToDto(librarianService.getLibrarianByNames(firstName, lastName));
 	}
 	
-	@GetMapping(value = { "/librarian/{weeklySchedule}", "librarian/{weeklySchedule}/" })
-	public LibrarianDto getLibrarianByWeeklySchedule(@PathVariable("weeklySchedule") WeeklySchedule weeklySchedule)
+	@GetMapping(value = { "/getLibrarianBySchedule/{weeklyScheduleId}", "getLibrarianBySchedule/{weeklyScheduleId}/" })
+	public LibrarianDto getLibrarianByWeeklySchedule(@PathVariable("weeklyScheduleId") int weeklyScheduleId)
 	throws IllegalArgumentException{
-		return convertToDto(librarianService.getLibrarian(weeklySchedule));
+		return convertToDto(librarianService.getLibrarianByScheduleId(weeklyScheduleId));
 	}
 	
 	@PostMapping(value = { "/createLibrarian/{firstName}/{lastName}/{password}", "/createLibrarian/{firstName}/{lastName}/{password}/" })
@@ -57,9 +56,9 @@ public class LibrarianRestController {
 		return convertToDto(librarian);
 	}
 	
-	@PutMapping(value = { "/updateLibrarianSchedule/{librarianId}/{newSchedule}", "/updateLibrarianSchedule/{librarianId}/{newSchedule}/" })
-	public LibrarianDto updateLibrarianSchedule(@PathVariable("librarianId") int librarianId, @PathVariable("newSchedule") WeeklySchedule newSchedule) {
-		Librarian librarian = librarianService.assignWeeklySchedule(librarianId, newSchedule);
+	@PutMapping(value = { "/updateLibrarianSchedule/{librarianId}/{newScheduleId}", "/updateLibrarianSchedule/{librarianId}/{newScheduleId}/" })
+	public LibrarianDto updateLibrarianSchedule(@PathVariable("librarianId") int librarianId, @PathVariable("newScheduleId") int newScheduleId) {
+		Librarian librarian = librarianService.assignWeeklySchedule(librarianId, newScheduleId);
 		return convertToDto(librarian);
 	}
 	
