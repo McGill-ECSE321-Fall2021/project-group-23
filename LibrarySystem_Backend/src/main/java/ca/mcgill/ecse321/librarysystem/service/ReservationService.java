@@ -8,13 +8,13 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ca.mcgill.ecse321.librarysystem.dao.CustomerRepository;
-import ca.mcgill.ecse321.librarysystem.dao.ItemRepository;
 import ca.mcgill.ecse321.librarysystem.dao.ReservationRepository;
 import ca.mcgill.ecse321.librarysystem.model.Customer;
 import ca.mcgill.ecse321.librarysystem.model.Item;
 import ca.mcgill.ecse321.librarysystem.model.Reservation;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ReservationService {
 
     /**

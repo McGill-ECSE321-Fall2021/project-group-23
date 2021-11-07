@@ -23,8 +23,8 @@ import ca.mcgill.ecse321.librarysystem.service.ReservationService;
 @RestController
 public class ReservationRestController {
 
-// @Autowired
-// private ReservationService reservationService;
+@Autowired
+private ReservationService reservationService;
 
 // @Autowired
 // private ItemService itemService;
@@ -71,33 +71,34 @@ public class ReservationRestController {
 //     return customerDto;
 // }
 
-// @GetMapping(value = {"/getAllReservation", "/getAllReservation/" })
-// public List<ReservationDto> getAllReservation() {
-//     List<ReservationDto> reservationDtos = new ArrayList<>();
-//     for (Reservation reservation : reservationService.getAllReservations()) {
-//         reservationDtos.add(convertToDto(reservation));
-//     }
-//     return reservationDtos;
-// }
+@GetMapping(value = {"/getAllReservation", "/getAllReservation/" })
+public List<ReservationDto> getAllReservation() {
+    List<ReservationDto> reservationDtos = new ArrayList<>();
+    for (Reservation reservation : reservationService.getAllReservations()) {
+        //reservationDtos.add(convertToDto(reservation));
+    }
+    return reservationDtos;
+}
 
 // @GetMapping(value = {"/getReservationById/{reservationId}", "/getReservationById/{reservationId}/" })
 // public ReservationDto getReservationById(@PathVariable("reservationId") int reservationId) {
 //     return convertToDto(reservationService.getReservationById(reservationId));
 // }
 
-// @GetMapping(value = {"/getReservationByCustomer/{customerId}", "/getReservationByCustomer/{customerId}/" })
-// public List<ReservationDto> getReservationByCustomer(@PathVariable("customerId") int customerId) {
-//     List<ReservationDto> reservationDtos = new ArrayList<>();
-//     for (Reservation reservation : reservationService.getReservationByCustomer(customerService.getCustomerbyId(customerId))) {
-//         reservationDtos.add(convertToDto(reservation));
-//     }
-//     return reservationDtos;
-// }
+@GetMapping(value = {"/getReservationByCustomer/{customerId}", "/getReservationByCustomer/{customerId}/" })
+public List<ReservationDto> getReservationByCustomer(@PathVariable("customerId") int customerId) {
+    List<ReservationDto> reservationDtos = new ArrayList<>();
+    //for (Reservation reservation : reservationService.getReservationByCustomer(customerService.getCustomerbyId(customerId))) {
+       // reservationDtos.add(convertToDto(reservation));
+    //}
+    return reservationDtos;
+}
 
 
 // @GetMapping(value = {"/getReservationByItem/{itemId}", "/getReservationByitem/{itemId}/" })
 // public ReservationDto getReservationByItem(@PathVariable("itemId") int itemId) {
-//     return convertToDto(reservationService.getReservationByItem(itemService.getItemById(itemId)));
+//     //return convertToDto(reservationService.getReservationByItem(itemService.getItemById(itemId)));
+    
 // }
 
 

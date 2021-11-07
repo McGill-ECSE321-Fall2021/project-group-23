@@ -11,14 +11,15 @@ import org.springframework.transaction.annotation.Transactional;
 import ca.mcgill.ecse321.librarysystem.model.LibraryBooking;
 import ca.mcgill.ecse321.librarysystem.dao.LibraryBookingRepository;
 import ca.mcgill.ecse321.librarysystem.model.Customer;
+import org.springframework.stereotype.Service;
 
-
-
+@Service
 public class LibraryBookingService {
 
     /**
      * Author: Abdouallah Tahdi
      */
+
 
     @Autowired
     private LibraryBookingRepository libraryBookingRepository;
