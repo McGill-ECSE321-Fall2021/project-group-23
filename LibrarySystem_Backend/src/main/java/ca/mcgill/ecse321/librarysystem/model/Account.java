@@ -1,6 +1,5 @@
 
 package ca.mcgill.ecse321.librarysystem.model;
-import java.util.*;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
