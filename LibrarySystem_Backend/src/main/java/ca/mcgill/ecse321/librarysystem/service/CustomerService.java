@@ -29,7 +29,7 @@ public class CustomerService {
 	 * @return Customer
 	 */
   @Transactional
-  public Customer createCustomer(String firstName, String lastName, String password, String email, boolean isVerified, boolean isLocal, String address, Integer balance) {
+  public Customer createCustomer(String firstName, String lastName, String password, String email, boolean isVerified, boolean isLocal, String address, int balance) {
     if (firstName == null || firstName.replaceAll("\\s+","").length() == 0) {
       throw new IllegalArgumentException("Your first name cannot be empty.");
     }
@@ -90,6 +90,31 @@ public class CustomerService {
   @Transactional
   public List<Customer> getAllCustomers() {
     return toList(customerRepository.findAll());
+  }
+
+  @Transactional
+  public Customer updateCustomer(int id, String newPassword, String newAddress) {
+    if (String.valueOf(id).length() == 0) {
+      throw new IllegalArgumentException("Customer id cannot be empty.");
+    } 
+    else {
+      Customer customer = customerRepository.findCustomerByAccountId(id);
+      if (customer == null) {
+        throw new IllegalArgumentException("The customer with provided id cannot be found.");
+      }
+      else if (newPassword == null || newPassword.length() < 8 || !newPassword.matches(".*[A-Z].*")) {
+        throw new IllegalArgumentException("Your password must have at least 8 characters and a capital letter.");
+      }
+      else if (newAddress == null || newAddress.replaceAll("\\s+","").length() == 0 ) {
+        throw new IllegalArgumentException("Your address cannot be empty.");
+      }
+      else {
+        customer.setPassword(newPassword);
+        customer.setAddress(newAddress);
+        customerRepository.save(customer);
+        return customer;
+      }
+    }
   }
 
   @Transactional
