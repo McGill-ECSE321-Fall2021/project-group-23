@@ -10,14 +10,20 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import ca.mcgill.ecse321.librarysystem.dto.ReservationDto;
+import ca.mcgill.ecse321.librarysystem.dto.ItemDto;
+import ca.mcgill.ecse321.librarysystem.dto.CustomerDto;
 import ca.mcgill.ecse321.librarysystem.model.Customer;
 import ca.mcgill.ecse321.librarysystem.model.Item;
 import ca.mcgill.ecse321.librarysystem.model.Reservation;
 import ca.mcgill.ecse321.librarysystem.service.ReservationService;
+import ca.mcgill.ecse321.librarysystem.service.CustomerService;
+import ca.mcgill.ecse321.librarysystem.service.ItemService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -26,82 +32,171 @@ public class ReservationRestController {
 @Autowired
 private ReservationService reservationService;
 
-// @Autowired
-// private ItemService itemService;
+@Autowired
+private ItemService itemService;
 
-// @Autowired
-// private CustomerService customerService;
+@Autowired
+private CustomerService customerService;
 
-// @PostMapping(value = {"/createReservation/{customer}/{item}/{startDate}/{endDate}/{isCHeckedOut}", "/createReservation/{customer}/{item}/{startDate}/{endDate}/{isCheckedOut}/"})
-// public ReservationDto createReservation(
-//     @PathVariable("customer")int customerId,
-//     @PathVariable("item")int itemId,
-//     @RequestParam("startDate")Date startDate,
-//     @RequestParam("endDate")Date endDate,
-//     @PathVariable("isCheckedOut")Boolean isCheckedout
-// ) {
+/**
+	 * creates a reservation
+	 * 
+	 */
+@PostMapping(value = {"/createReservation/{customer}/{item}/{startDate}/{endDate}/{isCHeckedOut}", "/createReservation/{customer}/{item}/{startDate}/{endDate}/{isCheckedOut}/"})
+public ReservationDto createReservation(
+    @PathVariable("customer")int customerId,
+    @PathVariable("item")int itemId,
+    @RequestParam("startDate")Date startDate,
+    @RequestParam("endDate")Date endDate,
+    @PathVariable("isCheckedOut")boolean isCheckedOut
+) {
 
-//     Item itemSelected = itemService.getItemById(itemId);
-//     Customer customerSelected = customerService.getCustomerById(customerId);
-//     Reservation reservation = reservationService.createReservation(itemSelected, customerSelected, startDate, endDate, isCheckedout);
-// }
-
-// private ReservationDto convertToDto(Reservation reservation) {
-//     if (reservation == null) {
-//         throw new InvalidInputException("There is no such reservation!");
-//     }
-//     ReservationDto reservationDto = new ReservationDto(reservation.getCustomer(), reservation.getItem(), reservation.getReservationStartDate(), reservation.getReservationEndDate(),reservation.getId(), reservation.getIsCheckedOut());
-//     return reservationDto;
-// }
-
-// private ItemDto convertToDto(Item item) {
-//     if (item == null) {
-//         throw new InvalidInputException("There is no such item!");
-//     }
-//     ItemDto itemDto = new ItemDto();
-//     return itemDto; 
-
-// }
-
-// private CustomerDto convertToDto(Customer customer) {
-//     if (customer == null) {
-//         throw new InvalidInputException("There is no such customer!");
-//     }
-//     CustomerDto customerDto = new CustomerDto();
-//     return customerDto;
-// }
-
+    Item itemSelected = itemService.getItem(itemId);
+    Customer customerSelected = customerService.getCustomerByAccountId(customerId);
+    Reservation reservation = new Reservation();
+    ReservationDto reservationDto = new ReservationDto( convertToDto(customerSelected),convertToDto(itemSelected), startDate, endDate,reservation.getId(), isCheckedOut);
+    return reservationDto;
+}
+/**
+	 * gets all the reservations
+	 * 
+	 */
 @GetMapping(value = {"/getAllReservation", "/getAllReservation/" })
 public List<ReservationDto> getAllReservation() {
+    return reservationService.getAllReservations().stream().map(u -> convertToDto(u)).collect(Collectors.toList());
+}
+
+/**
+	 * gets the reservation with a unique id
+	 * 
+	 */
+@GetMapping(value = {"/getReservationById/{reservationId}", "/getReservationById/{reservationId}/" })
+public ReservationDto getReservationById(@PathVariable("reservationId") int reservationId) {
+    return convertToDto(reservationService.getReservationById(reservationId));
+}
+/**
+	 * gets all the reservations amde by a customer
+	 * 
+	 */
+@GetMapping(value = {"/getReservationByCustomer/{customerId}", "/getReservationByCustomer/{customerId}/" })
+public List<ReservationDto> getReservationByCustomer(@PathVariable("customerId") int customerId) {
     List<ReservationDto> reservationDtos = new ArrayList<>();
-    for (Reservation reservation : reservationService.getAllReservations()) {
-        //reservationDtos.add(convertToDto(reservation));
+    for (Reservation reservation : reservationService.getReservationByCustomer(customerService.getCustomerByAccountId(customerId))) {
+       reservationDtos.add(convertToDto(reservation));
     }
     return reservationDtos;
 }
 
-// @GetMapping(value = {"/getReservationById/{reservationId}", "/getReservationById/{reservationId}/" })
-// public ReservationDto getReservationById(@PathVariable("reservationId") int reservationId) {
-//     return convertToDto(reservationService.getReservationById(reservationId));
-// }
+/**
+	 * gets the reservation made on an item
+	 * 
+	 */
+@GetMapping(value = {"/getReservationByItem/{itemId}", "/getReservationByitem/{itemId}/" })
+public ReservationDto getReservationByItem(@PathVariable("itemId") int itemId) {
+    return convertToDto(reservationService.getReservationByItem(itemService.getItem(itemId)));
+    
+}
 
-@GetMapping(value = {"/getReservationByCustomer/{customerId}", "/getReservationByCustomer/{customerId}/" })
-public List<ReservationDto> getReservationByCustomer(@PathVariable("customerId") int customerId) {
+/**
+	 * deletes a reservation with a specific id
+	 * 
+	 */
+@DeleteMapping(value = { "/deleteReservation/{reservationId}", "/deleteReservation/{reservationId}/" })
+public ReservationDto deleteReservation(@PathVariable("reservationId") int reservationId) {
+    ReservationDto reservation = convertToDto(reservationService.deleteReservation(reservationId));
+    return reservation;
+}
+
+/**
+	 * deletes all reservations
+	 * 
+	 */
+@DeleteMapping(value = { "/deleteAllReservation", "/deleteAllReservation/" })
+public List<ReservationDto> deleteAllReservation() {
     List<ReservationDto> reservationDtos = new ArrayList<>();
-    //for (Reservation reservation : reservationService.getReservationByCustomer(customerService.getCustomerbyId(customerId))) {
-       // reservationDtos.add(convertToDto(reservation));
-    //}
+    for (Reservation reservation : reservationService.getAllReservations()) {
+       reservationDtos.add(convertToDto(reservation));
+    }
+    reservationService.deleteAllReservation();
     return reservationDtos;
 }
 
+/**
+	 * update a reservation start and end date
+	 * 
+	 */
+@PutMapping(value = { "/updateReservationDate/{reservationId}/{startDate}/{endDate}", "/updateReservationDate/{reservationId}/{startDate}/{endDate}/" })
+public ReservationDto updateReservationDate(
+    @PathVariable("reservationId") int reservationId,
+    @PathVariable("startDate") Date startDate,
+    @PathVariable("startDate") Date endDate)
+{
+    ReservationDto reservation = convertToDto(reservationService.updateReservationDate(reservationId, startDate, endDate));
+    return reservation;
 
-// @GetMapping(value = {"/getReservationByItem/{itemId}", "/getReservationByitem/{itemId}/" })
-// public ReservationDto getReservationByItem(@PathVariable("itemId") int itemId) {
-//     //return convertToDto(reservationService.getReservationByItem(itemService.getItemById(itemId)));
-    
-// }
+}
 
+/**
+	 * updates the reservation customer
+	 * 
+	 */
+@PutMapping(value = { "updateReservationCustomer/{reservationId}/{customerId}", "updateReservationCustomer/{reservationId}/{customerId}" })
+public ReservationDto updateReservationCustomer(
+    @PathVariable("reservationId") int reservationId,
+    @PathVariable("customerId") int customerId
+) {
+    ReservationDto reservation = convertToDto(reservationService.updateReservationCustomer(reservationId, customerService.getCustomerByAccountId(customerId)));
+    return reservation;
+}
 
+/**
+	 * updates the reservation item
+	 * 
+	 */
+@PutMapping(value = { "updateReservationItem/{reservationId}/{itemId}", "updateReservationItem/{reservationId}/{itemId}" })
+public ReservationDto updateReservationItem(
+    @PathVariable("reservationId") int reservationId,
+    @PathVariable("itemId") int itemId
+) {
+    ReservationDto reservation = convertToDto(reservationService.updateReservationItem(reservationId, itemService.getItem(itemId)));
+    return reservation;
+}
+
+/**
+	 * converts a reservation to a reservation Dto
+	 * 
+	 */
+
+private ReservationDto convertToDto(Reservation reservation) {
+    if (reservation == null) {
+        throw new InvalidInputException("There is no such reservation!");
+    }
+    ReservationDto reservationDto = new ReservationDto(convertToDto(reservation.getCustomer()), convertToDto(reservation.getItem()), reservation.getReservationStartDate(), reservation.getReservationEndDate(),reservation.getId(), reservation.getIsCheckedOut());
+    return reservationDto;
+}
+/**
+	 * converts an item to and item Dto
+	 * 
+	 */
+public ItemDto convertToDto(Item item) {
+    if (item == null) {
+        throw new IllegalArgumentException("There is no such item");
+    }
+    String type = item.getClass().getSimpleName();
+    ItemDto itemDto = new ItemDto(item.getItemId(), item.getTitle(), item.getStatus().toString(), type);
+    return itemDto;
+}
+/**
+	 * converts a customer to a customer Dto
+	 * 
+	 */
+private CustomerDto convertToDto(Customer customer) {
+    if (customer == null) {
+        throw new InvalidInputException("There is no such customer!");
+    }
+    CustomerDto customerDto = new CustomerDto(customer.getFirstName(), customer.getLastName(), customer.getAccountId(), customer.getPassword(), customer.getEmail(), customer.getIsVerified(), customer.getIsLocal(), customer.getAccountBalance());
+    return customerDto;
+}
 
     
 }

@@ -109,8 +109,7 @@ public class ReservationService {
 
     @Transactional
     public List<Reservation> getAllReservations() {
-        Iterable<Reservation> reservations = reservationRepository.findAll();
-        return toList(reservations);
+        return toList(reservationRepository.findAll());
     }
 
     @Transactional
@@ -163,7 +162,7 @@ public class ReservationService {
     }
 
     @Transactional
-    Reservation updateReservationItem(int id, Item item) {
+    public Reservation updateReservationItem(int id, Item item) {
         String error = "";
         if (reservationRepository.findById(id) == null) {
             error = "reservation does not exist";
