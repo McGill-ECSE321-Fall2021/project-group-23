@@ -95,6 +95,11 @@ public class LibraryBookingService {
     }
 
     @Transactional
+    public List<LibraryBooking> getAllLibraryBooking() {
+        return toList(libraryBookingRepository.findAll());
+    }
+
+    @Transactional
     public LibraryBooking deleteLibraryBooking(int id) {
         String error = "";
         if (libraryBookingRepository.findById(id) == null) {
@@ -148,7 +153,7 @@ public class LibraryBookingService {
     }
 
     @Transactional
-    public LibraryBooking updateBookingCustomer(int id, Customer customer) {
+    public LibraryBooking updateLibraryBookingCustomer(int id, Customer customer) {
 
         String error = "";
         if (libraryBookingRepository.findById(id) == null) {

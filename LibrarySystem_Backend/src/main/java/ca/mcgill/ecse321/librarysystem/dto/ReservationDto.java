@@ -2,9 +2,6 @@ package ca.mcgill.ecse321.librarysystem.dto;
 
 import java.sql.Date;
 
-import ca.mcgill.ecse321.librarysystem.model.Customer;
-import ca.mcgill.ecse321.librarysystem.model.Item;
-
 public class ReservationDto {  
 
     /**
@@ -13,8 +10,8 @@ public class ReservationDto {
 
     private Date startDate;
     private Date endDate;
-    private Item item;
-    private Customer customer;
+    private ItemDto itemDto;
+    private CustomerDto customerDto;
     private int id;
     private boolean isCheckedout;
     
@@ -22,11 +19,11 @@ public class ReservationDto {
 
     }
 
-    public ReservationDto(Customer customer, Item item, Date startDate, Date endDate, int id, boolean isCheckedout) {
-        this.customer = customer;
+    public ReservationDto(CustomerDto customerDto, ItemDto itemDto, Date startDate, Date endDate, int id, boolean isCheckedout) {
+        this.customerDto = customerDto;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.item = item;
+        this.itemDto = itemDto;
         this.id = id;
     }
 
@@ -37,11 +34,11 @@ public class ReservationDto {
     public Date getEnddate() {
         return endDate;
     }
-    public Customer getCustomer() {
-        return customer;
+    public CustomerDto getCustomer() {
+        return customerDto;
     }
-    public Item getItem() {
-        return item;
+    public ItemDto getItem() {
+        return itemDto;
     }
     public int getId() {
         return id;
