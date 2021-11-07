@@ -1,7 +1,9 @@
 package ca.mcgill.ecse321.librarysystem.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,7 +15,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.librarysystem.dto.LibrarianDto;
+import ca.mcgill.ecse321.librarysystem.dto.ShiftDto;
+import ca.mcgill.ecse321.librarysystem.dto.WeeklyScheduleDto;
 import ca.mcgill.ecse321.librarysystem.model.Librarian;
+import ca.mcgill.ecse321.librarysystem.model.Shift;
+import ca.mcgill.ecse321.librarysystem.model.WeeklySchedule;
 import ca.mcgill.ecse321.librarysystem.service.LibrarianService;
 
 @CrossOrigin(origins = "*")
@@ -53,11 +59,12 @@ public class LibrarianRestController {
 	}
 	
 	// Create a new librarian account
-	@PostMapping(value = { "/createLibrarian/{firstName}/{lastName}/{password}", "/createLibrarian/{firstName}/{lastName}/{password}/" })
+	@PostMapping(value = { "/createLibrarian/{firstName}/{lastName}/{password}/{scheduleId}", "/createLibrarian/{firstName}/{lastName}/{password}/{scheduleId}/" })
 	public LibrarianDto createLibrarian(@PathVariable("firstName") String firstName, 
 			@PathVariable("lastName") String lastName,
-			@PathVariable("password") String password) throws IllegalArgumentException{
-		Librarian librarian = librarianService.createLibrarian(firstName, lastName, password);
+			@PathVariable("password") String password,
+			@PathVariable("scheduleId") int scheduleId) throws IllegalArgumentException{
+		Librarian librarian = librarianService.createLibrarian(firstName, lastName, password, scheduleId);
 		return convertToDto(librarian);
 	}
 	
@@ -85,12 +92,31 @@ public class LibrarianRestController {
 		return librarianDtos;
 	}
 	
-	// Helper method to convert librarians to DTOs
 	private LibrarianDto convertToDto(Librarian l) {
 		if (l == null) {
 			throw new IllegalArgumentException("There is no such Librarian!");
 		}
-		LibrarianDto librarianDto = new LibrarianDto(l.getAccountId(), l.getFirstName(), l.getLastName(), l.getPassword(), l.getLibrarianSchedule());
+		LibrarianDto librarianDto = new LibrarianDto(l.getAccountId(), l.getFirstName(), l.getLastName(), l.getPassword(), convertToDto(l.getLibrarianSchedule()));
 		return librarianDto;
+	}
+	
+	private WeeklyScheduleDto convertToDto(WeeklySchedule ws) {
+		if (ws == null) {
+			throw new IllegalArgumentException("There is no such WeeklySchedule!");
+		}
+		Set<ShiftDto> shiftDtos = new HashSet<ShiftDto>();
+		for (Shift s : ws.getShifts()) {
+			shiftDtos.add(convertToDto(s));
+		}
+		WeeklyScheduleDto weeklyScheduleDto = new WeeklyScheduleDto(ws.getWeeklyScheduleId(), shiftDtos);
+		return weeklyScheduleDto;
+	}
+	
+	private ShiftDto convertToDto(Shift s) {
+		if (s == null) {
+			throw new IllegalArgumentException("There is no such Shift!");
+		}
+		ShiftDto shiftDto = new ShiftDto(s.getWorkingDay(),s.getStartTime(),s.getEndTime(),s.getShiftId());
+		return shiftDto;
 	}
 }

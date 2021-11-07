@@ -1,7 +1,9 @@
 package ca.mcgill.ecse321.librarysystem.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.mcgill.ecse321.librarysystem.dto.ShiftDto;
 import ca.mcgill.ecse321.librarysystem.dto.WeeklyScheduleDto;
+import ca.mcgill.ecse321.librarysystem.model.Shift;
 import ca.mcgill.ecse321.librarysystem.model.WeeklySchedule;
 import ca.mcgill.ecse321.librarysystem.service.ShiftService;
 import ca.mcgill.ecse321.librarysystem.service.WeeklyScheduleService;
@@ -43,9 +47,9 @@ public class WeeklyScheduleRestController {
 	}
 	
 	// Create a new weekly schedule
-	@PostMapping(value = { "/createWeeklySchedule", "/createWeeklySchedule/" })
-	public WeeklyScheduleDto createWeeklySchedule() {
-		return convertToDto(weeklyScheduleService.createWeeklySchedule());
+	@PostMapping(value = { "/createWeeklySchedule/{shiftsToSet}", "/createWeeklySchedule/{shiftsToSet}/" })
+	public WeeklyScheduleDto createWeeklySchedule(@PathVariable("shiftsToSet") List<Integer> shiftsToSet) {
+		return convertToDto(weeklyScheduleService.createWeeklySchedule(shiftsToSet));
 	}
 	
 	// Update a schedule with new shifts
@@ -72,13 +76,24 @@ public class WeeklyScheduleRestController {
 		return weeklyScheduleDtos;
 	}
 	
-	// Convert a weekly schedule to DTO
 	private WeeklyScheduleDto convertToDto(WeeklySchedule ws) {
 		if (ws == null) {
-			throw new IllegalArgumentException("There is no such Weekly Schedule!");
+			throw new IllegalArgumentException("There is no such WeeklySchedule!");
 		}
-		WeeklyScheduleDto weeklyScheduleDto = new WeeklyScheduleDto(ws.getWeeklyScheduleId(), ws.getShifts());
+		Set<ShiftDto> shiftDtos = new HashSet<ShiftDto>();
+		for (Shift s : ws.getShifts()) {
+			shiftDtos.add(convertToDto(s));
+		}
+		WeeklyScheduleDto weeklyScheduleDto = new WeeklyScheduleDto(ws.getWeeklyScheduleId(), shiftDtos);
 		return weeklyScheduleDto;
+	}
+	
+	private ShiftDto convertToDto(Shift s) {
+		if (s == null) {
+			throw new IllegalArgumentException("There is no such WeeklySchedule!");
+		}
+		ShiftDto shiftDto = new ShiftDto(s.getWorkingDay(),s.getStartTime(),s.getEndTime(),s.getShiftId());
+		return shiftDto;
 	}
 	
 }

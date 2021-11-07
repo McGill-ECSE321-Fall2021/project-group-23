@@ -20,7 +20,7 @@ public class LibrarianService {
 	WeeklyScheduleRepository weeklyScheduleRepository;
 	
 	@Transactional
-	public Librarian createLibrarian(String firstName, String lastName, String password) {
+	public Librarian createLibrarian(String firstName, String lastName, String password, int newScheduleId) {
 		// Check for empty or null fields
 		if (firstName == null || firstName.trim().length() == 0) {
 			throw new IllegalArgumentException("First name cannot be empty.");
@@ -32,10 +32,16 @@ public class LibrarianService {
 			throw new IllegalArgumentException("Password cannot be empty.");
 		}
 		
+		// Check if weeklySchedule exists
+		if (!weeklyScheduleRepository.existsByWeeklyScheduleId(newScheduleId)) {
+			throw new IllegalArgumentException("Weekly schedule with provided id could not be found in the database");
+		}
+		
 		Librarian librarian = new Librarian();
 		librarian.setFirstName(firstName);
 		librarian.setLastName(lastName);
 		librarian.setPassword(password);
+		librarian.setLibrarianSchedule(weeklyScheduleRepository.findByWeeklyScheduleId(newScheduleId));
 		librarianRepository.save(librarian);
 		return librarian;
 	}

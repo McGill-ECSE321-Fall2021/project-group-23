@@ -23,8 +23,19 @@ public class WeeklyScheduleService {
 	ShiftRepository shiftRepository;
 	
 	@Transactional
-	public WeeklySchedule createWeeklySchedule() {
+	public WeeklySchedule createWeeklySchedule(List<Integer> shiftIds) {
+		for (Integer shiftId : shiftIds) {
+			if (!shiftRepository.existsByShiftId(shiftId)) {
+				throw new IllegalArgumentException("Shift(s) could not be found");
+			}
+		}
 		WeeklySchedule ws = new WeeklySchedule();
+		Set<Shift> addedShifts = new HashSet<Shift>();
+		for (Integer shiftId : shiftIds) {
+			addedShifts.add(shiftRepository.findByShiftId(shiftId));
+		}
+		
+		ws.setShifts(addedShifts);
 		weeklyScheduleRepository.save(ws);
 		return ws;
 	}

@@ -2,11 +2,9 @@ package ca.mcgill.ecse321.librarysystem.dto;
 
 import java.util.Set;
 
-import ca.mcgill.ecse321.librarysystem.model.Shift;
-
 public class WeeklyScheduleDto {
 	private int weeklyScheduleId;
-	private Set<Shift> shifts;
+	private Set<ShiftDto> shifts;
 	
 	public WeeklyScheduleDto() {
 		
@@ -17,7 +15,7 @@ public class WeeklyScheduleDto {
 		this.shifts = null;
 	}
 	
-	public WeeklyScheduleDto(int weeklyScheduleId, Set<Shift> shifts) {
+	public WeeklyScheduleDto(int weeklyScheduleId, Set<ShiftDto> shifts) {
 		this.shifts = shifts;
 		this.weeklyScheduleId = weeklyScheduleId;
 	}
@@ -26,11 +24,11 @@ public class WeeklyScheduleDto {
 		return weeklyScheduleId;
 	}
 	
-	public Set<Shift> getShifts() {
+	public Set<ShiftDto> getShifts() {
 		return shifts;
 	}
 	
-	public void setShifts(Set<Shift> shifts) {
+	public void setShifts(Set<ShiftDto> shifts) {
 		this.shifts = shifts;
 	}
 }

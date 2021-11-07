@@ -1,13 +1,11 @@
 package ca.mcgill.ecse321.librarysystem.dto;
 
-import ca.mcgill.ecse321.librarysystem.model.WeeklySchedule;
-
 public class LibrarianDto {
 	private String firstName;
 	private String lastName;
 	private String password;
 	private int librarianId;
-	private WeeklySchedule librarianSchedule;
+	private WeeklyScheduleDto librarianSchedule;
 	
 	public LibrarianDto() {
 		
@@ -29,7 +27,7 @@ public class LibrarianDto {
 		this.librarianSchedule = null;
 	}
 	
-	public LibrarianDto(int librarianId, String firstName, String lastName, String password, WeeklySchedule librarianSchedule) {
+	public LibrarianDto(int librarianId, String firstName, String lastName, String password, WeeklyScheduleDto librarianSchedule) {
 		this.librarianId = librarianId;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -49,7 +47,7 @@ public class LibrarianDto {
 		return password;
 	}
 	
-	public WeeklySchedule getWeeklySchedule() {
+	public WeeklyScheduleDto getWeeklySchedule() {
 		return librarianSchedule;
 	}
 	
@@ -69,7 +67,7 @@ public class LibrarianDto {
 		this.password = password;
 	}
 	
-	public void setWeeklySchedule(WeeklySchedule librarianSchedule) {
+	public void setWeeklySchedule(WeeklyScheduleDto librarianSchedule) {
 		this.librarianSchedule = librarianSchedule;
 	}
 }
