@@ -52,6 +52,15 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer> {
    */
   boolean existsByAccountId(Integer accountId);
 
+    /**
+   * Check if customer account exists by first name and last name
+   * 
+   * @param firstName
+   * @param lastName
+   * @return boolean
+   */
+  boolean existsByFirstNameAndLastName(String firstName, String lastName);
+
   /**
    * Check if customer account exists by email
    * 
