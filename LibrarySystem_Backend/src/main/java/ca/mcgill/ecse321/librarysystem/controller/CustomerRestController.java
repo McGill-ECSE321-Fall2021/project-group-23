@@ -1,0 +1,62 @@
+package ca.mcgill.ecse321.librarysystem.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import ca.mcgill.ecse321.librarysystem.model.Customer;
+import ca.mcgill.ecse321.librarysystem.dto.CustomerDto;
+import ca.mcgill.ecse321.librarysystem.service.CustomerService;
+
+@CrossOrigin(origins = "*")
+@RestController
+public class CustomerRestController {
+
+  @Autowired
+  private CustomerService customerService;
+
+  	/**
+	 * Return a list of all Customer DTOs
+	 * @author Zi Chao
+	 * @return List of Customer Dto 
+	 */
+  /*@GetMapping(value = { "/getAllCustomers", "/getAllCustomers/" })
+  public List<CustomerDto> getAllCustomers() {
+    List<CustomerDto> customerDtos = new ArrayList<>();
+    for (Customer customer : customerService.getAllCustomers()) {
+      customerDtos.add(convertToDto(customer));
+    }
+    return customerDtos;
+  }
+
+  @GetMapping(value = { "/getCustomerById/{id}", "/getCustomerById/{id}/" })
+  public CustomerDto getCustomerByAccountId(@PathVariable("id") int id) throws IllegalArgumentException {
+    return convertToDto(customerService.getCustomerByAccountId(id));
+  }
+
+  @GetMapping(value = { "/getCustomerByEmail/{email}", "/getCustomerByEmail/{email}/" })
+  public CustomerDto getCustomerByEmail(@PathVariable("email") String email) throws IllegalArgumentException {
+    return convertToDto(customerService.getCustomerByEmail(email));
+  }
+
+  @GetMapping(value = { "/getCustomerByFirstNameAndLastName/{firstName}/{lastName}", "/getCustomerByFirstNameAndLastName/{firstName}/{lastName}/" })
+  public CustomerDto getCustomerByFirstNameAndLastName(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName) {
+    return convertToDto(customerService.getCustomerByFirstNameAndLastName(firstName, lastName));
+  }
+
+  @PostMapping(value = { "/createCustomer/{firstName}/{lastName}/{password}/{email}/{isVerified}/{isLocal}/{address}/{balance}", "/createCustomer/{firstName}/{lastName}/{password}/{email}/{isVerified}/{isLocal}/{address}/{balance}/" })
+  public CustomerDto createCustomer(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName, @PathVariable("password") String password, @PathVariable("email") String email, @PathVariable("isVerified") boolean isVerified, @PathVariable("isLocal") boolean isLocal, @PathVariable("address") String address, @PathVariable("balance") int balance) {
+    Customer customer = customerService.createCustomer(firstName, lastName, password, email, isVerified, isLocal, address, balance);
+    return convertToDto(customer);
+  }
+*/
+
+}
