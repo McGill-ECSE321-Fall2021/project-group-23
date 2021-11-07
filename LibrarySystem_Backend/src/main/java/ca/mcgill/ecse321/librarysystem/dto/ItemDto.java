@@ -29,7 +29,7 @@ public class ItemDto {
     }
 
     public String getType() {
-        return title;
+        return type;
     }
 
     
