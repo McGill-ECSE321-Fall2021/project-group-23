@@ -10,12 +10,11 @@ public class CustomerDto {
   private boolean isLocal;
   private int accountBalance;
 
-  public customerDto() {
+  public CustomerDto() {
 
   }
 
-  @SuppressWarnings("unchecked")
-  public customerDto(int customerId) {
+  public CustomerDto(int customerId) {
     this.firstName = null;
     this.lastName = null;
     this.customerId = customerId;
@@ -26,7 +25,7 @@ public class CustomerDto {
     this.accountBalance = 0;
   }
 
-  public customerDto(String firstName, String lastName, int customerId, String password, String email, boolean isVerified, boolean isLocal, int accountBalance) {
+  public CustomerDto(String firstName, String lastName, int customerId, String password, String email, boolean isVerified, boolean isLocal, int accountBalance) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.customerId = customerId;
