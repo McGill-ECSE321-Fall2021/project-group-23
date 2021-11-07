@@ -21,6 +21,7 @@ import ca.mcgill.ecse321.librarysystem.service.LibrarianService;
 public class LibrarianRestController {
 	@Autowired LibrarianService librarianService;
 	
+	// Return all current librarians in the database
 	@GetMapping(value = { "/getAllLibrarians", "/getAllLibrarians/" })
 	public List<LibrarianDto> getAllLibrarians() {
 		List<LibrarianDto> librarianDtos = new ArrayList<>();
@@ -30,24 +31,28 @@ public class LibrarianRestController {
 		return librarianDtos;
 	}
 	
+	// Return librarian matching id
 	@GetMapping(value = { "/getLibrarianById/{librarianId}", "getLibrarianById/{librarianId}/" })
 	public LibrarianDto getLibrarianById(@PathVariable("librarianId") int librarianId)
 	throws IllegalArgumentException{
 		return convertToDto(librarianService.getLibrarianByAccountId(librarianId));
 	}
 	
+	// Return librarian matching names
 	@GetMapping(value = { "/getLibrarianByNames/{firstName}/{lastName}", "getLibrarianByNames/{firstName}/{lastName}/" })
 	public LibrarianDto getLibrarianByFirstAndLastName(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName)
 	throws IllegalArgumentException{
 		return convertToDto(librarianService.getLibrarianByNames(firstName, lastName));
 	}
 	
+	// Return librarian with associated schedule
 	@GetMapping(value = { "/getLibrarianBySchedule/{weeklyScheduleId}", "getLibrarianBySchedule/{weeklyScheduleId}/" })
 	public LibrarianDto getLibrarianByWeeklySchedule(@PathVariable("weeklyScheduleId") int weeklyScheduleId)
 	throws IllegalArgumentException{
 		return convertToDto(librarianService.getLibrarianByScheduleId(weeklyScheduleId));
 	}
 	
+	// Create a new librarian account
 	@PostMapping(value = { "/createLibrarian/{firstName}/{lastName}/{password}", "/createLibrarian/{firstName}/{lastName}/{password}/" })
 	public LibrarianDto createLibrarian(@PathVariable("firstName") String firstName, 
 			@PathVariable("lastName") String lastName,
@@ -56,17 +61,20 @@ public class LibrarianRestController {
 		return convertToDto(librarian);
 	}
 	
+	// Update the librarian's schedule
 	@PutMapping(value = { "/updateLibrarianSchedule/{librarianId}/{newScheduleId}", "/updateLibrarianSchedule/{librarianId}/{newScheduleId}/" })
 	public LibrarianDto updateLibrarianSchedule(@PathVariable("librarianId") int librarianId, @PathVariable("newScheduleId") int newScheduleId) {
 		Librarian librarian = librarianService.assignWeeklySchedule(librarianId, newScheduleId);
 		return convertToDto(librarian);
 	}
 	
+	// Delete a librarian
 	@DeleteMapping(value = { "/deleteLibrarian/{librarianId}", "/deleteLibrarian/{librarianId}/" }) 
 	public LibrarianDto deleteLibrarian(@PathVariable("librarianId") int librarianId) {
 		return convertToDto(librarianService.deleteLibrarian(librarianId));
 	}
 	
+	// Delete all librarians in the system
 	@DeleteMapping(value = { "/deleteAllLibrarians", "deleteAllLibrarians" })
 	public List<LibrarianDto> deleteAllLibrarians() {
 		List<LibrarianDto> librarianDtos = new ArrayList<>();
@@ -77,6 +85,7 @@ public class LibrarianRestController {
 		return librarianDtos;
 	}
 	
+	// Helper method to convert librarians to DTOs
 	private LibrarianDto convertToDto(Librarian l) {
 		if (l == null) {
 			throw new IllegalArgumentException("There is no such Librarian!");

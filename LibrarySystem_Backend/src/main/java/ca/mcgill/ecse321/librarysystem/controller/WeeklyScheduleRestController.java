@@ -25,6 +25,7 @@ public class WeeklyScheduleRestController {
 	@Autowired
 	ShiftService shiftService;
 	
+	// Get all schedules in database
 	@GetMapping(value = { "/getAllWeeklySchedules", "/getAllWeeklySchedules/" })
 	public List<WeeklyScheduleDto> getAllWeeklySchedules() {
 		List<WeeklyScheduleDto> weeklyScheduleDtos = new ArrayList<>();
@@ -34,29 +35,34 @@ public class WeeklyScheduleRestController {
 		return weeklyScheduleDtos;
 	}
 	
+	// Get a schedule by id
 	@GetMapping(value = { "/getWeeklyScheduleById/{weeklyScheduleId}", "/getWeeklyScheduleById/{weeklyScheduleId}/" })
 	public WeeklyScheduleDto getWeeklyScheduleById(@PathVariable("weeklyScheduleId") int weeklyScheduleId)
 	throws IllegalArgumentException{
 		return convertToDto(weeklyScheduleService.getWeeklySchedule(weeklyScheduleId));
 	}
 	
+	// Create a new weekly schedule
 	@PostMapping(value = { "/createWeeklySchedule", "/createWeeklySchedule/" })
 	public WeeklyScheduleDto createWeeklySchedule() {
 		return convertToDto(weeklyScheduleService.createWeeklySchedule());
 	}
 	
+	// Update a schedule with new shifts
 	@PutMapping(value = { "/updateWeeklyScheduleShifts/{scheduleId}/{shiftsToSet}", "/updateWeeklyScheduleShifts/{scheduleId}/{shiftsToSet}/" })
 	public WeeklyScheduleDto updateScheduleShifts(@PathVariable("scheduleId") int scheduleId, @PathVariable("shiftsToSet") List<Integer> shiftsToSet)
 	throws IllegalArgumentException{
 		return convertToDto(weeklyScheduleService.updateWeeklyScheduleShifts(scheduleId, shiftsToSet));
 	}
 	
+	// Delete a schedule by id
 	@DeleteMapping(value = { "/deleteWeeklySchedule/{weeklyScheduleId}", "/deleteWeeklySchedule/{weeklyScheduleId}/" })
 	public WeeklyScheduleDto deleteWeeklyScheduleById(@PathVariable("weeklyScheduleId") int weeklyScheduleId)
 	throws IllegalArgumentException{
 		return convertToDto(weeklyScheduleService.deleteWeeklySchedule(weeklyScheduleId));
 	}
 	
+	// Delete all schedules
 	@DeleteMapping(value = { "/deleteAllWeeklySchedules", "/deleteAllWeeklySchedules/" })
 	public List<WeeklyScheduleDto> deleteAllWeeklySchedules() {
 		List<WeeklyScheduleDto> weeklyScheduleDtos = new ArrayList<>();
@@ -66,6 +72,7 @@ public class WeeklyScheduleRestController {
 		return weeklyScheduleDtos;
 	}
 	
+	// Convert a weekly schedule to DTO
 	private WeeklyScheduleDto convertToDto(WeeklySchedule ws) {
 		if (ws == null) {
 			throw new IllegalArgumentException("There is no such Weekly Schedule!");

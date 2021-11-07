@@ -27,6 +27,7 @@ public class ShiftRestController {
 	@Autowired
 	private ShiftService shiftService;
 	
+	// Get all shifts in the database
 	@GetMapping(value = {"/getAllShifts", "/getAllShifts/"})
 	public List<ShiftDto> getAllShifts() {
 		List<ShiftDto> shiftDtos = new ArrayList<>();
@@ -36,11 +37,13 @@ public class ShiftRestController {
 		return shiftDtos;
 	}
 	
+	// Get a shift by id
 	@GetMapping(value = { "/getShiftById/{shiftId}", "/getShiftById/{shiftId}/" })
 	public ShiftDto getShiftById(@PathVariable("shiftId") int shiftId) throws IllegalArgumentException{
 		return convertToDto(shiftService.getShift(shiftId));
 	}
 	
+	// Get a shift by day and times
 	@GetMapping(value = { "/getShiftByDayAndTimes", "/getShiftByDayAndTimes/" })
 	public ShiftDto getShiftByDayAndTimes(@RequestParam DayOfWeek dayOfWeek, 
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
@@ -48,6 +51,7 @@ public class ShiftRestController {
 		return convertToDto(shiftService.getShift(dayOfWeek, Time.valueOf(startTime), Time.valueOf(endTime)));
 	}
 	
+	// Create a shift with day and times
 	@PostMapping(value = { "/createShift", "/createShift/"})
 	public ShiftDto createShift(@RequestParam DayOfWeek dayOfWeek, 
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
@@ -57,6 +61,7 @@ public class ShiftRestController {
 		return convertToDto(shift);
 	}
 	
+	// Update a shift with inputs
 	@PutMapping(value = { "/updateShift/{shiftId}", "/updateShift/{shiftId}/" })
 	public ShiftDto updateShift(@PathVariable("shiftId") int shiftId,
 			@RequestParam DayOfWeek dayOfWeek, 
@@ -67,12 +72,14 @@ public class ShiftRestController {
 		return convertToDto(shift);
 	}
 	
+	// Delete a shift by id
 	@DeleteMapping(value = { "/deleteShiftById/{shiftId}", "/deleteShift/{shiftId}/" })
 	public ShiftDto deleteShiftById(@PathVariable("shiftId") int shiftId) throws IllegalArgumentException {
 		Shift shift = shiftService.deleteShift(shiftId);
 		return convertToDto(shift);
 	}
 	
+	// Delete all shifts
 	@DeleteMapping(value = { "/deleteAllShifts", "/deleteAllShifts/" })
 	public List<ShiftDto> deleteAllShifts() {
 		List<ShiftDto> shiftDtos = new ArrayList<>();
@@ -82,6 +89,7 @@ public class ShiftRestController {
 		return shiftDtos;
 	}
 	
+	// Helper method to convert to DTO
 	private ShiftDto convertToDto(Shift s) {
 		if (s == null) {
 			throw new IllegalArgumentException("There is no such Shift!");
