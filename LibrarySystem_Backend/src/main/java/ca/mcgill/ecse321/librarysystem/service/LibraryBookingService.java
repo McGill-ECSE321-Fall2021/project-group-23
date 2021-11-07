@@ -16,6 +16,10 @@ import ca.mcgill.ecse321.librarysystem.model.Customer;
 
 public class LibraryBookingService {
 
+    /**
+     * Author: Abdouallah Tahdi
+     */
+
     @Autowired
     private LibraryBookingRepository libraryBookingRepository;
 

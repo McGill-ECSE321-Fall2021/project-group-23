@@ -5,7 +5,11 @@ import java.sql.Time;
 
 import ca.mcgill.ecse321.librarysystem.model.Customer;
 
-public class LibraryBookingDto {
+public class LibraryBookingDto {   
+
+    /**
+     * Author: Abdouallah Tahdi
+     */
 
     private Date startDate;
     private Date endDate;
