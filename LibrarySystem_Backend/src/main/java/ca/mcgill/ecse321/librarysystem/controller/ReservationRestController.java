@@ -42,12 +42,12 @@ private CustomerService customerService;
 	 * creates a reservation
 	 * 
 	 */
-@PostMapping(value = {"/createReservation/{customer}/{item}/{startDate}/{endDate}/{isCHeckedOut}", "/createReservation/{customer}/{item}/{startDate}/{endDate}/{isCheckedOut}/"})
+@PostMapping(value = {"/createReservation/{customer}/{item}/{isCheckedOut}", "/createReservation/{customer}/{item}/{isCheckedOut}/"})
 public ReservationDto createReservation(
     @PathVariable("customer")int customerId,
     @PathVariable("item")int itemId,
-    @RequestParam("startDate")Date startDate,
-    @RequestParam("endDate")Date endDate,
+    @RequestParam Date startDate,
+    @RequestParam Date endDate,
     @PathVariable("isCheckedOut")boolean isCheckedOut
 ) {
 
@@ -125,11 +125,11 @@ public List<ReservationDto> deleteAllReservation() {
 	 * update a reservation start and end date
 	 * 
 	 */
-@PutMapping(value = { "/updateReservationDate/{reservationId}/{startDate}/{endDate}", "/updateReservationDate/{reservationId}/{startDate}/{endDate}/" })
+@PutMapping(value = { "/updateReservationDate/{reservationId}", "/updateReservationDate/{reservationId}/" })
 public ReservationDto updateReservationDate(
     @PathVariable("reservationId") int reservationId,
-    @PathVariable("startDate") Date startDate,
-    @PathVariable("startDate") Date endDate)
+    @RequestParam  Date startDate,
+    @RequestParam Date endDate)
 {
     ReservationDto reservation = convertToDto(reservationService.updateReservationDate(reservationId, startDate, endDate));
     return reservation;
