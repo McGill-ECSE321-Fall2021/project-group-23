@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.mcgill.ecse321.librarysystem.dto.CustomerDto;
 import ca.mcgill.ecse321.librarysystem.dto.LibrarianDto;
 import ca.mcgill.ecse321.librarysystem.dto.ShiftDto;
 import ca.mcgill.ecse321.librarysystem.dto.WeeklyScheduleDto;
+import ca.mcgill.ecse321.librarysystem.model.Customer;
 import ca.mcgill.ecse321.librarysystem.model.Librarian;
 import ca.mcgill.ecse321.librarysystem.model.Shift;
 import ca.mcgill.ecse321.librarysystem.model.WeeklySchedule;
+import ca.mcgill.ecse321.librarysystem.service.CustomerService;
 import ca.mcgill.ecse321.librarysystem.service.LibrarianService;
 
 @CrossOrigin(origins = "*")
@@ -68,6 +71,13 @@ public class LibrarianRestController {
 		return convertToDto(librarian);
 	}
 	
+	// Update the customer's verification status, and/or local status, and/or balance
+	@PutMapping(value= { "/updateCustomer/{id}/{newIsVerified}/{newIsLocal}/{newBalance}", "/updateCustomer/{id}/{newIsVerified}/{newIsLocal}/{newBalance}/" })
+  public CustomerDto updateCustomer(@PathVariable("id") int id, @PathVariable("newIsVerified") boolean newIsVerified, @PathVariable("newIsLocal") boolean newIsLocal, @PathVariable("newBalance") int newBalance) {
+      Customer customer = librarianService.updateCustomer(id, newIsVerified, newIsLocal, newBalance);
+      return convertToDto(customer);
+  }
+
 	// Update the librarian's schedule
 	@PutMapping(value = { "/updateLibrarianSchedule/{librarianId}/{newScheduleId}", "/updateLibrarianSchedule/{librarianId}/{newScheduleId}/" })
 	public LibrarianDto updateLibrarianSchedule(@PathVariable("librarianId") int librarianId, @PathVariable("newScheduleId") int newScheduleId) {
