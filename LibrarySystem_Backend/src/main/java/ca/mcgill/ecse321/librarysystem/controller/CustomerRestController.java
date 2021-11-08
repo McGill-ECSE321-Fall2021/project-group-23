@@ -2,7 +2,6 @@ package ca.mcgill.ecse321.librarysystem.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,7 +27,7 @@ public class CustomerRestController {
 	 * @author Zi Chao
 	 * @return List of Customer Dto 
 	 */
-  /*@GetMapping(value = { "/getAllCustomers", "/getAllCustomers/" })
+  @GetMapping(value = { "/getAllCustomers", "/getAllCustomers/" })
   public List<CustomerDto> getAllCustomers() {
     List<CustomerDto> customerDtos = new ArrayList<>();
     for (Customer customer : customerService.getAllCustomers()) {
@@ -57,6 +56,35 @@ public class CustomerRestController {
     Customer customer = customerService.createCustomer(firstName, lastName, password, email, isVerified, isLocal, address, balance);
     return convertToDto(customer);
   }
-*/
+
+  @PutMapping(value = { "/updateCustomer/{id}/{newPassword}/{newAddress}", "/updateCustomer/{id}/{newPassword}/{newAddress}/" })
+  public CustomerDto updateCustomer(@PathVariable("id") int id, @PathVariable("newPassword") String newPassword, @PathVariable("newAddress") String newAddress) {
+    Customer customer = customerService.updateCustomer(id, newPassword, newAddress);
+    return convertToDto(customer);
+  }
+
+  @PutMapping(value = { "/deleteCustomer/{id}", "deleteCustomer/{id}/" }) 
+  public CustomerDto deleteCustomer(@PathVariable("id") int id) {
+    Customer customer = customerService.deleteCustomer(id);
+    return convertToDto(customer);
+  }
+
+  	//-------------------------- Helper Methods -----------------------------
+
+	/**
+	 * Helper Method to convert a Customer to a Customer Dto
+	 * @author Zi Chao
+	 * @param user
+	 * @return CustomerDto
+	 */
+	private CustomerDto convertToDto(Customer customer) {
+		if (customer == null) {
+			throw new IllegalArgumentException("The provided customer does not exist.");
+		}
+		CustomerDto customerDto = new CustomerDto(customer.getFirstName(), customer.getLastName(), customer.getAccountId(), customer.getPassword(), customer.getEmail(), customer.getIsVerified(), customer.getIsLocal(), customer.getAccountBalance());
+
+		return customerDto;
+	}
+
 
 }
