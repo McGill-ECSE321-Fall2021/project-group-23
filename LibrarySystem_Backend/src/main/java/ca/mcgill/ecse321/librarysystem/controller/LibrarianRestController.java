@@ -22,7 +22,6 @@ import ca.mcgill.ecse321.librarysystem.model.Customer;
 import ca.mcgill.ecse321.librarysystem.model.Librarian;
 import ca.mcgill.ecse321.librarysystem.model.Shift;
 import ca.mcgill.ecse321.librarysystem.model.WeeklySchedule;
-import ca.mcgill.ecse321.librarysystem.service.CustomerService;
 import ca.mcgill.ecse321.librarysystem.service.LibrarianService;
 
 @CrossOrigin(origins = "*")
@@ -128,5 +127,20 @@ public class LibrarianRestController {
 		}
 		ShiftDto shiftDto = new ShiftDto(s.getWorkingDay(),s.getStartTime(),s.getEndTime(),s.getShiftId());
 		return shiftDto;
+	}
+
+		/**
+	 * Helper Method to convert a Customer to a Customer Dto
+	 * @author Zi Chao
+	 * @param user
+	 * @return CustomerDto
+	 */
+	private CustomerDto convertToDto(Customer customer) {
+		if (customer == null) {
+			throw new IllegalArgumentException("The provided customer does not exist.");
+		}
+		CustomerDto customerDto = new CustomerDto(customer.getFirstName(), customer.getLastName(), customer.getAccountId(), customer.getPassword(), customer.getEmail(), customer.getIsVerified(), customer.getIsLocal(), customer.getAccountBalance());
+
+		return customerDto;
 	}
 }
