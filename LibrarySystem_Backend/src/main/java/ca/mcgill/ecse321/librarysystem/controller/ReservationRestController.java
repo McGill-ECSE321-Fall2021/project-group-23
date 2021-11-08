@@ -42,19 +42,17 @@ private CustomerService customerService;
 	 * creates a reservation
 	 * 
 	 */
-@PostMapping(value = {"/createReservation/{customer}/{item}/{isCheckedOut}", "/createReservation/{customer}/{item}/{isCheckedOut}/"})
+@PostMapping(value = {"/createReservation/{customerId}/{itemId}/{isCheckedOut}", "/createReservation/{customerId}/{itemId}/{isCheckedOut}/"})
 public ReservationDto createReservation(
-    @PathVariable("customer")int customerId,
-    @PathVariable("item")int itemId,
+    @PathVariable("customerId")int customerId,
+    @PathVariable("itemId")int itemId,
     @RequestParam Date startDate,
     @RequestParam Date endDate,
     @PathVariable("isCheckedOut")boolean isCheckedOut
 ) {
 
-    Item itemSelected = itemService.getItem(itemId);
-    Customer customerSelected = customerService.getCustomerByAccountId(customerId);
-    Reservation reservation = new Reservation();
-    ReservationDto reservationDto = new ReservationDto( convertToDto(customerSelected),convertToDto(itemSelected), startDate, endDate,reservation.getId(), isCheckedOut);
+    
+    ReservationDto reservationDto = convertToDto(reservationService.createReservation( itemId, customerId, startDate, endDate, isCheckedOut));
     return reservationDto;
 }
 /**
@@ -75,7 +73,7 @@ public ReservationDto getReservationById(@PathVariable("reservationId") int rese
     return convertToDto(reservationService.getReservationById(reservationId));
 }
 /**
-	 * gets all the reservations amde by a customer
+	 * gets all the reservations made by a customer
 	 * 
 	 */
 @GetMapping(value = {"/getReservationByCustomer/{customerId}", "/getReservationByCustomer/{customerId}/" })

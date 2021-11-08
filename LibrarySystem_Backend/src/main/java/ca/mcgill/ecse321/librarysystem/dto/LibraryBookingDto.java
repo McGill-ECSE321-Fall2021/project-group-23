@@ -14,26 +14,26 @@ public class LibraryBookingDto {
     private Time startTime;
     private Time endTime;
     private int id;
-    private CustomerDto customerDto;
+    private int customerId;
     
     public LibraryBookingDto() {
 
     }
 
-    public LibraryBookingDto(int id, CustomerDto customerDto, Date startDate, Date endDate, Time startTime, Time endTime) {
+    public LibraryBookingDto(int id, int customerId, Date startDate, Date endDate, Time startTime, Time endTime) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.startTime = startTime;
         this.endTime = endTime;
         this.id = id;
-        this.customerDto = customerDto;
+        this.customerId = customerId;
     }
 
     public int getId() {
         return id;
     }
-    public CustomerDto getCustomer() {
-        return customerDto;
+    public int getCustomerId() {
+        return customerId;
     }
     public Date getStartDate() {
         return startDate;

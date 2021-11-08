@@ -27,11 +27,11 @@ public class ReservationDto {
         this.id = id;
     }
 
-    public Date getDtartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public Date getEnddate() {
+    public Date getEndDate() {
         return endDate;
     }
     public CustomerDto getCustomer() {

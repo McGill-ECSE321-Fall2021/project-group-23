@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.librarysystem.model.LibraryBooking;
 import ca.mcgill.ecse321.librarysystem.dao.LibraryBookingRepository;
+import ca.mcgill.ecse321.librarysystem.dao.CustomerRepository;
 import ca.mcgill.ecse321.librarysystem.model.Customer;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +25,11 @@ public class LibraryBookingService {
     @Autowired
     private LibraryBookingRepository libraryBookingRepository;
 
+    @Autowired
+    private CustomerRepository customerRepository;
+
     @Transactional
-    public LibraryBooking createLibraryBooking(Date startDate, Date endDate, Time startTime, Time endTime, Customer customer) {
+    public LibraryBooking createLibraryBooking(Date startDate, Date endDate, Time startTime, Time endTime, int customerId) {
         String error = "";
         if (startTime == null) {
             error = "A start time is needed to create a LibraryBooking";
@@ -35,9 +39,6 @@ public class LibraryBookingService {
             error = "An end time is needed to create a libraryBooking";
         }
 
-        if (customer == null) {
-            error = error + "A customer is needed to create a libraryBooking";
-        } 
 
         if (startDate == null) {
             error = error + "A start date is needed to create a libraryBooking";
@@ -47,7 +48,7 @@ public class LibraryBookingService {
             error = error + "An end date is needed to create a libraryBooking";
         }
 
-        if (startDate.before(endDate)) {
+        if (endDate.before(startDate)) {
             error = error + "The end date cannot be before the startdate";
         }
 
@@ -63,7 +64,7 @@ public class LibraryBookingService {
         libraryBooking.setEndDate(endDate);
         libraryBooking.setEndTime(endTime);
         libraryBooking.setStartTime(startTime);
-        libraryBooking.setCustomer(customer);
+        libraryBooking.setCustomer(customerRepository.findCustomerByAccountId(customerId));
         libraryBookingRepository.save(libraryBooking);
         return libraryBooking;
     }
@@ -117,6 +118,7 @@ public class LibraryBookingService {
     @Transactional
     public List<LibraryBooking> deleteAllLibraryBooking() {
         Iterable<LibraryBooking> libraryBookings = libraryBookingRepository.findAll();
+        libraryBookingRepository.deleteAll();
         return toList(libraryBookings);
     }
 

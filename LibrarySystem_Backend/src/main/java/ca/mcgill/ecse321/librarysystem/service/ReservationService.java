@@ -9,6 +9,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ca.mcgill.ecse321.librarysystem.dao.ReservationRepository;
+import ca.mcgill.ecse321.librarysystem.dao.ItemRepository;
+import ca.mcgill.ecse321.librarysystem.dao.CustomerRepository;
 import ca.mcgill.ecse321.librarysystem.model.Customer;
 import ca.mcgill.ecse321.librarysystem.model.Item;
 import ca.mcgill.ecse321.librarysystem.model.Reservation;
@@ -22,20 +24,19 @@ public class ReservationService {
      */
     @Autowired
     private ReservationRepository reservationRepository;
+
+    @Autowired
+    private ItemRepository itemRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
     
 
     @Transactional
-    public Reservation createReservation(Item item, Customer customer, Date startDate, Date endDate, boolean isCheckedout){
+    public Reservation createReservation(int itemId, int customerId, Date startDate, Date endDate, boolean isCheckedout){
 
         String error = "";
 
-        if (item == null) {
-            error = "An item is needed to create a reservation";
-        }
-
-        if (customer == null) {
-            error = error + "A customer is needed to create a reservation";
-        } 
 
         if (startDate == null) {
             error = error + "A start date is needed to create a reservation";
@@ -44,23 +45,21 @@ public class ReservationService {
         if (endDate == null) {
             error = error + "An end date is needed to create a reservation";
         }
-        /*
-        if (isCheckedout == false) {
-            error = error + "item must be checkedout to create a reservation";
+        for (Reservation reserv : reservationRepository.findAll()) {
+            if (reserv.getItem().getItemId() == itemId) {
+                error = error + "Cannot have two reservations for the same item";
+            }
         }
-        */
         error = error.trim();
         if (error.length() >0) {
             throw new InvalidInputException(error);
         }
         Reservation reservation = new Reservation();
-        reservation.setItem(item);
-        reservation.setCustomer(customer);
+        reservation.setItem(itemRepository.findItemByItemId(itemId));
+        reservation.setCustomer(customerRepository.findCustomerByAccountId(customerId));
         reservation.setIsCheckedOut(isCheckedout);
         reservation.setReservationStartDate(startDate);
         reservation.setReservationEndDate(endDate);
-
-
 
         reservationRepository.save(reservation);
         return reservation;
