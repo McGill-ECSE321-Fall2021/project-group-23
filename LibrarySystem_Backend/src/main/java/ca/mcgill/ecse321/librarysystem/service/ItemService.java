@@ -25,8 +25,8 @@ public class ItemService {
     @Transactional
     public Item createItem(String title, String type){
 
-        if (title == null || title == "") throw new IllegalArgumentException("Invalid title");
-        if (type == null) throw new IllegalArgumentException("Invalid item type");
+        if (title == null || title.trim() == "") throw new InvalidInputException("Invalid title");
+        if (type == null) throw new InvalidInputException("Invalid item type");
 
 
         if (type.toUpperCase().equals("BOOK")) {
@@ -43,7 +43,7 @@ public class ItemService {
             int id = itemRepository.save(movie).getItemId();
            // movie.setItemId(id);
             return movie;
-        } else if (type.toUpperCase().equals("NEWSPAPERS")) {
+        } else if (type.toUpperCase().equals("NEWSPAPERS") || type.toUpperCase().equals("NEWSPAPER")) {
             Newspapers newspaper = new Newspapers();
             newspaper.setTitle(title);
             newspaper.setStatus(Item.Status.AVAILABLE);
@@ -65,7 +65,7 @@ public class ItemService {
            // album.setItemId(id);
             return album;
         } 
-        throw new IllegalArgumentException("Invalid item type");
+        throw new InvalidInputException("Invalid item type");
         
     }
     /**
@@ -103,10 +103,33 @@ public class ItemService {
      * @param id
      */
     @Transactional
-    public void deleteItem(int id) {
+    public Item deleteItem(int id) {
+        Item item = itemRepository.findItemByItemId(id);
+        if (item == null) {
+            throw new InvalidInputException("Can't find item with ID = " + id);
+        }
         itemRepository.deleteByItemId(id);
+        return item;
     }
-
+    /**
+     * Modifies an item's title, given a valid ID
+     * @param id
+     * @param newTitle
+     * @return
+     */
+    @Transactional
+    public Item modifyItem(int id, String newTitle) {
+        Item item = itemRepository.findItemByItemId(id);
+        if (newTitle == null || newTitle.trim() == "") {
+            throw new InvalidInputException("Invalid new Title");
+        }
+        if (item == null) {
+            throw new InvalidInputException("Can't find item with ID = " + id);
+        }
+        item.setTitle(newTitle);
+        itemRepository.save(item);
+        return item;
+    }
 
     /**
      * Converts iterable to List, taken from ECSE 321 tutorial code
