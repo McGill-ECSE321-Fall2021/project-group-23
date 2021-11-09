@@ -45,16 +45,32 @@ public class ReservationService {
         if (endDate == null) {
             error = error + "An end date is needed to create a reservation";
         }
+        //Check if they are no reservation for this item
         for (Reservation reserv : reservationRepository.findAll()) {
             if (reserv.getItem().getItemId() == itemId) {
                 error = error + "Cannot have two reservations for the same item";
             }
+        }
+        //Check if the item is available
+        if(itemRepository.findById(itemId).get().getStatus().compareTo(Item.Status.AVAILABLE)  != 0) {
+            error = error + "The book is not available";
+        }
+
+        //Check if the item can be reserved
+        if(!itemRepository.findById(itemId).get().canBeBorrowed) {
+            error = error + "This item cannot be borrowed";
+        }
+
+        //Check that the customer does not go beyond the maximum number of reservation
+        if(reservationRepository.findByCustomer(customerRepository.findCustomerByAccountId(customerId)).size() == 10) {
+            error = error + "One customer cannot have more than 10 reservation at the same time";
         }
         error = error.trim();
         if (error.length() >0) {
             throw new InvalidInputException(error);
         }
         Reservation reservation = new Reservation();
+        itemRepository.findItemByItemId(itemId).setStatus(Item.Status.RESERVED);
         reservation.setItem(itemRepository.findItemByItemId(itemId));
         reservation.setCustomer(customerRepository.findCustomerByAccountId(customerId));
         reservation.setIsCheckedOut(isCheckedout);
@@ -122,6 +138,8 @@ public class ReservationService {
             throw new InvalidInputException(error);
         }
         Reservation reservation = reservationRepository.findById(id);
+        //Make the item available again
+        itemRepository.findItemByItemId(reservationRepository.findById(id).getItem().getItemId()).setStatus(Item.Status.AVAILABLE);
         reservationRepository.delete(reservation);
         return reservation;
     }
@@ -129,6 +147,9 @@ public class ReservationService {
     @Transactional
     public List<Reservation> deleteAllReservation(){
         Iterable<Reservation> reservations = reservationRepository.findAll();
+        for(Reservation reserv : reservationRepository.findAll()){
+            itemRepository.findItemByItemId(reserv.getItem().getItemId()).setStatus(Item.Status.AVAILABLE); //make all the items available again
+        }
         reservationRepository.deleteAll();
         return toList(reservations);
 
