@@ -48,12 +48,12 @@ public class ReservationService {
             }
         }
         //Check if the item is available
-        if(itemRepository.findById(itemId).get().getStatus().compareTo(Item.Status.AVAILABLE)  != 0) {
+        if(itemRepository.findItemByItemId(itemId).getStatus().compareTo(Item.Status.AVAILABLE)  != 0) {
             error = error + "The book is not available";
         }
 
         //Check if the item can be reserved
-        if(!itemRepository.findById(itemId).get().canBeBorrowed) {
+        if(!itemRepository.findItemByItemId(itemId).canBeBorrowed) {
             error = error + "This item cannot be borrowed";
         }
 

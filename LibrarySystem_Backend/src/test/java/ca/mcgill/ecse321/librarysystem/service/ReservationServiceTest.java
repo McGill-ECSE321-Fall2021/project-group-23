@@ -102,7 +102,7 @@ public class ReservationServiceTest {
             }
             return null;
         });
-        lenient().when(itemRepository.findById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+        lenient().when(itemRepository.findItemByItemId(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
             if (invocation.getArgument(0).equals(ITEM_ID_exists_reserved)) {
                 return book;
             }

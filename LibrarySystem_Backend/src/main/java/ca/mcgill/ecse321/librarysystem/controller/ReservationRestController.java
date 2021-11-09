@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.librarysystem.controller;
 
 import java.sql.Date;
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -45,14 +46,17 @@ public class ReservationRestController {
      * creates a reservation
      * 
      */
-    @PostMapping(value = { "/createReservation/{customerId}/{itemId}/{isCheckedOut}/{localDate}",
-            "/createReservation/{customerId}/{itemId}/{isCheckedOut}/{localDate}/" })
+    @PostMapping(value = { "/createReservation/{customerId}/{itemId}/{isCheckedOut}/{date}",
+            "/createReservation/{customerId}/{itemId}/{isCheckedOut}/{date}/" })
     public ReservationDto createReservation(@PathVariable("customerId") int customerId,
             @PathVariable("itemId") int itemId,
-            @RequestParam("localDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @PathVariable("date") String date,
+            //@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            //@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date date,
+            //@RequestParam("localDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @PathVariable("isCheckedOut") boolean isCheckedOut) {
         ReservationDto reservationDto = convertToDto(
-                reservationService.createReservation(itemId, customerId, Date.valueOf(startDate), isCheckedOut));
+                reservationService.createReservation(itemId, customerId, Date.valueOf(date), isCheckedOut));
         return reservationDto;
     }
 
