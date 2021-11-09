@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.librarysystem.service;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -32,18 +33,13 @@ public class ReservationService {
     private CustomerRepository customerRepository;
     
 
+
     @Transactional
-    public Reservation createReservation(int itemId, int customerId, Date startDate, Date endDate, boolean isCheckedout){
+    public Reservation createReservation(int itemId, int customerId, Date startDate, boolean isCheckedout){
 
         String error = "";
-
-
         if (startDate == null) {
             error = error + "A start date is needed to create a reservation";
-        }
-
-        if (endDate == null) {
-            error = error + "An end date is needed to create a reservation";
         }
         //Check if they are no reservation for this item
         for (Reservation reserv : reservationRepository.findAll()) {
@@ -69,6 +65,11 @@ public class ReservationService {
         if (error.length() >0) {
             throw new InvalidInputException(error);
         }
+        Calendar c = Calendar.getInstance(); 
+        c.setTime(startDate); 
+        c.add(Calendar.DAY_OF_MONTH, 21);
+        Date endDate = new Date(c.getTimeInMillis());
+        
         Reservation reservation = new Reservation();
         itemRepository.findItemByItemId(itemId).setStatus(Item.Status.RESERVED);
         reservation.setItem(itemRepository.findItemByItemId(itemId));
