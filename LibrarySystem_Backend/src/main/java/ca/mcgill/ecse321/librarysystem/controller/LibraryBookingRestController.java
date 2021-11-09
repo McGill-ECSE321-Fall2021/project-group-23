@@ -5,6 +5,7 @@ import java.sql.Time;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
+import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,11 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import ca.mcgill.ecse321.librarysystem.dto.LibraryBookingDto;
-import ca.mcgill.ecse321.librarysystem.model.Customer;
 import ca.mcgill.ecse321.librarysystem.model.LibraryBooking;
-import ca.mcgill.ecse321.librarysystem.dto.CustomerDto;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -36,17 +37,17 @@ private CustomerService customerService;
 	 * creates a libraryBooking 
 	 * 
 	 */
-@PostMapping(value = {"/createLibraryBooking/{startDate}/{endDate}/{startTime}/{endTime}/{customerId}", "/createLibraryBooking/{startDate}/{endDate}/{startTime}/{endTime}/{customerId}/" })
+@PostMapping(value = {"/createLibraryBooking/{customerId}", "/createLibraryBooking/{customerId}/" })
 public LibraryBookingDto createLibraryBooking(
-    @PathVariable("startDate")Date startDate,
-    @PathVariable("endDate")Date endDate,
-    @PathVariable("startTime")Time startTime,
-    @PathVariable("endTime")Time endTime,
-    @PathVariable("customerId")int customerId
+    @PathVariable("customerId") int customerId,
+    @RequestParam Date startDate,
+    @RequestParam Date endDate,
+    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
+	@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime
+    
 ) {
-    Customer customerSelected = customerService.getCustomerByAccountId(customerId);
-    LibraryBooking libraryBooking = new LibraryBooking();
-    LibraryBookingDto libraryBookingDto = new LibraryBookingDto(libraryBooking.getId(), convertToDto(customerSelected), startDate, endDate, startTime, endTime);
+
+    LibraryBookingDto libraryBookingDto = convertToDto(libraryBookingService.createLibraryBooking(startDate, endDate, Time.valueOf(startTime), Time.valueOf(endTime), customerId));
     return libraryBookingDto;
 }
 
@@ -111,16 +112,16 @@ public List<LibraryBookingDto> deleteAllLibraryBooking() {
 	 * updates a libraryBooking date and time
 	 * 
 	 */
-@PutMapping(value = { "/updateLibraryBookingDateAndTime/{libraryBookingId}/{startDate}/{endDate}/{startTime}/{endTime}", "/updateLibraryBookingDateAndTime/{libraryBookingId}/{startDate}/{endDate}/{startTime}/{endTime}/" })
+@PutMapping(value = { "/updateLibraryBookingDateAndTime/{libraryBookingId}", "/updateLibraryBookingDateAndTime/{libraryBookingId}/" })
 public LibraryBookingDto updateLibraryBookingDateAndTime(
     @PathVariable("libraryBookingId") int reservationId,
-    @PathVariable("startDate") Date startDate,
-    @PathVariable("startDate") Date endDate,
-    @PathVariable("startTime") Time startTime,
-    @PathVariable("endTime") Time endTime
+    @RequestParam Date startDate,
+    @RequestParam Date endDate,
+    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
+	@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime
     )
 {
-    LibraryBookingDto libraryBooking = convertToDto(libraryBookingService.updateLibraryBookingDateAndTime(reservationId, startDate, endDate, startTime, endTime));
+    LibraryBookingDto libraryBooking = convertToDto(libraryBookingService.updateLibraryBookingDateAndTime(reservationId, startDate, endDate, Time.valueOf(startTime), Time.valueOf(endTime)));
     return libraryBooking;
 
 }
@@ -137,17 +138,6 @@ public LibraryBookingDto updateLibraryBookingCustomer(
     LibraryBookingDto libraryBooking = convertToDto(libraryBookingService.updateLibraryBookingCustomer(reservationId, customerService.getCustomerByAccountId(customerId)));
     return libraryBooking;
 }
-/**
-	 * converts a customer to a customer Dto
-	 * 
-	 */
-private CustomerDto convertToDto(Customer customer) {
-    if (customer == null) {
-        throw new InvalidInputException("There is no such customer!");
-    }
-    CustomerDto customerDto = new CustomerDto(customer.getFirstName(), customer.getLastName(), customer.getAccountId(), customer.getPassword(), customer.getEmail(), customer.getIsVerified(), customer.getIsLocal(), customer.getAccountBalance());
-    return customerDto;
-}
 
 /**
 	 * converts a libraryBooking to a libraryBooking Dto
@@ -157,8 +147,8 @@ private LibraryBookingDto convertToDto(LibraryBooking LibraryBooking) {
     if (LibraryBooking == null) {
         throw new InvalidInputException("There is no such LibraryBooking!");
     }
-    LibraryBookingDto libraryBookingDto = new LibraryBookingDto();
-    return libraryBookingDto;
+    LibraryBookingDto libraryBooking = new LibraryBookingDto(LibraryBooking.getId(), LibraryBooking.getCustomer().getAccountId(), LibraryBooking.getStartDate(), LibraryBooking.getEndDate(), LibraryBooking.getStartTime(), LibraryBooking.getEndTime());
+    return libraryBooking;
 }
 
 }
