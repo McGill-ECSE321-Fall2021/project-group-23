@@ -23,12 +23,15 @@ import ca.mcgill.ecse321.librarysystem.model.Librarian;
 import ca.mcgill.ecse321.librarysystem.model.Shift;
 import ca.mcgill.ecse321.librarysystem.model.WeeklySchedule;
 import ca.mcgill.ecse321.librarysystem.service.HeadLibrarianService;
+import ca.mcgill.ecse321.librarysystem.service.LibrarianService;
 
 @CrossOrigin(origins = "*")
 @RestController
 public class HeadLibrarianRestController {
 	@Autowired 
 	HeadLibrarianService headLibrarianService;
+	@Autowired
+	private LibrarianService librarianService;
 	
 	// Return all current librarians in the database
 	@GetMapping(value = { "/getAllLibrarians", "/getAllLibrarians/" })
@@ -99,6 +102,13 @@ public class HeadLibrarianRestController {
 		return convertToDto(librarian);
 	}
 	
+	// Create customer account with first name, last name, email, address, and balance
+	@PostMapping(value= { "/createCustomer/head/{firstName}/{lastName}/{email}/{address}/{balance}", "/createCustomer/{firstName}/{lastName}/{email}/{address}/{balance}/" })
+	public CustomerDto createCustomer(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName, @PathVariable("email") String email, @PathVariable("address") String address, @PathVariable("balance") int balance) {
+		Customer customer = librarianService.createCustomer(firstName, lastName, email, address, balance);
+		return convertToDto(customer);
+	}
+
 	// Update the customer's verification status, and/or local status, and/or balance
 	@PutMapping(value= { "/updateCustomer/head/{id}/{newIsVerified}/{newIsLocal}/{newBalance}", "/updateCustomer/head/{id}/{newIsVerified}/{newIsLocal}/{newBalance}/" })
 	public CustomerDto updateCustomer(@PathVariable("id") int id, @PathVariable("newIsVerified") boolean newIsVerified, @PathVariable("newIsLocal") boolean newIsLocal, @PathVariable("newBalance") int newBalance) {
