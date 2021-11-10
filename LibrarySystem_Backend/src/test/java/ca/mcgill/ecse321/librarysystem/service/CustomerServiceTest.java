@@ -33,6 +33,8 @@ public class CustomerServiceTest {
 	@InjectMocks
 	private CustomerService customerService;
 	
+  private static final int NONACCOUNTID = 321;
+
 	private static final int ACCOUNTID = 222;
 	private static final String FNAME = "Zi Chao";
 	private static final String LNAME = "Zhang";
@@ -43,7 +45,7 @@ public class CustomerServiceTest {
   private static final boolean ISLOCAL = false;
 	private static final int BALANCE = 0;
 
-  private static final int NONACCOUNTID = 333;
+  private static final int ACCOUNTID2 = 333;
   private static final String FNAME2 = "Zi Chao*";
 	private static final String LNAME2 = "_Zhang";
   private static final String PASSWORD2 = "2Short";
@@ -69,9 +71,9 @@ public class CustomerServiceTest {
         customer.setIsLocal(ISLOCAL);
 				return customer;
 			}
-      else if (invocation.getArgument(0).equals(NONACCOUNTID)) {
+      else if (invocation.getArgument(0).equals(ACCOUNTID2)) {
         Customer customer = new Customer();
-				customer.setAccountId(NONACCOUNTID);
+				customer.setAccountId(ACCOUNTID2);
 				customer.setAccountBalance(BALANCE2);
 				customer.setFirstName(FNAME2);
 				customer.setLastName(LNAME2);
@@ -103,7 +105,7 @@ public class CustomerServiceTest {
 			}
       else if (invocation.getArgument(0).equals(EMAIL2)) {
         Customer customer = new Customer();
-				customer.setAccountId(NONACCOUNTID);
+				customer.setAccountId(ACCOUNTID2);
 				customer.setAccountBalance(BALANCE2);
 				customer.setFirstName(FNAME2);
 				customer.setLastName(LNAME2);
@@ -135,7 +137,7 @@ public class CustomerServiceTest {
 			}
       else if (invocation.getArgument(0).equals(FNAME2) && invocation.getArgument(1).equals(LNAME2)) {
         Customer customer = new Customer();
-				customer.setAccountId(NONACCOUNTID);
+				customer.setAccountId(ACCOUNTID2);
 				customer.setAccountBalance(BALANCE2);
 				customer.setFirstName(FNAME2);
 				customer.setLastName(LNAME2);
@@ -164,7 +166,7 @@ public class CustomerServiceTest {
       customer.setIsLocal(ISLOCAL);
 
       Customer customer2 = new Customer();
-      customer2.setAccountId(NONACCOUNTID);
+      customer2.setAccountId(ACCOUNTID2);
       customer2.setAccountBalance(BALANCE2);
       customer2.setFirstName(FNAME2);
       customer2.setLastName(LNAME2);
@@ -270,12 +272,12 @@ public class CustomerServiceTest {
 		Customer customer = null;
 		String error = null;
 		try {
-			customer = customerService.createCustomer(FNAME, "_Zhang", PASSWORD, EMAIL, ISVERIFIED, ISLOCAL, ADDRESS, BALANCE);
+			customer = customerService.createCustomer(FNAME, "Zhang1", PASSWORD, EMAIL, ISVERIFIED, ISLOCAL, ADDRESS, BALANCE);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertNull(customer);
-		assertEquals("Your first name cannot contain a number or a special character.", error);
+		assertEquals("Your last name cannot contain a number or a special character.", error);
 	}
 
 	// Test for creating a customer but last name contains a special character
@@ -284,7 +286,7 @@ public class CustomerServiceTest {
 		Customer customer = null;
 		String error = null;
 		try {
-			customer = customerService.createCustomer(FNAME, "Zhang*", PASSWORD, EMAIL, ISVERIFIED, ISLOCAL, ADDRESS, BALANCE);
+			customer = customerService.createCustomer(FNAME, "_Zhang", PASSWORD, EMAIL, ISVERIFIED, ISLOCAL, ADDRESS, BALANCE);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
