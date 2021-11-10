@@ -56,7 +56,7 @@ public class LibrarianServiceTest {
 			else {
 				return null;
 			}
-		});
+		});	
 		
 		// Whenever anything is saved, just return the parameter object
 		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
