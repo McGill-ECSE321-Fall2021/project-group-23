@@ -54,93 +54,46 @@ public class LibraryBookingService {
                 error = error + "Each libraryBooking cannot be for multiple days";
             }
         }
+
         //Checks for overlaps with other libraryBookings
         if(error.length()==0) {
             for(LibraryBooking libBooking : libraryBookingRepository.findAll()) {
-                if(startTime.before(libBooking.getEndTime()) && startTime.after(libBooking.getStartTime()) && startDate.equals(libBooking.getStartDate())) {
+                if(startTime.before(libBooking.getEndTime()) && startTime.after(libBooking.getStartTime()) && String.valueOf(startDate).equals(String.valueOf(libBooking.getStartDate()))|| startTime.equals(libBooking.getStartTime())&& String.valueOf(startDate).equals(String.valueOf(libBooking.getStartDate()))) {
                     error = error +"This libraryBooking overlaps with an existing libraryBooking";
                 }
-                if(endTime.before(libBooking.getEndTime()) && endTime.after(libBooking.getStartTime()) && startDate.equals(libBooking.getStartDate())) {
-                    error = error +"This libraryBooking overlaps with an existing libraryBooking";
-                }
-                if(startTime.before(libBooking.getStartTime()) && endTime.after(libBooking.getEndTime()) && startDate.equals(libBooking.getStartDate())) {
-                    error = error +"This libraryBooking overlaps with an existing libraryBooking";
-                }
-                if(startTime.after(libBooking.getStartTime()) && endTime.before(libBooking.getEndTime()) && startDate.equals(libBooking.getStartDate())) {
-                    error = error +"This libraryBooking overlaps with an existing libraryBooking";
-                }
-    
             }
-            
         }
-        
-    
+        if(error.length()==0) {
+            for(LibraryBooking libBooking : libraryBookingRepository.findAll()) {
+                if(endTime.before(libBooking.getEndTime()) && endTime.after(libBooking.getStartTime()) && String.valueOf(startDate).equals(String.valueOf(libBooking.getStartDate()))|| endTime.equals(libBooking.getEndTime())&& String.valueOf(startDate).equals(String.valueOf(libBooking.getStartDate()))) {
+                    error = error +"This libraryBooking overlaps with an existing libraryBooking";
+                }
+            }
+        }
+        if(error.length()==0) {
+            for(LibraryBooking libBooking : libraryBookingRepository.findAll()) {
+                if(startTime.before(libBooking.getStartTime()) && endTime.after(libBooking.getEndTime())&& String.valueOf(startDate).equals(String.valueOf(libBooking.getStartDate()))) {
+                    error = error +"This libraryBooking overlaps with an existing libraryBooking";
+                }
+            }
+        }
+        if(error.length()==0) {
+            for(LibraryBooking libBooking : libraryBookingRepository.findAll()) {
+                if(startTime.after(libBooking.getStartTime()) && endTime.before(libBooking.getEndTime()) && String.valueOf(startDate).equals(String.valueOf(libBooking.getStartDate()))) {
+                    error = error +"This libraryBooking overlaps with an existing libraryBooking";
+                }
+            }
+        }
+        if(error.length()==0) {
+            for(LibraryBooking libBooking : libraryBookingRepository.findAll()) {
+                if(startTime.equals(libBooking.getStartTime()) && endTime.equals(libBooking.getEndTime()) && String.valueOf(startDate).equals(String.valueOf(libBooking.getStartDate()))) {
+                    error = error +"This libraryBooking overlaps with an existing libraryBooking";
+                }
 
-        // if (startDate.equals(endDate) && endTime.before(startTime)) {
-        //     error = error +"The end time of a libraryBooking cannot be before the start time";
-        // }
-
-        // for(LibraryBooking libBooking : libraryBookingRepository.findAll()) {
-        //     if(startDate.before(libBooking.getEndDate()) && startDate.after(libBooking.getEndDate())){
-        //         error = error +"This libraryBooking overlaps with an existing libraryBooking";
-        //     }
-        //     if(endDate.before(libBooking.getEndDate()) && endDate.after(libBooking.getStartDate())) {
-        //         error = error +"This libraryBooking overlaps with an existing libraryBooking";
-        //     }
-        //     if(startDate.before(libBooking.getStartDate()) && endDate.after(libBooking.getEndDate())){
-        //         error = error +"This libraryBooking overlaps with an existing libraryBooking";
-        //     }
-        //     if(startDate.after(libBooking.getStartDate()) && endDate.before(libBooking.getEndDate())){
-        //         error = error +"This libraryBooking overlaps with an existing libraryBooking";
-        //     }
-        //     if(startDate.compareTo(libBooking.getStartDate()) == 0 && endDate.after(libBooking.getEndDate())) {
-        //         error = error +"This libraryBooking overlaps with an existing libraryBooking"; 
-        //     }
-        //     if(startDate.compareTo(libBooking.getStartDate()) == 0 && endDate.before(libBooking.getEndDate())) {
-        //         error = error +"This libraryBooking overlaps with an existing libraryBooking"; 
-        //     }
-        //     if(endDate.compareTo(libBooking.getEndDate()) == 0 && startDate.before(libBooking.getStartDate())) {
-        //         error = error +"This libraryBooking overlaps with an existing libraryBooking"; 
-        //     }
-        //     if(endDate.compareTo(libBooking.getEndDate()) == 0 && startDate.after(libBooking.getStartDate())) {
-        //         error = error +"This libraryBooking overlaps with an existing libraryBooking"; 
-        //     }
-        //     if(startDate.compareTo(libBooking.getStartDate()) == 0 && endDate.compareTo(libBooking.getEndDate()) == 0 && startDate.compareTo(endDate) == 0) {
-        //         if(endTime.after(libBooking.getStartTime()) && endTime.before(libBooking.getEndTime())) {
-        //             error = error +"This libraryBooking overlaps with an existing libraryBooking"; 
-        //         }
-        //         if(startTime.after(libBooking.getStartTime()) && startTime.before(libBooking.getEndTime())){
-        //             error = error +"This libraryBooking overlaps with an existing libraryBooking"; 
-        //         }
-        //         if(startTime.before(libBooking.getStartTime()) && endTime.after(libBooking.getEndTime())) {
-        //             error = error +"This libraryBooking overlaps with an existing libraryBooking";
-        //         }
-        //         if(startTime.after(libBooking.getStartTime()) && endTime.before(libBooking.getEndTime())) {
-        //             error = error +"This libraryBooking overlaps with an existing libraryBooking";
-        //         }
-        //     }
-
-        //     if(startDate.compareTo(libBooking.getStartDate()) == 0 && endDate.compareTo(libBooking.getEndDate()) == 0 && startDate.compareTo(endDate) != 0) {
-        //         error = error +"This libraryBooking overlaps with an existing libraryBooking";
-        //     }
-
-        //     if(startDate.compareTo(libBooking.getEndDate()) == 0) {
-        //         if(startTime.before(libBooking.getEndTime())) {
-        //             error = error +"This libraryBooking overlaps with an existing libraryBooking";
-        //         }
-        //     }
-
-        //     if(endDate.compareTo(libBooking.getStartDate()) == 0) {
-        //         if(endTime.before(libBooking.getStartTime())) {
-        //             error = error +"This libraryBooking overlaps with an existing libraryBooking";
-        //         }
-        //     }
-
-
-            
-        //}
+            }
+        }
         error = error.trim();
-        if (error.length() >0) {
+        if (error.length() > 0) {
             throw new InvalidInputException(error);
         }
         LibraryBooking libraryBooking = new LibraryBooking();
@@ -169,8 +122,8 @@ public class LibraryBookingService {
     @Transactional
     public List<LibraryBooking> getLibraryBookingByCustomer(Customer customer) {
         String error = "";
-        if (libraryBookingRepository.findByCustomer(customer) == null) {
-            error = "libraryBooking does not exist";
+        if (!customerRepository.existsByAccountId(customer.getAccountId())) {
+            error = "Customer does not exist";
         }
         error = error.trim();
         if (error.length() >0) {

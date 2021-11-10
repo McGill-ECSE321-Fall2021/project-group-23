@@ -49,7 +49,8 @@ public class libraryBookingServiceTest {
     private static final int LIBRARYBOOKING_ID = 456; 
     private static final int LIBRARYBOOKING_ID2 = 789;
 
-    private static final int NONEXISTANT_LIBRARYBOOKING_ID = 654; 
+    private static final int NONEXISTANT_LIBRARYBOOKING_ID = 654;
+    private static final int NONEXISTANT_CUSTOMER_ID = 567;
 
 
     @BeforeEach
@@ -207,6 +208,39 @@ public class libraryBookingServiceTest {
             return null;
         });
 
+        lenient().when(customerRepository.existsByAccountId(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+            if(invocation.getArgument(0).equals(CUSTOMER_ID)) {
+                Customer customer = new Customer();
+                customer.setAccountId(CUSTOMER_ID);
+                customer.setAccountBalance(0);
+                customer.setAddress("testAddress");
+                customer.setEmail("testEmail");
+                customer.setFirstName("testFirstname");
+                customer.setLastName("testLastName");
+                customer.setIsLocal(true);
+                customer.setIsVerified(true);
+                customer.setPassword("testPassword");
+                return true;
+                } else if(invocation.getArgument(0).equals(CUSTOMER_ID2)) {
+    
+                Customer customer2 = new Customer();
+                customer2.setAccountId(CUSTOMER_ID2);
+                customer2.setAccountBalance(0);
+                customer2.setAddress("testAddress2");
+                customer2.setEmail("testEmail2");
+                customer2.setFirstName("testFirstname2");
+                customer2.setLastName("testLastName2");
+                customer2.setIsLocal(true);
+                customer2.setIsVerified(true);
+                customer2.setPassword("testPassword2");
+                return true;
+    
+    
+                }
+                return false;
+        });
+
+
        Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> invocation.getArgument(0);
        lenient().when(libraryBookingRepository.save(any(LibraryBooking.class))).thenAnswer(returnParameterAsAnswer);
        lenient().when(customerRepository.save(any(Customer.class))).thenAnswer(returnParameterAsAnswer);
@@ -217,7 +251,7 @@ public class libraryBookingServiceTest {
     public void createLibraryBooking(){
         LibraryBooking libraryBooking = null;
         Calendar C = Calendar.getInstance();
-        C.set(2021, Calendar.JANUARY, 01, 10, 0, 0);
+        C.set(2021, Calendar.MARCH, 01, 10, 0, 0);
         Date startDate = new Date(C.getTimeInMillis());
         Date endDate = new Date(C.getTimeInMillis());
         LocalTime startTime = LocalTime.parse("10:00");
@@ -348,7 +382,7 @@ public class libraryBookingServiceTest {
     }
 
     @Test
-    public void createLibraryBookingOverlap(){
+    public void createLibraryBookingOverlap1(){
         String error = "";
         Customer customer = new Customer();
         customer.setAccountId(CUSTOMER_ID);
@@ -360,35 +394,143 @@ public class libraryBookingServiceTest {
         customer.setIsLocal(true);
         customer.setIsVerified(true);
         customer.setPassword("testPassword");
-        LibraryBooking libraryBooking = new LibraryBooking();
+        LibraryBooking libraryBooking = null;
+        Calendar C = Calendar.getInstance();
+        C.set(2021, Calendar.JANUARY, 01, 10, 0, 0);
+        Date startDate = new Date(C.getTimeInMillis());
+        Date endDate = new Date(C.getTimeInMillis());
+        LocalTime startTime = LocalTime.parse("10:00");
+        LocalTime endTime = LocalTime.parse("11:30");
+
+            try {
+                libraryBooking = libraryBookingService.createLibraryBooking(startDate, endDate, Time.valueOf(startTime), Time.valueOf(endTime), CUSTOMER_ID);
+            } 
+            catch(InvalidInputException e) {
+                error = e.getMessage();
+            }
+            assertNull(libraryBooking);
+            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
+    }
+    @Test
+    public void createLibraryBookingOverlap2(){
+        String error = "";
+        Customer customer = new Customer();
+        customer.setAccountId(CUSTOMER_ID);
+        customer.setAccountBalance(0);
+        customer.setAddress("testAddress");
+        customer.setEmail("testEmail");
+        customer.setFirstName("testFirstname");
+        customer.setLastName("testLastName");
+        customer.setIsLocal(true);
+        customer.setIsVerified(true);
+        customer.setPassword("testPassword");
+        LibraryBooking libraryBooking = null;
+        Calendar C = Calendar.getInstance();
+        C.set(2021, Calendar.JANUARY, 01, 10, 0, 0);
+        Date startDate = new Date(C.getTimeInMillis());
+        Date endDate = new Date(C.getTimeInMillis());
+        LocalTime startTime = LocalTime.parse("09:00");
+        LocalTime endTime = LocalTime.parse("11:30");
+
+            try {
+                libraryBooking = libraryBookingService.createLibraryBooking(startDate, endDate, Time.valueOf(startTime), Time.valueOf(endTime), CUSTOMER_ID);
+            } 
+            catch(InvalidInputException e) {
+                error = e.getMessage();
+            }
+            assertNull(libraryBooking);
+            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
+    }
+    @Test
+    public void createLibraryBookingOverlap3(){
+        String error = "";
+        Customer customer = new Customer();
+        customer.setAccountId(CUSTOMER_ID);
+        customer.setAccountBalance(0);
+        customer.setAddress("testAddress");
+        customer.setEmail("testEmail");
+        customer.setFirstName("testFirstname");
+        customer.setLastName("testLastName");
+        customer.setIsLocal(true);
+        customer.setIsVerified(true);
+        customer.setPassword("testPassword");
+        LibraryBooking libraryBooking = null;
+        Calendar C = Calendar.getInstance();
+        C.set(2021, Calendar.JANUARY, 01, 10, 0, 0);
+        Date startDate = new Date(C.getTimeInMillis());
+        Date endDate = new Date(C.getTimeInMillis());
+        LocalTime startTime = LocalTime.parse("08:00");
+        LocalTime endTime = LocalTime.parse("14:30");
+
+            try {
+                libraryBooking = libraryBookingService.createLibraryBooking(startDate, endDate, Time.valueOf(startTime), Time.valueOf(endTime), CUSTOMER_ID);
+            } 
+            catch(InvalidInputException e) {
+                error = e.getMessage();
+            }
+            assertNull(libraryBooking);
+            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
+    }
+    @Test
+    public void createLibraryBookingOverlap4(){
+        String error = "";
+        Customer customer = new Customer();
+        customer.setAccountId(CUSTOMER_ID);
+        customer.setAccountBalance(0);
+        customer.setAddress("testAddress");
+        customer.setEmail("testEmail");
+        customer.setFirstName("testFirstname");
+        customer.setLastName("testLastName");
+        customer.setIsLocal(true);
+        customer.setIsVerified(true);
+        customer.setPassword("testPassword");
+        LibraryBooking libraryBooking = null;
+        Calendar C = Calendar.getInstance();
+        C.set(2021, Calendar.JANUARY, 01, 10, 0, 0);
+        Date startDate = new Date(C.getTimeInMillis());
+        Date endDate = new Date(C.getTimeInMillis());
+        LocalTime startTime = LocalTime.parse("11:00");
+        LocalTime endTime = LocalTime.parse("11:30");
+
+            try {
+                libraryBooking = libraryBookingService.createLibraryBooking(startDate, endDate, Time.valueOf(startTime), Time.valueOf(endTime), CUSTOMER_ID);
+            } 
+            catch(InvalidInputException e) {
+                error = e.getMessage();
+            }
+            assertNull(libraryBooking);
+            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
+    }
+
+    @Test
+    public void createLibraryBookingOverlap5(){
+        String error = "";
+        Customer customer = new Customer();
+        customer.setAccountId(CUSTOMER_ID);
+        customer.setAccountBalance(0);
+        customer.setAddress("testAddress");
+        customer.setEmail("testEmail");
+        customer.setFirstName("testFirstname");
+        customer.setLastName("testLastName");
+        customer.setIsLocal(true);
+        customer.setIsVerified(true);
+        customer.setPassword("testPassword");
+        LibraryBooking libraryBooking = null;
         Calendar C = Calendar.getInstance();
         C.set(2021, Calendar.JANUARY, 01, 10, 0, 0);
         Date startDate = new Date(C.getTimeInMillis());
         Date endDate = new Date(C.getTimeInMillis());
         LocalTime startTime = LocalTime.parse("10:00");
         LocalTime endTime = LocalTime.parse("12:00");
-        LocalTime startTime2 = LocalTime.parse("11:00");
-        LocalTime endTime2 = LocalTime.parse("12:00");
-        libraryBooking.setCustomer(customer);
-        libraryBooking.setId(LIBRARYBOOKING_ID);
-        libraryBooking.setStartDate(startDate);
-        libraryBooking.setEndDate(endDate);
-        libraryBooking.setStartTime(Time.valueOf(startTime));
-        libraryBooking.setEndTime(Time.valueOf(endTime));
-        customerRepository.save(customer);
-        libraryBookingRepository.save(libraryBooking);
 
             try {
-                libraryBooking = libraryBookingService.createLibraryBooking(startDate, endDate, Time.valueOf(startTime2), Time.valueOf(endTime2), CUSTOMER_ID);
+                libraryBooking = libraryBookingService.createLibraryBooking(startDate, endDate, Time.valueOf(startTime), Time.valueOf(endTime), CUSTOMER_ID);
             } 
             catch(InvalidInputException e) {
                 error = e.getMessage();
             }
             assertNull(libraryBooking);
-            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");
-
-
-        
+            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
     }
 
     @Test
@@ -455,6 +597,20 @@ public class libraryBookingServiceTest {
     }
 
     @Test
+    public void testGetLibraryBookingByInexistantId() {
+        String error = "";
+        LibraryBooking libraryBooking = null;
+        try {
+            libraryBooking = libraryBookingService.getLibraryBookingbyId(NONEXISTANT_LIBRARYBOOKING_ID);
+        } catch(InvalidInputException e) {
+            error = e.getMessage();
+        }
+        assertNull(libraryBooking);
+        assertEquals(error, "libraryBooking does not exist");
+    }
+    
+
+    @Test
     public void testGetLibraryBookingByCustomer() {
         Customer customer = new Customer();
             customer.setAccountId(CUSTOMER_ID);
@@ -469,6 +625,29 @@ public class libraryBookingServiceTest {
         LibraryBooking libraryBooking = libraryBookingService.getLibraryBookingByCustomer(customer).get(0);
         assertEquals(LIBRARYBOOKING_ID, libraryBooking.getId());
 
+    }
+
+    @Test
+    public void testGetLibraryBookingByInexistantCustomer() {
+        String error = "";
+        List<LibraryBooking> libraryBooking = null;
+        Customer customer = new Customer();
+            customer.setAccountId(NONEXISTANT_CUSTOMER_ID);
+            customer.setAccountBalance(0);
+            customer.setAddress("testAddress");
+            customer.setEmail("testEmail");
+            customer.setFirstName("testFirstname");
+            customer.setLastName("testLastName");
+            customer.setIsLocal(true);
+            customer.setIsVerified(true);
+            customer.setPassword("testPassword");
+        try {
+            libraryBooking = libraryBookingService.getLibraryBookingByCustomer(customer);
+        } catch(InvalidInputException e) {
+            error = e.getMessage();
+        }
+        assertNull(libraryBooking);
+        assertEquals(error, "Customer does not exist");
     }
 
     @Test
