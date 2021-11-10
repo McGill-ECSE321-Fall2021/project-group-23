@@ -32,9 +32,11 @@ import ca.mcgill.ecse321.librarysystem.model.LibraryBooking;
 @ExtendWith(MockitoExtension.class)
 public class libraryBookingServiceTest {
 
+
     /**
      * Author: Abdouallah Tahdi
      */
+
 
     @Mock
     private LibraryBookingRepository libraryBookingRepository;
@@ -252,6 +254,7 @@ public class libraryBookingServiceTest {
     }
 
     //Test for create a libraryBooking successfully
+
     @Test
     public void createLibraryBooking(){
         LibraryBooking libraryBooking = null;
@@ -277,8 +280,10 @@ public class libraryBookingServiceTest {
         
     }
 
+
     //Test for creating a library booking with a null startDate
     //Should throw the following error: "A start date is needed to create a libraryBooking"
+
     @Test
     public void createLibraryBookingNullStartDate(){
         String error = "";
@@ -303,6 +308,7 @@ public class libraryBookingServiceTest {
 
     //Test for creating a library booking with a null endDate
     //Should throw the following error: "An end date is needed to create a libraryBooking"
+
     @Test
     public void createLibraryBookingNullEndDate(){
         String error = "";
@@ -325,8 +331,10 @@ public class libraryBookingServiceTest {
         
     }
 
+
     //Test for creating a library booking with a null startTime
     //Should throw the following error: "A start time is needed to create a libraryBooking"
+
     @Test
     public void createLibraryBookingNullStartTime(){
         String error = "";
@@ -350,6 +358,7 @@ public class libraryBookingServiceTest {
 
     //Test for creating a library booking with a null endTime
     //Should throw the following error: "An end time is needed to create a libraryBooking"
+
     @Test
     public void createLibraryBookingNullEndTime(){
         String error = "";
@@ -370,8 +379,10 @@ public class libraryBookingServiceTest {
         assertEquals(error, "An end time is needed to create a libraryBooking");
         
     }
+
     //Test for creating a library booking with a different startdate and endDate
     //Should throw the following error: "Each libraryBooking cannot be for multiple days"
+
     @Test
     public void createLibraryBookingMultipleDays(){
         String error = "";
@@ -394,6 +405,7 @@ public class libraryBookingServiceTest {
         assertNull(libraryBooking);
         assertEquals(error, "Each libraryBooking cannot be for multiple days");
     }
+
     //Test for creating a libraryBooking with a startTime before and end time
     //Should throw the following error: "The end time of a libraryBooking cannot be before its start time"
     @Test 
@@ -418,6 +430,7 @@ public class libraryBookingServiceTest {
 
     //Test for creating a library booking with an overlap
     //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
+
     @Test
     public void createLibraryBookingOverlap1(){
         String error = "";
@@ -449,8 +462,10 @@ public class libraryBookingServiceTest {
             assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
     }
 
+
     //Test for creating a library booking with an overlap
     //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
+
     @Test
     public void createLibraryBookingOverlap2(){
         String error = "";
@@ -483,6 +498,7 @@ public class libraryBookingServiceTest {
     }
     //Test for creating a library booking with an overlap
     //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
+
     @Test
     public void createLibraryBookingOverlap3(){
         String error = "";
@@ -513,8 +529,10 @@ public class libraryBookingServiceTest {
             assertNull(libraryBooking);
             assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
     }
+
     //Test for creating a library booking with an overlap
     //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
+
     @Test
     public void createLibraryBookingOverlap4(){
         String error = "";
@@ -547,6 +565,7 @@ public class libraryBookingServiceTest {
     }
     //Test for creating a library booking with an overlap (Same startDate, endDate, startTime and endTime)
     //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
+
     @Test
     public void createLibraryBookingOverlap5(){
         String error = "";
@@ -577,7 +596,9 @@ public class libraryBookingServiceTest {
             assertNull(libraryBooking);
             assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
     }
+
     //Test for deleting a libraryBooking successfully with Id
+
     @Test
     public void testDeleteLibraryBooking() {
         
@@ -593,6 +614,7 @@ public class libraryBookingServiceTest {
     }
     //Test for deleting a libraryBooking that does not exist with Id
     //Should return the following error: "libraryBooking does not exist"
+
     @Test 
     public void testDeleteNonExistantLibraryBooking() {
         String error = "";
@@ -607,7 +629,9 @@ public class libraryBookingServiceTest {
 
 
     }
+
     //Test for deleting all libraryBookings successfully
+
     @Test
     public void testDeleteAllLibraryBooking(){
 
@@ -621,7 +645,9 @@ public class libraryBookingServiceTest {
         assertEquals(LIBRARYBOOKING_ID2, libraryBooking2.getId());
         
     }
+
     //Test for retreiving all libraryBooking
+
     @Test
     public void testGetAllLibraryBooking() {
 
@@ -635,14 +661,18 @@ public class libraryBookingServiceTest {
         assertEquals(LIBRARYBOOKING_ID2, libraryBooking2.getId());
 
     }
+
     //Test for retreiving a specific libraryBooking with its Id success
+
     @Test
     public void testGetLibraryBookingById() {
         LibraryBooking libraryBooking = libraryBookingService.getLibraryBookingbyId(LIBRARYBOOKING_ID);
         assertEquals(LIBRARYBOOKING_ID, libraryBooking.getId());
     }
+
     //Test for retreiving a specific libraryBooking with a non existant Id
     //Shoudl throw the following error: "libraryBooking does not exist"
+
     @Test
     public void testGetLibraryBookingByInexistantId() {
         String error = "";
@@ -656,7 +686,9 @@ public class libraryBookingServiceTest {
         assertEquals(error, "libraryBooking does not exist");
     }
     
+
     //Test for retreiveing a libraryBooking with customer success
+
     @Test
     public void testGetLibraryBookingByCustomer() {
         Customer customer = new Customer();
@@ -673,8 +705,10 @@ public class libraryBookingServiceTest {
         assertEquals(LIBRARYBOOKING_ID, libraryBooking.getId());
 
     }
+
     //Test for retrieving a LibraryBooking with inexistatn customer
     //Should throw the following error: "Customer does not exist"
+
     @Test
     public void testGetLibraryBookingByInexistantCustomer() {
         String error = "";
@@ -697,7 +731,9 @@ public class libraryBookingServiceTest {
         assertNull(libraryBooking);
         assertEquals(error, "Customer does not exist");
     }
+
     //Test for updating LibraryBooking date and time successfully
+
     @Test
     public void testUpdateLibraryBookingDateAndTimeSuccess() {
         
@@ -743,6 +779,7 @@ public class libraryBookingServiceTest {
     }
     //Test for updating LibraryBooking date and time with a null endDate
     //Should throw the following error: "EndDate cannot be empty"
+
     @Test 
     public void testUpdateLibraryBookingDateAndTimeNullEndDate() {
         String error = "";
@@ -764,6 +801,7 @@ public class libraryBookingServiceTest {
     }
     //Test for updating LibraryBooking date and time with a null startTime
     //Should throw the following error: "StartTime cannot be empty"
+
     @Test 
     public void testUpdateLibraryBookingDateAndTimeNullStartTime() {
         String error = "";
@@ -847,6 +885,7 @@ public class libraryBookingServiceTest {
         assertEquals(error, "The end time of a libraryBooking cannot be before its start time");
         
     }
+
     //Test for updating a library booking with an overlap
     //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
     @Test
@@ -1038,6 +1077,7 @@ public class libraryBookingServiceTest {
     }
     //Test update LibraryBooking with non existant libraryBooking
     //Should return the following error: "librayBooking does not exist"
+
     @Test 
     public void testUpdateLibraryBookingCustomerNonExistantLibraryBooking() {
 

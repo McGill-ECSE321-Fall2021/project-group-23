@@ -50,10 +50,12 @@ public class LibraryBookingService {
         }
 
         //Each libraryBooking must only be one day
+
         if(endDate!=null && startDate!=null) {
             if (!endDate.equals(startDate)) {
                 error = error + "Each libraryBooking cannot be for multiple days";
             }
+
         }
 
         //Check for endTime before startTime
@@ -61,6 +63,7 @@ public class LibraryBookingService {
             if(endTime.before(startTime)) {
                 error = error + "The end time of a libraryBooking cannot be before its start time";
             }
+
         }
 
         //Checks for overlaps with other libraryBookings
@@ -92,7 +95,9 @@ public class LibraryBookingService {
                 }
             }
         }
+
         //Check for identical libraryBookoing date and time
+
         if(error.length()==0) {
             for(LibraryBooking libBooking : libraryBookingRepository.findAll()) {
                 if(startTime.equals(libBooking.getStartTime()) && endTime.equals(libBooking.getEndTime()) && String.valueOf(startDate).equals(String.valueOf(libBooking.getStartDate()))) {
@@ -101,7 +106,9 @@ public class LibraryBookingService {
 
             }
         }
+
         //Throw the erro messge if any
+
         error = error.trim();
         if (error.length() > 0) {
             throw new InvalidInputException(error);
@@ -134,7 +141,9 @@ public class LibraryBookingService {
     @Transactional
     public List<LibraryBooking> getLibraryBookingByCustomer(Customer customer) {
         String error = "";
-        //Check iif customer exists
+
+        //Check if customer exists
+
         if (!customerRepository.existsByAccountId(customer.getAccountId())) {
             error = "Customer does not exist";
         }
@@ -176,7 +185,9 @@ public class LibraryBookingService {
     @Transactional
     public LibraryBooking updateLibraryBookingDateAndTime(int id, Date startDate, Date endDate, Time startTime, Time endTime) {
         String error = "";
+
         //Check if startDate is null
+
         if (startDate == null ) {
             error = error + "StartDate cannot be empty";
         }
@@ -184,6 +195,7 @@ public class LibraryBookingService {
         if (endDate == null ) {
             error = error + "EndDate cannot be empty";
         }
+
         //Check if startTime is null
         if (startTime == null ) {
             error = error + "StartTime cannot be empty";
