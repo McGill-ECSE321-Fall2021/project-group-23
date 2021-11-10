@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 
 @ExtendWith(MockitoExtension.class)
-public class OpeningsHoursServiceTest {
+public class OpeningsHoursServiceTest {//openings Hours service test
 
 	@Mock
 	private OpeningsHoursRepository openingsHoursRepository;
