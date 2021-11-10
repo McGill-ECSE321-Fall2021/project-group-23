@@ -18,7 +18,7 @@ public class HeadLibrarianService extends LibrarianService {
 	LibrarianRepository librarianRepository;
 	
 	@Transactional
-	public Librarian createHeadLibrarian(String firstName, String lastName, String password, int newScheduleId) {
+	public HeadLibrarian createHeadLibrarian(String firstName, String lastName, String password, int newScheduleId) {
 		// Check for empty or null fields
 		if (firstName == null || firstName.trim().length() == 0) {
 			throw new IllegalArgumentException("First name cannot be empty.");
@@ -45,7 +45,7 @@ public class HeadLibrarianService extends LibrarianService {
 	}
 	
 	@Transactional
-	public Librarian updateHeadLibrarian(int accountId, String firstName, String lastName, String password, int newScheduleId) {
+	public HeadLibrarian updateHeadLibrarian(int accountId, String firstName, String lastName, String password, int newScheduleId) {
 		// Check for empty or null fields
 		if (firstName == null || firstName.trim().length() == 0) {
 			throw new IllegalArgumentException("First name cannot be empty.");
@@ -65,7 +65,7 @@ public class HeadLibrarianService extends LibrarianService {
 		if (!librarianRepository.existsById(accountId)) {
 			throw new IllegalArgumentException("Head librarian with provided id could not be found in the database");
 		}
-		Librarian headLibrarian = librarianRepository.findByAccountId(accountId);
+		HeadLibrarian headLibrarian = (HeadLibrarian) librarianRepository.findByAccountId(accountId);
 		headLibrarian.setFirstName(firstName);
 		headLibrarian.setLastName(lastName);
 		headLibrarian.setPassword(password);
@@ -165,8 +165,11 @@ public class HeadLibrarianService extends LibrarianService {
 		if (!weeklyScheduleRepository.existsByWeeklyScheduleId(scheduleId)) {
 			throw new IllegalArgumentException("Provided weekly schedule could not be found in the database");
 		}
-		
 		WeeklySchedule schedule = weeklyScheduleRepository.findByWeeklyScheduleId(scheduleId);
+		if (!librarianRepository.existsByLibrarianSchedule(schedule)) {
+			throw new IllegalArgumentException("Librarian with provided weekly schedule could not be found.");
+		}
+		
 		Librarian librarian = librarianRepository.findByLibrarianSchedule(schedule);
 		return librarian;
 	}

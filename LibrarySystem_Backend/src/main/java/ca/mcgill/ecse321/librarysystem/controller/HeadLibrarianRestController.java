@@ -19,6 +19,7 @@ import ca.mcgill.ecse321.librarysystem.dto.LibrarianDto;
 import ca.mcgill.ecse321.librarysystem.dto.ShiftDto;
 import ca.mcgill.ecse321.librarysystem.dto.WeeklyScheduleDto;
 import ca.mcgill.ecse321.librarysystem.model.Customer;
+import ca.mcgill.ecse321.librarysystem.model.HeadLibrarian;
 import ca.mcgill.ecse321.librarysystem.model.Librarian;
 import ca.mcgill.ecse321.librarysystem.model.Shift;
 import ca.mcgill.ecse321.librarysystem.model.WeeklySchedule;
@@ -70,7 +71,7 @@ public class HeadLibrarianRestController {
 			@PathVariable("lastName") String lastName,
 			@PathVariable("password") String password,
 			@PathVariable("scheduleId") int scheduleId) throws IllegalArgumentException{
-		Librarian headLibrarian = headLibrarianService.createHeadLibrarian(firstName, lastName, password, scheduleId);
+		HeadLibrarian headLibrarian = headLibrarianService.createHeadLibrarian(firstName, lastName, password, scheduleId);
 		return convertToDto(headLibrarian);
 	}
 	
@@ -91,7 +92,7 @@ public class HeadLibrarianRestController {
 			@PathVariable("lastName") String lastName,
 			@PathVariable("password") String password,
 			@PathVariable("scheduleId") int scheduleId) throws IllegalArgumentException{
-		Librarian headLibrarian = headLibrarianService.updateHeadLibrarian(accountId, firstName, lastName, password, scheduleId);
+		HeadLibrarian headLibrarian = headLibrarianService.updateHeadLibrarian(accountId, firstName, lastName, password, scheduleId);
 		return convertToDto(headLibrarian);
 	}
 	
