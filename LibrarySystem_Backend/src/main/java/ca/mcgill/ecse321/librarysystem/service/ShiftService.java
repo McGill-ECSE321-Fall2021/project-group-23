@@ -42,13 +42,14 @@ public class ShiftService {
 		
 		// error check for times outside of opening hours
 		for (OpeningsHours oh : toList(openingsHoursRepository.findAll())) {
-			if (startTime.before(oh.getStartTime()) || startTime.after(oh.getEndTime())) {
-				throw new IllegalArgumentException("Start time cannot be outside of the library's opening hours.");
+			if (String.valueOf(dayOfWeek).equals(String.valueOf(oh.getOpeningDay()))) {
+				if (startTime.before(oh.getStartTime()) || startTime.after(oh.getEndTime())) {
+					throw new IllegalArgumentException("Start time cannot be outside of the library's opening hours.");
+				}
+				if (endTime.before(oh.getStartTime()) || endTime.after(oh.getEndTime())) {
+					throw new IllegalArgumentException("End time cannot be outside of the library's opening hours.");
+				}
 			}
-			if (endTime.before(oh.getStartTime()) || endTime.after(oh.getEndTime())) {
-				throw new IllegalArgumentException("End time cannot be outside of the library's opening hours.");
-			}
-			
 		}
 		
 		Shift shift = new Shift();
@@ -84,13 +85,14 @@ public class ShiftService {
 		
 		// error check for times outside of opening hours
 		for (OpeningsHours oh : toList(openingsHoursRepository.findAll())) {
-			if (newStartTime.before(oh.getStartTime()) || newStartTime.after(oh.getEndTime())) {
-				throw new IllegalArgumentException("Start time cannot be outside of the library's opening hours.");
+			if (String.valueOf(newDOW).equals(String.valueOf(oh.getOpeningDay()))) {
+				if (newStartTime.before(oh.getStartTime()) || newStartTime.after(oh.getEndTime())) {
+					throw new IllegalArgumentException("Start time cannot be outside of the library's opening hours.");
+				}
+				if (newEndTime.before(oh.getStartTime()) || newEndTime.after(oh.getEndTime())) {
+					throw new IllegalArgumentException("End time cannot be outside of the library's opening hours.");
+				}
 			}
-			if (newEndTime.before(oh.getStartTime()) || newEndTime.after(oh.getEndTime())) {
-				throw new IllegalArgumentException("End time cannot be outside of the library's opening hours.");
-			}
-			
 		}
 		
 		// Update shift's variables and save to repo.
