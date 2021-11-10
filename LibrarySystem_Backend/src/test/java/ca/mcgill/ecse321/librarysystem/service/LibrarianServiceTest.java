@@ -196,20 +196,6 @@ public class LibrarianServiceTest {
 		assertEquals(c.getIsLocal(), false);
 	}
 	
-	// Test for updating a customer but id is empty
-	@Test
-	public void testUpdateCustomerEmptyId() {
-		Customer c = null;
-		String error = null;
-		try {
-			c = librarianService.updateCustomer(0, false, false, BALANCE);
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-		assertNull(c);
-		assertEquals("Customer id cannot be empty.", error);
-	}
-	
 	// Test for updating a customer but id is not found
 	@Test
 	public void testUpdateCustomerIdNotFound() {
@@ -235,7 +221,7 @@ public class LibrarianServiceTest {
 			error = e.getMessage();
 		}
 		assertNull(c);
-		assertEquals("The provided account balance cannot be empty or negative.", error);
+		assertEquals("The provided account balance cannot be negative.", error);
 	}
 	
 }

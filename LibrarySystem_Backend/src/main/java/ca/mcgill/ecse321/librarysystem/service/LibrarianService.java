@@ -48,15 +48,12 @@ public class LibrarianService {
 
   @Transactional
   public Customer updateCustomer(int id, boolean newIsVerified, boolean newIsLocal, int newBalance) {
-    if (String.valueOf(id).length() == 0) {
-      throw new IllegalArgumentException("Customer id cannot be empty.");
-    } else {
       Customer customer = customerRepository.findCustomerByAccountId(id);
       if (customer == null) {
         throw new IllegalArgumentException("The customer with provided id cannot be found.");
       }
-      if (String.valueOf(newBalance).length() == 0 || newBalance < 0) {
-        throw new IllegalArgumentException("The provided account balance cannot be empty or negative.");
+      if (newBalance < 0) {
+        throw new IllegalArgumentException("The provided account balance cannot be negative.");
       } else {
         customer.setIsVerified(newIsVerified);
         customer.setIsLocal(newIsLocal);
@@ -64,7 +61,6 @@ public class LibrarianService {
         customerRepository.save(customer);
         return customer;
       }
-    }
   }
 
   // ------------------ Helper Methods ---------------------
