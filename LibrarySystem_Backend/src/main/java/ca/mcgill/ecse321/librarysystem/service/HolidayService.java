@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ca.mcgill.ecse321.librarysystem.dao.HolidayRepository;
 import ca.mcgill.ecse321.librarysystem.model.Holiday;
 
+
 @Service
 public class HolidayService {
 	
@@ -31,9 +32,15 @@ public class HolidayService {
 		if (endDate != null && startDate != null &&startDate.after(endDate)){
 			error = error + "start date can't be after end date";
 		}
+		
 		error = error.trim();
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
+		}
+		for (Holiday h: toList(holidayRepository.findAll())) {
+			if (h.getName().equals(name)) {
+				throw new IllegalArgumentException("There are already holiday for this day (Try updating).");
+			}
 		}
 		Holiday holiday = new Holiday();
 		holiday.setName(name);
@@ -48,6 +55,7 @@ public class HolidayService {
 		if (holidayRepository.findHolidayByName(name)==null) {
 			error = error + "holiday not found";
 		}
+		
 		error = error.trim();
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
@@ -66,6 +74,9 @@ public class HolidayService {
 		String error = "";
 		if (holidayRepository.findHolidayByName(name)==null) {
 			error = error + "holiday not found";
+		}
+		if (newEndDate != null && newStartDate != null &&newStartDate.after(newEndDate)){
+			error = error + "start date can't be after end date";
 		}
 		error = error.trim();
 		if (error.length() > 0) {
