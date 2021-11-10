@@ -49,26 +49,31 @@ public class LibraryBookingService {
         }
 
         //Eachh libraryBooking must only be one day
-        if (endDate.compareTo(startDate) != 0) {
-            error = error + "Each libraryBOoking cannot be for multiple days";
+        if(endDate!=null && startDate!=null) {
+            if (!endDate.equals(startDate)) {
+                error = error + "Each libraryBooking cannot be for multiple days";
+            }
         }
-
         //Checks for overlaps with other libraryBookings
-        for(LibraryBooking libBooking : libraryBookingRepository.findAll()) {
-            if(startTime.before(libBooking.getEndTime()) && startTime.after(libBooking.getStartTime()) && startDate.compareTo(libBooking.getStartDate()) == 0) {
-                error = error +"This libraryBooking overlaps with an existing libraryBooking";
+        if(error.length()==0) {
+            for(LibraryBooking libBooking : libraryBookingRepository.findAll()) {
+                if(startTime.before(libBooking.getEndTime()) && startTime.after(libBooking.getStartTime()) && startDate.equals(libBooking.getStartDate())) {
+                    error = error +"This libraryBooking overlaps with an existing libraryBooking";
+                }
+                if(endTime.before(libBooking.getEndTime()) && endTime.after(libBooking.getStartTime()) && startDate.equals(libBooking.getStartDate())) {
+                    error = error +"This libraryBooking overlaps with an existing libraryBooking";
+                }
+                if(startTime.before(libBooking.getStartTime()) && endTime.after(libBooking.getEndTime()) && startDate.equals(libBooking.getStartDate())) {
+                    error = error +"This libraryBooking overlaps with an existing libraryBooking";
+                }
+                if(startTime.after(libBooking.getStartTime()) && endTime.before(libBooking.getEndTime()) && startDate.equals(libBooking.getStartDate())) {
+                    error = error +"This libraryBooking overlaps with an existing libraryBooking";
+                }
+    
             }
-            if(endTime.before(libBooking.getEndTime()) && endTime.after(libBooking.getStartTime()) && startDate.compareTo(libBooking.getStartDate()) == 0) {
-                error = error +"This libraryBooking overlaps with an existing libraryBooking";
-            }
-            if(startTime.before(libBooking.getStartTime()) && endTime.after(libBooking.getEndTime()) && startDate.compareTo(libBooking.getStartDate()) == 0) {
-                error = error +"This libraryBooking overlaps with an existing libraryBooking";
-            }
-            if(startTime.after(libBooking.getStartTime()) && endTime.before(libBooking.getEndTime()) && startDate.compareTo(libBooking.getStartDate()) == 0) {
-                error = error +"This libraryBooking overlaps with an existing libraryBooking";
-            }
-
+            
         }
+        
     
 
         // if (startDate.equals(endDate) && endTime.before(startTime)) {
@@ -204,21 +209,27 @@ public class LibraryBookingService {
     @Transactional
     public LibraryBooking updateLibraryBookingDateAndTime(int id, Date startDate, Date endDate, Time startTime, Time endTime) {
         String error = "";
-        if (libraryBookingRepository.findById(id) == null) {
-            error = "librayBooking does not exist";
-        }
         if (startDate == null ) {
             error = error + "StartDate cannot be empty";
         }
         if (endDate == null ) {
             error = error + "EndDate cannot be empty";
         }
-        if (endDate.before(startDate) ) {
-            error = error + "EndDate cannot be before startDate";
+        if (startTime == null ) {
+            error = error + "StartTime cannot be empty";
         }
-        if (endDate.equals(startDate) && startTime.before(endTime)) {
-            error = error + "The end time of a libraryBooking cannot be before its start time";
+        if (endTime == null ) {
+            error = error + "EndTime cannot be empty";
         }
+        if(error.length()==0) {
+            if (!endDate.equals(startDate)) {
+                error = error + "StartDate and endDate must be equal";
+            }
+            if (endDate.equals(startDate) && startTime.after(endTime)) {
+                error = error + "The end time of a libraryBooking cannot be before its start time";
+            }  
+        }
+        
         error = error.trim();
         if (error.length() >0) {
             throw new InvalidInputException(error);
