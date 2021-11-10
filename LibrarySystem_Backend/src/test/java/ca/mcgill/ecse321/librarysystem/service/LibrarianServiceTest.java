@@ -88,7 +88,7 @@ public class LibrarianServiceTest {
 		Customer c = null;
 		String error = null;
 		try {
-			c = librarianService.createCustomer(null, LNAME, EMAIL, ADDRESS, BALANCE);
+			c = librarianService.createCustomer("", LNAME, EMAIL, ADDRESS, BALANCE);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -144,7 +144,7 @@ public class LibrarianServiceTest {
 		Customer c = null;
 		String error = null;
 		try {
-			c = librarianService.createCustomer(FNAME, LNAME, null, ADDRESS, BALANCE);
+			c = librarianService.createCustomer(FNAME, LNAME, "", ADDRESS, BALANCE);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
