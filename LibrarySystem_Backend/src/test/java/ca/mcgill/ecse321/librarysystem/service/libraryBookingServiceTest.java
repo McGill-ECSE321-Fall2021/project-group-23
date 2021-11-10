@@ -32,6 +32,10 @@ import ca.mcgill.ecse321.librarysystem.model.LibraryBooking;
 @ExtendWith(MockitoExtension.class)
 public class libraryBookingServiceTest {
 
+    /**
+     * Author: Abdouallah Tahdi
+     */
+
     @Mock
     private LibraryBookingRepository libraryBookingRepository;
 
@@ -247,6 +251,7 @@ public class libraryBookingServiceTest {
 
     }
 
+    //Test for create a libraryBooking successfully
     @Test
     public void createLibraryBooking(){
         LibraryBooking libraryBooking = null;
@@ -272,6 +277,8 @@ public class libraryBookingServiceTest {
         
     }
 
+    //Test for creating a library booking with a null startDate
+    //Should throw the following error: "A start date is needed to create a libraryBooking"
     @Test
     public void createLibraryBookingNullStartDate(){
         String error = "";
@@ -294,6 +301,8 @@ public class libraryBookingServiceTest {
         
     }
 
+    //Test for creating a library booking with a null endDate
+    //Should throw the following error: "An end date is needed to create a libraryBooking"
     @Test
     public void createLibraryBookingNullEndDate(){
         String error = "";
@@ -316,6 +325,8 @@ public class libraryBookingServiceTest {
         
     }
 
+    //Test for creating a library booking with a null startTime
+    //Should throw the following error: "A start time is needed to create a libraryBooking"
     @Test
     public void createLibraryBookingNullStartTime(){
         String error = "";
@@ -337,6 +348,8 @@ public class libraryBookingServiceTest {
         
     }
 
+    //Test for creating a library booking with a null endTime
+    //Should throw the following error: "An end time is needed to create a libraryBooking"
     @Test
     public void createLibraryBookingNullEndTime(){
         String error = "";
@@ -357,7 +370,8 @@ public class libraryBookingServiceTest {
         assertEquals(error, "An end time is needed to create a libraryBooking");
         
     }
-
+    //Test for creating a library booking with a different startdate and endDate
+    //Should throw the following error: "Each libraryBooking cannot be for multiple days"
     @Test
     public void createLibraryBookingMultipleDays(){
         String error = "";
@@ -380,7 +394,30 @@ public class libraryBookingServiceTest {
         assertNull(libraryBooking);
         assertEquals(error, "Each libraryBooking cannot be for multiple days");
     }
+    //Test for creating a libraryBooking with a startTime before and end time
+    //Should throw the following error: "The end time of a libraryBooking cannot be before its start time"
+    @Test 
+    public void testCreateLibraryBookingDateAndTimeEndTimeBeforeStartTime() {
+        String error = "";
+        LibraryBooking libraryBooking = null;
+        Calendar C = Calendar.getInstance();
+        C.set(2021, Calendar.JANUARY, 01, 10, 0, 0);
+        Date startDate = new Date(C.getTimeInMillis());
+        Date endDate = new Date(C.getTimeInMillis());
+        LocalTime startTime = LocalTime.parse("10:00");
+        LocalTime endTime = LocalTime.parse("09:00");
+        try {
+            libraryBooking = libraryBookingService.createLibraryBooking(startDate, endDate, Time.valueOf(startTime), Time.valueOf(endTime), CUSTOMER_ID);
+        } catch(InvalidInputException e) {
+            error = e.getMessage();
+        }
+        assertNull(libraryBooking);
+        assertEquals(error, "The end time of a libraryBooking cannot be before its start time");
+        
+    }
 
+    //Test for creating a library booking with an overlap
+    //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
     @Test
     public void createLibraryBookingOverlap1(){
         String error = "";
@@ -411,6 +448,9 @@ public class libraryBookingServiceTest {
             assertNull(libraryBooking);
             assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
     }
+
+    //Test for creating a library booking with an overlap
+    //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
     @Test
     public void createLibraryBookingOverlap2(){
         String error = "";
@@ -441,6 +481,8 @@ public class libraryBookingServiceTest {
             assertNull(libraryBooking);
             assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
     }
+    //Test for creating a library booking with an overlap
+    //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
     @Test
     public void createLibraryBookingOverlap3(){
         String error = "";
@@ -471,6 +513,8 @@ public class libraryBookingServiceTest {
             assertNull(libraryBooking);
             assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
     }
+    //Test for creating a library booking with an overlap
+    //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
     @Test
     public void createLibraryBookingOverlap4(){
         String error = "";
@@ -501,7 +545,8 @@ public class libraryBookingServiceTest {
             assertNull(libraryBooking);
             assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
     }
-
+    //Test for creating a library booking with an overlap (Same startDate, endDate, startTime and endTime)
+    //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
     @Test
     public void createLibraryBookingOverlap5(){
         String error = "";
@@ -532,7 +577,7 @@ public class libraryBookingServiceTest {
             assertNull(libraryBooking);
             assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
     }
-
+    //Test for deleting a libraryBooking successfully with Id
     @Test
     public void testDeleteLibraryBooking() {
         
@@ -546,7 +591,8 @@ public class libraryBookingServiceTest {
         assertNotNull(libraryBooking);
         assertEquals(LIBRARYBOOKING_ID, libraryBooking.getId());
     }
-
+    //Test for deleting a libraryBooking that does not exist with Id
+    //Should return the following error: "libraryBooking does not exist"
     @Test 
     public void testDeleteNonExistantLibraryBooking() {
         String error = "";
@@ -561,7 +607,7 @@ public class libraryBookingServiceTest {
 
 
     }
-
+    //Test for deleting all libraryBookings successfully
     @Test
     public void testDeleteAllLibraryBooking(){
 
@@ -575,7 +621,7 @@ public class libraryBookingServiceTest {
         assertEquals(LIBRARYBOOKING_ID2, libraryBooking2.getId());
         
     }
-
+    //Test for retreiving all libraryBooking
     @Test
     public void testGetAllLibraryBooking() {
 
@@ -589,13 +635,14 @@ public class libraryBookingServiceTest {
         assertEquals(LIBRARYBOOKING_ID2, libraryBooking2.getId());
 
     }
-
+    //Test for retreiving a specific libraryBooking with its Id success
     @Test
     public void testGetLibraryBookingById() {
         LibraryBooking libraryBooking = libraryBookingService.getLibraryBookingbyId(LIBRARYBOOKING_ID);
         assertEquals(LIBRARYBOOKING_ID, libraryBooking.getId());
     }
-
+    //Test for retreiving a specific libraryBooking with a non existant Id
+    //Shoudl throw the following error: "libraryBooking does not exist"
     @Test
     public void testGetLibraryBookingByInexistantId() {
         String error = "";
@@ -609,7 +656,7 @@ public class libraryBookingServiceTest {
         assertEquals(error, "libraryBooking does not exist");
     }
     
-
+    //Test for retreiveing a libraryBooking with customer success
     @Test
     public void testGetLibraryBookingByCustomer() {
         Customer customer = new Customer();
@@ -626,7 +673,8 @@ public class libraryBookingServiceTest {
         assertEquals(LIBRARYBOOKING_ID, libraryBooking.getId());
 
     }
-
+    //Test for retrieving a LibraryBooking with inexistatn customer
+    //Should throw the following error: "Customer does not exist"
     @Test
     public void testGetLibraryBookingByInexistantCustomer() {
         String error = "";
@@ -649,13 +697,13 @@ public class libraryBookingServiceTest {
         assertNull(libraryBooking);
         assertEquals(error, "Customer does not exist");
     }
-
+    //Test for updating LibraryBooking date and time successfully
     @Test
     public void testUpdateLibraryBookingDateAndTimeSuccess() {
         
         LibraryBooking libraryBooking = null;
         Calendar C = Calendar.getInstance();
-        C.set(2021, Calendar.JANUARY, 01, 10, 0, 0);
+        C.set(2021, Calendar.JANUARY, 8, 10, 0, 0);
         Date startDate = new Date(C.getTimeInMillis());
         Date endDate = new Date(C.getTimeInMillis());
         LocalTime startTime = LocalTime.parse("10:00");
@@ -672,7 +720,8 @@ public class libraryBookingServiceTest {
         assertEquals(Time.valueOf(endTime), libraryBooking.getEndTime());
 
     }
-
+    //Test for updating LibraryBooking date and time with a null startDate
+    //Should throw the following error: "StartDate cannot be empty"
     @Test 
     public void testUpdateLibraryBookingDateAndTimeNullStartDate() {
         String error = "";
@@ -692,7 +741,8 @@ public class libraryBookingServiceTest {
         assertEquals(error, "StartDate cannot be empty");
 
     }
-
+    //Test for updating LibraryBooking date and time with a null endDate
+    //Should throw the following error: "EndDate cannot be empty"
     @Test 
     public void testUpdateLibraryBookingDateAndTimeNullEndDate() {
         String error = "";
@@ -712,7 +762,8 @@ public class libraryBookingServiceTest {
         assertEquals(error, "EndDate cannot be empty");
         
     }
-
+    //Test for updating LibraryBooking date and time with a null startTime
+    //Should throw the following error: "StartTime cannot be empty"
     @Test 
     public void testUpdateLibraryBookingDateAndTimeNullStartTime() {
         String error = "";
@@ -732,7 +783,8 @@ public class libraryBookingServiceTest {
         
         
     }
-
+    //Test for updating LibraryBooking date and time with a null endTime
+    //Should throw the following error: "EndTime cannot be empty"
     @Test 
     public void testUpdateLibraryBookingDateAndTimeNullEndTime() {
         String error = "";
@@ -751,7 +803,8 @@ public class libraryBookingServiceTest {
         assertEquals(error, "EndTime cannot be empty");
         
     }
-
+    //Test for updating LibraryBooking date and time with different startDate and endDate
+    //Should throw the following error: "Each libraryBooking cannot be for multiple days"
     @Test 
     public void testUpdateLibraryBookingDateAndTimeEndDateNotEqualStartDate() {
         String error = "";
@@ -770,12 +823,13 @@ public class libraryBookingServiceTest {
             error = e.getMessage();
         }
         assertNull(libraryBooking);
-        assertEquals(error, "StartDate and endDate must be equal");
+        assertEquals(error, "Each libraryBooking cannot be for multiple days");
         
     }
-
+    //Test for updating LibraryBooking date and time with a startTime before and endTime
+    //Should throw the following error: "The end time of a libraryBooking cannot be before its start time"
     @Test 
-    public void testUpdateLibraryBookingDateAndTimeendTimeBeforeStartTime() {
+    public void testUpdateLibraryBookingDateAndTimeEndTimeBeforeStartTime() {
         String error = "";
         LibraryBooking libraryBooking = null;
         Calendar C = Calendar.getInstance();
@@ -793,6 +847,170 @@ public class libraryBookingServiceTest {
         assertEquals(error, "The end time of a libraryBooking cannot be before its start time");
         
     }
+    //Test for updating a library booking with an overlap
+    //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
+    @Test
+    public void updateLibraryBookingOverlap1(){
+        String error = "";
+        Customer customer = new Customer();
+        customer.setAccountId(CUSTOMER_ID);
+        customer.setAccountBalance(0);
+        customer.setAddress("testAddress");
+        customer.setEmail("testEmail");
+        customer.setFirstName("testFirstname");
+        customer.setLastName("testLastName");
+        customer.setIsLocal(true);
+        customer.setIsVerified(true);
+        customer.setPassword("testPassword");
+        LibraryBooking libraryBooking = null;
+        Calendar C = Calendar.getInstance();
+        C.set(2021, Calendar.JANUARY, 01, 10, 0, 0);
+        Date startDate = new Date(C.getTimeInMillis());
+        Date endDate = new Date(C.getTimeInMillis());
+        LocalTime startTime = LocalTime.parse("10:00");
+        LocalTime endTime = LocalTime.parse("11:30");
+
+            try {
+                libraryBooking = libraryBookingService.updateLibraryBookingDateAndTime(LIBRARYBOOKING_ID, startDate, endDate, Time.valueOf(startTime), Time.valueOf(endTime));
+            } 
+            catch(InvalidInputException e) {
+                error = e.getMessage();
+            }
+            assertNull(libraryBooking);
+            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
+    }
+    //Test for updating a library booking with an overlap
+    //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
+    @Test
+    public void updateLibraryBookingOverlap2(){
+        String error = "";
+        Customer customer = new Customer();
+        customer.setAccountId(CUSTOMER_ID);
+        customer.setAccountBalance(0);
+        customer.setAddress("testAddress");
+        customer.setEmail("testEmail");
+        customer.setFirstName("testFirstname");
+        customer.setLastName("testLastName");
+        customer.setIsLocal(true);
+        customer.setIsVerified(true);
+        customer.setPassword("testPassword");
+        LibraryBooking libraryBooking = null;
+        Calendar C = Calendar.getInstance();
+        C.set(2021, Calendar.JANUARY, 01, 10, 0, 0);
+        Date startDate = new Date(C.getTimeInMillis());
+        Date endDate = new Date(C.getTimeInMillis());
+        LocalTime startTime = LocalTime.parse("09:00");
+        LocalTime endTime = LocalTime.parse("11:30");
+
+            try {
+                libraryBooking = libraryBookingService.updateLibraryBookingDateAndTime(LIBRARYBOOKING_ID, startDate, endDate, Time.valueOf(startTime), Time.valueOf(endTime));
+            } 
+            catch(InvalidInputException e) {
+                error = e.getMessage();
+            }
+            assertNull(libraryBooking);
+            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
+    }
+    //Test for updating a library booking with an overlap
+    //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
+    @Test
+    public void updateLibraryBookingOverlap3(){
+        String error = "";
+        Customer customer = new Customer();
+        customer.setAccountId(CUSTOMER_ID);
+        customer.setAccountBalance(0);
+        customer.setAddress("testAddress");
+        customer.setEmail("testEmail");
+        customer.setFirstName("testFirstname");
+        customer.setLastName("testLastName");
+        customer.setIsLocal(true);
+        customer.setIsVerified(true);
+        customer.setPassword("testPassword");
+        LibraryBooking libraryBooking = null;
+        Calendar C = Calendar.getInstance();
+        C.set(2021, Calendar.JANUARY, 01, 10, 0, 0);
+        Date startDate = new Date(C.getTimeInMillis());
+        Date endDate = new Date(C.getTimeInMillis());
+        LocalTime startTime = LocalTime.parse("08:00");
+        LocalTime endTime = LocalTime.parse("14:30");
+
+            try {
+                libraryBooking = libraryBookingService.updateLibraryBookingDateAndTime(LIBRARYBOOKING_ID, startDate, endDate, Time.valueOf(startTime), Time.valueOf(endTime));
+            } 
+            catch(InvalidInputException e) {
+                error = e.getMessage();
+            }
+            assertNull(libraryBooking);
+            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
+    }
+    //Test for updating a library booking with an overlap
+    //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
+    @Test
+    public void updateLibraryBookingOverlap4(){
+        String error = "";
+        Customer customer = new Customer();
+        customer.setAccountId(CUSTOMER_ID);
+        customer.setAccountBalance(0);
+        customer.setAddress("testAddress");
+        customer.setEmail("testEmail");
+        customer.setFirstName("testFirstname");
+        customer.setLastName("testLastName");
+        customer.setIsLocal(true);
+        customer.setIsVerified(true);
+        customer.setPassword("testPassword");
+        LibraryBooking libraryBooking = null;
+        Calendar C = Calendar.getInstance();
+        C.set(2021, Calendar.JANUARY, 01, 10, 0, 0);
+        Date startDate = new Date(C.getTimeInMillis());
+        Date endDate = new Date(C.getTimeInMillis());
+        LocalTime startTime = LocalTime.parse("11:00");
+        LocalTime endTime = LocalTime.parse("11:30");
+
+            try {
+                libraryBooking = libraryBookingService.updateLibraryBookingDateAndTime(LIBRARYBOOKING_ID, startDate, endDate, Time.valueOf(startTime), Time.valueOf(endTime));
+            } 
+            catch(InvalidInputException e) {
+                error = e.getMessage();
+            }
+            assertNull(libraryBooking);
+            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
+    }
+
+    //Test for updating a library booking with an overlap (Same startDate, endDate, startTime and endTime)
+    //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
+
+    @Test
+    public void updateLibraryBookingOverlap5(){
+        String error = "";
+        Customer customer = new Customer();
+        customer.setAccountId(CUSTOMER_ID);
+        customer.setAccountBalance(0);
+        customer.setAddress("testAddress");
+        customer.setEmail("testEmail");
+        customer.setFirstName("testFirstname");
+        customer.setLastName("testLastName");
+        customer.setIsLocal(true);
+        customer.setIsVerified(true);
+        customer.setPassword("testPassword");
+        LibraryBooking libraryBooking = null;
+        Calendar C = Calendar.getInstance();
+        C.set(2021, Calendar.JANUARY, 01, 10, 0, 0);
+        Date startDate = new Date(C.getTimeInMillis());
+        Date endDate = new Date(C.getTimeInMillis());
+        LocalTime startTime = LocalTime.parse("10:00");
+        LocalTime endTime = LocalTime.parse("12:00");
+
+            try {
+                libraryBooking = libraryBookingService.updateLibraryBookingDateAndTime(LIBRARYBOOKING_ID, startDate, endDate, Time.valueOf(startTime), Time.valueOf(endTime));
+            } 
+            catch(InvalidInputException e) {
+                error = e.getMessage();
+            }
+            assertNull(libraryBooking);
+            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
+    }
+
+    //Test for updating LibraryBooking Customer success
 
     @Test 
     public void testUpdateLibraryBookingCustomer() {
@@ -818,7 +1036,8 @@ public class libraryBookingServiceTest {
         assertEquals(error, "librayBooking does not exist");
         
     }
-
+    //Test update LibraryBooking with non existant libraryBooking
+    //Should return the following error: "librayBooking does not exist"
     @Test 
     public void testUpdateLibraryBookingCustomerNonExistantLibraryBooking() {
 
@@ -843,6 +1062,9 @@ public class libraryBookingServiceTest {
         assertEquals(error, "librayBooking does not exist");
         
     }
+
+    //Test for updating a libraryBooking with non existant customer
+    //Should return the following error: "Customer cannot be empty"
 
     @Test 
     public void testUpdateLibraryBookingCustomerNullCustomer() {
