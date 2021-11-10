@@ -24,6 +24,9 @@ public class WeeklyScheduleService {
 	
 	@Transactional
 	public WeeklySchedule createWeeklySchedule(List<Integer> shiftIds) {
+		if (shiftIds == null) {
+			throw new IllegalArgumentException("List of shifts cannot be null");
+		}
 		for (Integer shiftId : shiftIds) {
 			if (!shiftRepository.existsByShiftId(shiftId)) {
 				throw new IllegalArgumentException("Shift(s) could not be found");
@@ -42,6 +45,9 @@ public class WeeklyScheduleService {
 	
 	@Transactional
 	public WeeklySchedule updateWeeklyScheduleShifts(int wsId, List<Integer> shiftIds) {
+		if (shiftIds == null) {
+			throw new IllegalArgumentException("List of shifts cannot be empty");
+		}
 		for (Integer shiftId : shiftIds) {
 			if (!shiftRepository.existsByShiftId(shiftId)) {
 				throw new IllegalArgumentException("Shift(s) could not be found");

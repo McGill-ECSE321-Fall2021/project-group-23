@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.librarysystem.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +21,13 @@ public class LibrarianRestController {
 	public CustomerDto updateCustomer(@PathVariable("id") int id, @PathVariable("newIsVerified") boolean newIsVerified, @PathVariable("newIsLocal") boolean newIsLocal, @PathVariable("newBalance") int newBalance) {
 		Customer customer = librarianService.updateCustomer(id, newIsVerified, newIsLocal, newBalance);
 		return convertToDto(customer);
+	}
+
+	// Create customer account with first name, last name, email, address, and balance
+	@PostMapping(value= { "/createCustomer/{firstName}/{lastName}/{email}/{address}/{balance}", "/createCustomer/{firstName}/{lastName}/{email}/{address}/{balance}/" })
+	public CustomerDto createCustomer(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName, @PathVariable("email") String email, @PathVariable("address") String address, @PathVariable("balance") int balance) {
+		Customer customer = librarianService.createCustomer(firstName, lastName, email, address, balance);
+    return convertToDto(customer);
 	}
 
 	/**

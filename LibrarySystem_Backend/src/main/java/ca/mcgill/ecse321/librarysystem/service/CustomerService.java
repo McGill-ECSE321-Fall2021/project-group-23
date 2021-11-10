@@ -39,7 +39,7 @@ public class CustomerService {
     else if (lastName == null || lastName.replaceAll("\\s+","").length() == 0) {
       throw new IllegalArgumentException("Your last name cannot be empty.");
     }
-    else if (lastName.matches(".*\\d.*") || containsSpecialCharacter(firstName)) {
+    else if (lastName.matches(".*\\d.*") || containsSpecialCharacter(lastName)) {
       throw new IllegalArgumentException("Your last name cannot contain a number or a special character.");
     }
     else if (password == null || password.length() < 8 || !password.matches(".*[A-Z].*")) {
@@ -94,7 +94,7 @@ public class CustomerService {
 
   @Transactional
   public Customer updateCustomer(int id, String newPassword, String newAddress) {
-    if (String.valueOf(id).length() == 0) {
+    if (id == 0) {
       throw new IllegalArgumentException("Customer id cannot be empty.");
     } 
     else {
