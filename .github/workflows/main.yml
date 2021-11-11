@@ -28,7 +28,7 @@ jobs:
       run: ./gradlew build
       working-directory: LibrarySystem_Backend
   deploy:
-    runs-on: Windows-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
