@@ -22,25 +22,30 @@ public class OpeningsHoursService {
 	public OpeningsHours createOpeningsHours(DayOfWeek day, Time startTime, Time endTime) {
 		String error = "";
 		if (day == null) {
-			error = error + "day of week name cannot be empty! ";
+			error = error + "Day of week name cannot be empty! ";
 		}
 		if (startTime == null) {
-			error = error + "start Time cannot be empty! ";
+			error = error + "Start Time cannot be empty! ";
 		}
 		if (endTime == null) {
-			error = error + "end Time cannot be empty! ";
+			error = error + "End Time cannot be empty! ";
 		}
 		if (endTime != null && startTime != null &&startTime.after(endTime)){
-			error = error + "start time can't be after end time";
+			error = error + "Start time can't be after end time";
 		}
 		error = error.trim();
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
+		for (OpeningsHours ohs : toList(openingsHoursRepository.findAll())) {
+			if (ohs.getOpeningDay().equals(day)) {
+				throw new IllegalArgumentException("There are already opening hours for this day (Try updating).");
+			}
+		}
 		OpeningsHours oh = new OpeningsHours();
-		oh.setOpeningDay(day);;
-		oh.setStartTime(startTime);;
-		oh.setEndTime(endTime);;
+		oh.setOpeningDay(day);
+		oh.setStartTime(startTime);
+		oh.setEndTime(endTime);
 		openingsHoursRepository.save(oh);
 		return oh;
 	}
@@ -67,7 +72,10 @@ public class OpeningsHoursService {
 	public OpeningsHours updateOpeningsHours(DayOfWeek day, Time newStartTime, Time newEndTime) {
 		String error = "";
 		if (openingsHoursRepository.findOpeningsHoursByOpeningDay(day)==null) {
-			error = error + "openings hours not found";
+			error = error + "Openings hours not found";
+		}
+		if (newEndTime != null && newStartTime != null &&newStartTime.after(newEndTime)){
+			error = error + "start time can't be after end time";
 		}
 		error = error.trim();
 		if (error.length() > 0) {
