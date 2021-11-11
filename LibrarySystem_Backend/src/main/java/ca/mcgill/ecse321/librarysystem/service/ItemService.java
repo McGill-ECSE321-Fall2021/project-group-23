@@ -33,35 +33,35 @@ public class ItemService {
             Book book = new Book();
             book.setTitle(title);
             book.setStatus(Item.Status.AVAILABLE);
-            int id = itemRepository.save(book).getItemId();
+            itemRepository.save(book).getItemId();
            // book.setItemId(id);
             return book;
         } else if (type.toUpperCase().equals("MOVIE")) {
             Movie movie = new Movie();
             movie.setTitle(title);
             movie.setStatus(Item.Status.AVAILABLE);
-            int id = itemRepository.save(movie).getItemId();
+            itemRepository.save(movie).getItemId();
            // movie.setItemId(id);
             return movie;
         } else if (type.toUpperCase().equals("NEWSPAPERS") || type.toUpperCase().equals("NEWSPAPER")) {
             Newspapers newspaper = new Newspapers();
             newspaper.setTitle(title);
             newspaper.setStatus(Item.Status.AVAILABLE);
-            int id = itemRepository.save(newspaper).getItemId();
+            itemRepository.save(newspaper).getItemId();
            // newspaper.setItemId(id);
             return newspaper;
         } else if (type.toUpperCase().equals("ARCHIVE")) {
             Archive archive = new Archive();
             archive.setTitle(title);
             archive.setStatus(Item.Status.AVAILABLE);
-            int id = itemRepository.save(archive).getItemId();
+            itemRepository.save(archive).getItemId();
            // archive.setItemId(id);
             return archive;
         } else if (type.toUpperCase().equals("ALBUM")) {
             Album album = new Album();
             album.setTitle(title);
             album.setStatus(Item.Status.AVAILABLE);
-            int id = itemRepository.save(album).getItemId();
+            itemRepository.save(album).getItemId();
            // album.setItemId(id);
             return album;
         } 
