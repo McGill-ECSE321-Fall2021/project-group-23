@@ -21,4 +21,5 @@ Link to wiki page containing details on our deliverables.
 
 ## Overview Tables
 ### Deliverable 1
-<img src="https://raw.githubusercontent.com/wiki/McGill-ECSE321-Fall2021/project-group-23/Images/Efforts.PNG?token=AQ7NZDFU7EXGGH2Z2BGZGRDBRMN6Q" width="2500">
+![Efforts](Documentation_Files/Efforts.PNG)
+
