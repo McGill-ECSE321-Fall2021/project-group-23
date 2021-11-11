@@ -1,15 +1,11 @@
 package ca.mcgill.ecse321.librarysystem.controller;
 
 import java.sql.Date;
-import java.text.DateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,9 +47,6 @@ public class ReservationRestController {
     public ReservationDto createReservation(@PathVariable("customerId") int customerId,
             @PathVariable("itemId") int itemId,
             @PathVariable("date") String date,
-            //@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-            //@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date date,
-            //@RequestParam("localDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @PathVariable("isCheckedOut") boolean isCheckedOut) {
         ReservationDto reservationDto = convertToDto(
                 reservationService.createReservation(itemId, customerId, Date.valueOf(date), isCheckedOut));
@@ -143,27 +136,27 @@ public class ReservationRestController {
      * updates the reservation customer
      * 
      */
-    @PutMapping(value = { "updateReservationCustomer/{reservationId}/{customerId}",
+    /*@PutMapping(value = { "updateReservationCustomer/{reservationId}/{customerId}",
             "updateReservationCustomer/{reservationId}/{customerId}" })
     public ReservationDto updateReservationCustomer(@PathVariable("reservationId") int reservationId,
             @PathVariable("customerId") int customerId) {
         ReservationDto reservation = convertToDto(reservationService.updateReservationCustomer(reservationId,
                 customerService.getCustomerByAccountId(customerId)));
         return reservation;
-    }
+    }*/
 
     /**
      * updates the reservation item
      * 
      */
-    @PutMapping(value = { "updateReservationItem/{reservationId}/{itemId}",
+    /*@PutMapping(value = { "updateReservationItem/{reservationId}/{itemId}",
             "updateReservationItem/{reservationId}/{itemId}" })
     public ReservationDto updateReservationItem(@PathVariable("reservationId") int reservationId,
             @PathVariable("itemId") int itemId) {
         ReservationDto reservation = convertToDto(
                 reservationService.updateReservationItem(reservationId, itemService.getItem(itemId)));
         return reservation;
-    }
+    }*/
 
     /**
      * converts a reservation to a reservation Dto

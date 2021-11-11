@@ -71,7 +71,13 @@ public class ReservationService {
         Date endDate = new Date(c.getTimeInMillis());
         
         Reservation reservation = new Reservation();
-        itemRepository.findItemByItemId(itemId).setStatus(Item.Status.RESERVED);
+        if(isCheckedout){
+            itemRepository.findItemByItemId(itemId).setStatus(Item.Status.BORROWED);
+        }
+        else{
+            itemRepository.findItemByItemId(itemId).setStatus(Item.Status.RESERVED);
+        }
+        
         reservation.setItem(itemRepository.findItemByItemId(itemId));
         reservation.setCustomer(customerRepository.findCustomerByAccountId(customerId));
         reservation.setIsCheckedOut(isCheckedout);
@@ -182,7 +188,7 @@ public class ReservationService {
         return reservation;
     }
 
-    @Transactional
+    /*@Transactional
     public Reservation updateReservationItem(int id, Item item) {
         String error = "";
         if (reservationRepository.findById(id) == null) {
@@ -219,7 +225,7 @@ public class ReservationService {
         reservation.setCustomer(customer);
         reservationRepository.save(reservation);
         return reservation;
-    }
+    }*/
 
 
     private <T> List<T> toList(Iterable<T> iterable) {
