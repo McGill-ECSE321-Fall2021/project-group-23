@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.librarysystem.service;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -32,18 +33,13 @@ public class ReservationService {
     private CustomerRepository customerRepository;
     
 
+
     @Transactional
-    public Reservation createReservation(int itemId, int customerId, Date startDate, Date endDate, boolean isCheckedout){
+    public Reservation createReservation(int itemId, int customerId, Date startDate, boolean isCheckedout){
 
         String error = "";
-
-
         if (startDate == null) {
             error = error + "A start date is needed to create a reservation";
-        }
-
-        if (endDate == null) {
-            error = error + "An end date is needed to create a reservation";
         }
         //Check if they are no reservation for this item
         for (Reservation reserv : reservationRepository.findAll()) {
@@ -52,12 +48,12 @@ public class ReservationService {
             }
         }
         //Check if the item is available
-        if(itemRepository.findById(itemId).get().getStatus().compareTo(Item.Status.AVAILABLE)  != 0) {
+        if(itemRepository.findItemByItemId(itemId).getStatus().compareTo(Item.Status.AVAILABLE)  != 0) {
             error = error + "The book is not available";
         }
 
         //Check if the item can be reserved
-        if(!itemRepository.findById(itemId).get().canBeBorrowed) {
+        if(!itemRepository.findItemByItemId(itemId).canBeBorrowed) {
             error = error + "This item cannot be borrowed";
         }
 
@@ -69,8 +65,19 @@ public class ReservationService {
         if (error.length() >0) {
             throw new InvalidInputException(error);
         }
+        Calendar c = Calendar.getInstance(); 
+        c.setTime(startDate); 
+        c.add(Calendar.DAY_OF_MONTH, 21);
+        Date endDate = new Date(c.getTimeInMillis());
+        
         Reservation reservation = new Reservation();
-        itemRepository.findItemByItemId(itemId).setStatus(Item.Status.RESERVED);
+        if(isCheckedout){
+            itemRepository.findItemByItemId(itemId).setStatus(Item.Status.BORROWED);
+        }
+        else{
+            itemRepository.findItemByItemId(itemId).setStatus(Item.Status.RESERVED);
+        }
+        
         reservation.setItem(itemRepository.findItemByItemId(itemId));
         reservation.setCustomer(customerRepository.findCustomerByAccountId(customerId));
         reservation.setIsCheckedOut(isCheckedout);
@@ -181,7 +188,7 @@ public class ReservationService {
         return reservation;
     }
 
-    @Transactional
+    /*@Transactional
     public Reservation updateReservationItem(int id, Item item) {
         String error = "";
         if (reservationRepository.findById(id) == null) {
@@ -218,7 +225,7 @@ public class ReservationService {
         reservation.setCustomer(customer);
         reservationRepository.save(reservation);
         return reservation;
-    }
+    }*/
 
 
     private <T> List<T> toList(Iterable<T> iterable) {
