@@ -27,6 +27,18 @@ dependencies {
 	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2' // IMPORTANT VERSION
 }
 
+task integrationTests(type: Exec){
+	commandLine 'cmd', '/c','curl -s -X POST http://localhost:8080/createItem/lolStory/book'
+	commandLine 'cmd', '/c','curl -s -X POST http://localhost:8080/createCustomer/bashar/eskandar/Lollollol/bashar@hotmail.com/true/true/611 rue lol/0'
+	//commandLine 'cmd', '/c','curl -s -X POST http://localhost:8080/holidays/{name}'
+	//commandLine 'cmd', '/c','curl -s -X POST http://localhost:8080//openingsHours/{openingDay}'
+	
+	standardOutput = new ByteArrayOutputStream()
+	ext.output = {
+    	return standardOutput.toString()
+  	}
+}
+
 test {
 	useJUnitPlatform()
 }
