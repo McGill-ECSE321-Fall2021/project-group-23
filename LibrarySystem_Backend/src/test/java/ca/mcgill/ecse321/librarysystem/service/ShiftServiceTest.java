@@ -266,6 +266,31 @@ public class ShiftServiceTest {
 		assertEquals("Shift to delete could not be found.", error);
 	}
 	
+	// Test to delete all shifts in database
+	@Test
+	public void testDeleteAllShifts() {
+		List<Shift> shifts = null;
+		shifts = shiftService.deleteAllShifts();
+		assertNotNull(shifts);
+	}
+	
+	// Test to get a shift by its id
+	@Test
+	public void testGetShiftById() {
+		Shift s = null;
+		lenient().when(shiftRepository.existsByShiftId(anyInt())).thenReturn(true);
+		try {
+			s = shiftService.getShift(SHIFTID);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertNotNull(s);
+		assertEquals(s.getShiftId(), SHIFTID);
+		assertEquals(s.getStartTime(), Time.valueOf(STARTTIME));
+		assertEquals(s.getEndTime(), Time.valueOf(ENDTIME));
+		assertEquals(s.getWorkingDay(), DayOfWeek.valueOf(DAYOFWEEK));
+	}
+	
 	@Test
 	public void testGetShiftDayAndTimes() {
 		// Shift created so that the find method returns it 
