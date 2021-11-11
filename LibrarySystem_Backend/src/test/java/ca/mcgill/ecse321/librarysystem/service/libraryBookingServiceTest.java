@@ -302,7 +302,7 @@ public class libraryBookingServiceTest {
             error = e.getMessage();
         }
         assertNull(libraryBooking);
-        assertEquals(error, "A start date is needed to create a libraryBooking");
+        assertEquals("A start date is needed to create a libraryBooking", error);
         
     }
 
@@ -327,7 +327,7 @@ public class libraryBookingServiceTest {
             error = e.getMessage();
         }
         assertNull(libraryBooking);
-        assertEquals(error, "An end date is needed to create a libraryBooking");
+        assertEquals("An end date is needed to create a libraryBooking", error);
         
     }
 
@@ -352,7 +352,7 @@ public class libraryBookingServiceTest {
             error = e.getMessage();
         }
         assertNull(libraryBooking);
-        assertEquals(error, "A start time is needed to create a LibraryBooking");
+        assertEquals("A start time is needed to create a LibraryBooking", error);
         
     }
 
@@ -376,7 +376,7 @@ public class libraryBookingServiceTest {
             error = e.getMessage();
         }
         assertNull(libraryBooking);
-        assertEquals(error, "An end time is needed to create a libraryBooking");
+        assertEquals("An end time is needed to create a libraryBooking", error);
         
     }
 
@@ -403,7 +403,7 @@ public class libraryBookingServiceTest {
             error = e.getMessage();
         }
         assertNull(libraryBooking);
-        assertEquals(error, "Each libraryBooking cannot be for multiple days");
+        assertEquals("Each libraryBooking cannot be for multiple days", error);
     }
 
     //Test for creating a libraryBooking with a startTime before and end time
@@ -424,7 +424,7 @@ public class libraryBookingServiceTest {
             error = e.getMessage();
         }
         assertNull(libraryBooking);
-        assertEquals(error, "The end time of a libraryBooking cannot be before its start time");
+        assertEquals("The end time of a libraryBooking cannot be before its start time", error);
         
     }
 
@@ -459,7 +459,7 @@ public class libraryBookingServiceTest {
                 error = e.getMessage();
             }
             assertNull(libraryBooking);
-            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
+            assertEquals("This libraryBooking overlaps with an existing libraryBooking", error);  
     }
 
 
@@ -494,7 +494,7 @@ public class libraryBookingServiceTest {
                 error = e.getMessage();
             }
             assertNull(libraryBooking);
-            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
+            assertEquals("This libraryBooking overlaps with an existing libraryBooking", error);  
     }
     //Test for creating a library booking with an overlap
     //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
@@ -527,7 +527,7 @@ public class libraryBookingServiceTest {
                 error = e.getMessage();
             }
             assertNull(libraryBooking);
-            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
+            assertEquals("This libraryBooking overlaps with an existing libraryBooking", error);  
     }
 
     //Test for creating a library booking with an overlap
@@ -561,7 +561,7 @@ public class libraryBookingServiceTest {
                 error = e.getMessage();
             }
             assertNull(libraryBooking);
-            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
+            assertEquals("This libraryBooking overlaps with an existing libraryBooking", error);  
     }
     //Test for creating a library booking with an overlap (Same startDate, endDate, startTime and endTime)
     //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
@@ -594,7 +594,7 @@ public class libraryBookingServiceTest {
                 error = e.getMessage();
             }
             assertNull(libraryBooking);
-            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
+            assertEquals("This libraryBooking overlaps with an existing libraryBooking", error);  
     }
 
     //Test for deleting a libraryBooking successfully with Id
@@ -625,7 +625,7 @@ public class libraryBookingServiceTest {
             error = e.getMessage();
         }
 
-        assertEquals(error, "libraryBooking does not exist");
+        assertEquals("libraryBooking does not exist", error);
 
 
     }
@@ -683,7 +683,7 @@ public class libraryBookingServiceTest {
             error = e.getMessage();
         }
         assertNull(libraryBooking);
-        assertEquals(error, "libraryBooking does not exist");
+        assertEquals("libraryBooking does not exist", error);
     }
     
 
@@ -729,7 +729,7 @@ public class libraryBookingServiceTest {
             error = e.getMessage();
         }
         assertNull(libraryBooking);
-        assertEquals(error, "Customer does not exist");
+        assertEquals("Customer does not exist", error);
     }
 
     //Test for updating LibraryBooking date and time successfully
@@ -774,7 +774,7 @@ public class libraryBookingServiceTest {
             error = e.getMessage();
         }
         assertNull(libraryBooking);
-        assertEquals(error, "StartDate cannot be empty");
+        assertEquals("StartDate cannot be empty", error);
 
     }
     //Test for updating LibraryBooking date and time with a null endDate
@@ -796,7 +796,7 @@ public class libraryBookingServiceTest {
             error = e.getMessage();
         }
         assertNull(libraryBooking);
-        assertEquals(error, "EndDate cannot be empty");
+        assertEquals("EndDate cannot be empty", error);
         
     }
     //Test for updating LibraryBooking date and time with a null startTime
@@ -817,7 +817,7 @@ public class libraryBookingServiceTest {
             error = e.getMessage();
         }
         assertNull(libraryBooking);
-        assertEquals(error, "StartTime cannot be empty");
+        assertEquals("StartTime cannot be empty", error);
         
         
     }
@@ -838,7 +838,7 @@ public class libraryBookingServiceTest {
             error = e.getMessage();
         }
         assertNull(libraryBooking);
-        assertEquals(error, "EndTime cannot be empty");
+        assertEquals("EndTime cannot be empty", error);
         
     }
     //Test for updating LibraryBooking date and time with different startDate and endDate
@@ -861,7 +861,7 @@ public class libraryBookingServiceTest {
             error = e.getMessage();
         }
         assertNull(libraryBooking);
-        assertEquals(error, "Each libraryBooking cannot be for multiple days");
+        assertEquals("Each libraryBooking cannot be for multiple days", error);
         
     }
     //Test for updating LibraryBooking date and time with a startTime before and endTime
@@ -882,7 +882,7 @@ public class libraryBookingServiceTest {
             error = e.getMessage();
         }
         assertNull(libraryBooking);
-        assertEquals(error, "The end time of a libraryBooking cannot be before its start time");
+        assertEquals("The end time of a libraryBooking cannot be before its start time", error);
         
     }
 
@@ -916,7 +916,7 @@ public class libraryBookingServiceTest {
                 error = e.getMessage();
             }
             assertNull(libraryBooking);
-            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
+            assertEquals("This libraryBooking overlaps with an existing libraryBooking", error);  
     }
     //Test for updating a library booking with an overlap
     //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
@@ -948,7 +948,7 @@ public class libraryBookingServiceTest {
                 error = e.getMessage();
             }
             assertNull(libraryBooking);
-            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
+            assertEquals("This libraryBooking overlaps with an existing libraryBooking", error);  
     }
     //Test for updating a library booking with an overlap
     //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
@@ -980,7 +980,7 @@ public class libraryBookingServiceTest {
                 error = e.getMessage();
             }
             assertNull(libraryBooking);
-            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
+            assertEquals("This libraryBooking overlaps with an existing libraryBooking", error);  
     }
     //Test for updating a library booking with an overlap
     //Should throw the following error: "This libraryBooking overlaps with an existing libraryBooking"
@@ -1012,7 +1012,7 @@ public class libraryBookingServiceTest {
                 error = e.getMessage();
             }
             assertNull(libraryBooking);
-            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
+            assertEquals("This libraryBooking overlaps with an existing libraryBooking", error);  
     }
 
     //Test for updating a library booking with an overlap (Same startDate, endDate, startTime and endTime)
@@ -1046,7 +1046,7 @@ public class libraryBookingServiceTest {
                 error = e.getMessage();
             }
             assertNull(libraryBooking);
-            assertEquals(error, "This libraryBooking overlaps with an existing libraryBooking");  
+            assertEquals("This libraryBooking overlaps with an existing libraryBooking", error);  
     }
 
     //Test for updating LibraryBooking Customer success
@@ -1072,7 +1072,7 @@ public class libraryBookingServiceTest {
             error = e.getMessage();
         }
         assertNull(libraryBooking);
-        assertEquals(error, "librayBooking does not exist");
+        assertEquals("librayBooking does not exist", error);
         
     }
     //Test update LibraryBooking with non existant libraryBooking
@@ -1099,7 +1099,7 @@ public class libraryBookingServiceTest {
             error = e.getMessage();
         }
         assertNull(libraryBooking);
-        assertEquals(error, "librayBooking does not exist");
+        assertEquals("librayBooking does not exist", error);
         
     }
 
@@ -1116,7 +1116,7 @@ public class libraryBookingServiceTest {
             error = e.getMessage();
         }
         assertNull(libraryBooking);
-        assertEquals(error, "Customer cannot be empty");
+        assertEquals("Customer cannot be empty", error);
         
     }
     
