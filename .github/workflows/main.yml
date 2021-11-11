@@ -27,3 +27,12 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
       working-directory: LibrarySystem_Backend
+  deploy:
+    runs-on: Windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+      with:
+          heroku_api_key: "908818ec-bd43-4156-a596-6fb8a919d317"
+          heroku_app_name: "sysbackend-ecse321fall2021yolo" #Must be unique in Heroku
+          heroku_email: "bashar.eskandar@mail.mcgill.ca"
