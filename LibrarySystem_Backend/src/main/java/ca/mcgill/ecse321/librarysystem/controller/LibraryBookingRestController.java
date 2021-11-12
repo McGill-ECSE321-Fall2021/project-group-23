@@ -40,14 +40,14 @@ private CustomerService customerService;
 @PostMapping(value = {"/createLibraryBooking/{customerId}", "/createLibraryBooking/{customerId}/" })
 public LibraryBookingDto createLibraryBooking(
     @PathVariable("customerId") int customerId,
-    @RequestParam Date startDate,
-    @RequestParam Date endDate,
+    @RequestParam String startDate,
+    @RequestParam String endDate,
     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
 	@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime
     
 ) {
 
-    LibraryBookingDto libraryBookingDto = convertToDto(libraryBookingService.createLibraryBooking(startDate, endDate, Time.valueOf(startTime), Time.valueOf(endTime), customerId));
+    LibraryBookingDto libraryBookingDto = convertToDto(libraryBookingService.createLibraryBooking(Date.valueOf(startDate), Date.valueOf(endDate), Time.valueOf(startTime), Time.valueOf(endTime), customerId));
     return libraryBookingDto;
 }
 
@@ -115,13 +115,13 @@ public List<LibraryBookingDto> deleteAllLibraryBooking() {
 @PutMapping(value = { "/updateLibraryBookingDateAndTime/{libraryBookingId}", "/updateLibraryBookingDateAndTime/{libraryBookingId}/" })
 public LibraryBookingDto updateLibraryBookingDateAndTime(
     @PathVariable("libraryBookingId") int reservationId,
-    @RequestParam Date startDate,
-    @RequestParam Date endDate,
+    @RequestParam String startDate,
+    @RequestParam String endDate,
     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
 	@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime
     )
 {
-    LibraryBookingDto libraryBooking = convertToDto(libraryBookingService.updateLibraryBookingDateAndTime(reservationId, startDate, endDate, Time.valueOf(startTime), Time.valueOf(endTime)));
+    LibraryBookingDto libraryBooking = convertToDto(libraryBookingService.updateLibraryBookingDateAndTime(reservationId, Date.valueOf(startDate), Date.valueOf(endDate), Time.valueOf(startTime), Time.valueOf(endTime)));
     return libraryBooking;
 
 }
