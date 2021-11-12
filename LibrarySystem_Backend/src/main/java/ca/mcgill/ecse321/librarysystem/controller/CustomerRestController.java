@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,7 +64,7 @@ public class CustomerRestController {
     return convertToDto(customer);
   }
 
-  @PutMapping(value = { "/deleteCustomer/{id}", "deleteCustomer/{id}/" }) 
+  @DeleteMapping(value = { "/deleteCustomer/{id}", "deleteCustomer/{id}/" }) 
   public CustomerDto deleteCustomer(@PathVariable("id") int id) {
     Customer customer = customerService.deleteCustomer(id);
     return convertToDto(customer);
