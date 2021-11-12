@@ -125,9 +125,9 @@ public class ReservationRestController {
      */
     @PutMapping(value = { "/updateReservationDate/{reservationId}", "/updateReservationDate/{reservationId}/" })
     public ReservationDto updateReservationDate(@PathVariable("reservationId") int reservationId,
-            @RequestParam Date startDate, @RequestParam Date endDate) {
+            @RequestParam String startDate, @RequestParam String endDate) {
         ReservationDto reservation = convertToDto(
-                reservationService.updateReservationDate(reservationId, startDate, endDate));
+                reservationService.updateReservationDate(reservationId, Date.valueOf(startDate), Date.valueOf(endDate)));
         return reservation;
 
     }
