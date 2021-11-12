@@ -196,6 +196,33 @@ public class ReservationServiceTest {
     }
     
     @Test
+    public void testDeleteAllReservation() {
+        List<Reservation> reservations = null;
+        reservations = reservationService.deleteAllReservation();
+        assertNotNull(reservations);
+        assertEquals(RESERVATION_ID_exists, reservations.get(0).getId());
+        assertEquals(ITEM_ID_exists_reserved, reservations.get(0).getItem().getItemId());
+
+    }
+
+    @Test
+    public void testUpdateReservationdate() {
+        Reservation reservation = null;
+        Calendar C = Calendar.getInstance();
+        C.set(2021, Calendar.JANUARY, 01, 10, 0, 0);
+        Date startDate = new Date(C.getTimeInMillis());
+        Date endDate = new Date(C.getTimeInMillis());
+        try{
+            reservation = reservationService.updateReservationDate(RESERVATION_ID_exists, startDate, endDate);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+        assertNotNull(reservation);
+        assertEquals(startDate, reservation.getReservationStartDate());
+        assertEquals(endDate, reservation.getReservationEndDate());
+        
+    }
+    @Test
     public void getReservationByItemSUCCESS() {
         Reservation res = null;
         Book book = new Book();
