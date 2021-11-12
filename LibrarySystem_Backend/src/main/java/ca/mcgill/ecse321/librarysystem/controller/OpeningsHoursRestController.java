@@ -28,16 +28,16 @@ public class OpeningsHoursRestController {
 
 	@Autowired
 	private OpeningsHoursService service;
-	
-	@PostMapping(value = { "/openingsHours/{openingDay}", "/openingsHours/{openingDay}/" })
+	//creates a opening hours 
+	@PostMapping(value = { "/createOpeningsHour/{openingDay}", "/createOpeningsHour/{openingDay}/" })
 	public OpeningsHoursDto createOpeningsHours(@PathVariable("openingDay") DayOfWeek openingDay,@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime)
 	throws IllegalArgumentException {
 		OpeningsHours oh = service.createOpeningsHours(openingDay, Time.valueOf(startTime), Time.valueOf(endTime));
 		return convertToDto(oh);
 	}
-
-	@GetMapping(value = { "/openingsHours", "/openingsHours/" })
+	//returns all the existing opening hours
+	@GetMapping(value = { "/getAllOpeningsHours", "/getAllOpeningsHours/" })
 	public List<OpeningsHoursDto> getAllOpeningsHours() {
 		List<OpeningsHoursDto> openingsHoursDtos = new ArrayList<>();
 		for (OpeningsHours openingsHours : service.getAllOpeningsHours()) {
@@ -45,12 +45,12 @@ public class OpeningsHoursRestController {
 		}
 		return openingsHoursDtos;
 	}
-
-	@GetMapping(value = { "/openingsHours/{openingDay}", "/openingsHourss/{openingDay}/" })
+	//Returns a specific opening hours
+	@GetMapping(value = { "/getOpeningsHoursByName/{openingDay}", "/getOpeningsHoursByName/{openingDay}/" })
 	public OpeningsHoursDto getOpeningsHoursByName(@PathVariable("openingDay") DayOfWeek openingDay) throws IllegalArgumentException {
 		return convertToDto(service.getOpeningsHours(openingDay));
 	}
-	
+	//Updates the opening hours of an opening day
 	@PutMapping(value = { "/updateOpeningsHoursTimes/{openingDay}", "/updateOpeningsHoursTimes/{openingDay}/" })
 	public OpeningsHoursDto updateOpeningsHoursTimes(@PathVariable("openingDay") DayOfWeek openingDay,@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime newStartTime,
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime newEndTime)
@@ -58,14 +58,14 @@ public class OpeningsHoursRestController {
 		OpeningsHours oh = service.updateOpeningsHours(openingDay, Time.valueOf(newStartTime), Time.valueOf(newEndTime));
 		return convertToDto(oh);
 	}
-	
+	//Delete an opening hour
 	@DeleteMapping(value = {"/deleteOpeningsHours/{openingDay}","/deleteOpeningsHours/{openingDay}/"})
 	public OpeningsHoursDto deleteOpeningsHours(@PathVariable("openingDay") DayOfWeek openingDay) {
 		
 		OpeningsHours oh = service.deleteOpeningsHours(openingDay);
 		return convertToDto(oh);
 	}
-	
+	//Delete all the opening hours
 	@DeleteMapping(value = {"/deleteAllOpeningsHours", "/deleteAllOpeningsHours/"})
 	public List<OpeningsHoursDto> deleteAllOpeningsHours() {
 		List<OpeningsHours> openingsHours = service.deleteAllOpeningsHours();
@@ -76,7 +76,7 @@ public class OpeningsHoursRestController {
 		return openingsHoursDtos;
 	}
 
-
+	//Converts an opening hours to an opening hourDto
 	private OpeningsHoursDto convertToDto(OpeningsHours oh) {
 		if (oh == null) {
 			throw new IllegalArgumentException("There is no such opening Hours!");

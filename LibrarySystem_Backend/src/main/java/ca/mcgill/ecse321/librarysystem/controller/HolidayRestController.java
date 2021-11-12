@@ -25,14 +25,15 @@ public class HolidayRestController {
 	@Autowired
 	private HolidayService service;
 	
-	@PostMapping(value = { "/holidays/{name}", "/holidays/{name}/" })
+	//Creates a holiday
+	@PostMapping(value = { "/createHoliday/{name}", "/createHoliday/{name}/" })
 	public HolidayDto createHoliday(@PathVariable("name") String name, @RequestParam String startDate,@RequestParam String endDate)
 	throws IllegalArgumentException {
 		Holiday holiday = service.createHoliday(name, Date.valueOf(startDate), Date.valueOf(endDate));
 		return convertToDto(holiday);
 	}
-
-	@GetMapping(value = { "/holidays", "/holidays/" })
+	//Returns all the holidays that exist
+	@GetMapping(value = { "/getAllHolidays", "/getAllHolidays/" })
 	public List<HolidayDto> getAllHolidays() {
 		List<HolidayDto> holidayDtos = new ArrayList<>();
 		for (Holiday holiday : service.getAllHolidays()) {
@@ -40,26 +41,26 @@ public class HolidayRestController {
 		}
 		return holidayDtos;
 	}
-
-	@GetMapping(value = { "/holidays/{name}", "/holidays/{name}/" })
+	//returns the holiday with a specific name
+	@GetMapping(value = { "/getHolidayByName/{name}", "/getHolidayByName/{name}/" })
 	public HolidayDto getHolidayByName(@PathVariable("name") String name) throws IllegalArgumentException {
 		return convertToDto(service.getHoliday(name));
 	}
-	
+	//updates the dates of a holiday with a specific name
 	@PutMapping(value = { "/updateHolidayDates/{name}", "/updateHolidayDate/{name}/" })
 	public HolidayDto updateHolidayDates(@PathVariable("name") String name, @RequestParam String newStartDate,@RequestParam String newEndDate)
 	throws IllegalArgumentException {
 		Holiday holiday = service.updateHolidayDates(name, Date.valueOf(newStartDate), Date.valueOf(newEndDate));
 		return convertToDto(holiday);
 	}
-	
+	//Delete a holiday with a specific name
 	@DeleteMapping(value = {"/deleteHoliday/{name}","/deleteHoliday/{name}/"})
 	public HolidayDto deleteHoliday(@PathVariable("name") String name) {
 		
 		Holiday holiday = service.deleteHoliday(name);
 		return convertToDto(holiday);
 	}
-	
+	//Deletes all the holidays
 	@DeleteMapping(value = {"/deleteAllHolidays", "/deleteAllHolidays/"})
 	public List<HolidayDto> deleteAllHolidays() {
 		List<Holiday> holidays = service.deleteAllHolidays();
@@ -70,7 +71,7 @@ public class HolidayRestController {
 		return holidayDtos;
 	}
 
-
+	//Converts a holiday object to HolidayDto
 	private HolidayDto convertToDto(Holiday h) {
 		if (h == null) {
 			throw new IllegalArgumentException("There is no such Holiday!");
