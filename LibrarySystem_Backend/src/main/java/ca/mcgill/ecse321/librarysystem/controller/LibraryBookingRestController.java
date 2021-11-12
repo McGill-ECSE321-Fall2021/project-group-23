@@ -130,7 +130,7 @@ public LibraryBookingDto updateLibraryBookingDateAndTime(
 	 * updates a libraryBooking customer
 	 * 
 	 */
-@PutMapping(value = { "updateLibraryBookingCustomer/{libraryBookingId}/{customerId}", "updateLibraryBookingCustomer/{libraryBookingnId}/{customerId}" })
+@PutMapping(value = { "/updateLibraryBookingCustomer/{libraryBookingId}/{customerId}", "/updateLibraryBookingCustomer/{libraryBookingnId}/{customerId}" })
 public LibraryBookingDto updateLibraryBookingCustomer(
     @PathVariable("libraryBookingId") int reservationId,
     @PathVariable("customerId") int customerId
