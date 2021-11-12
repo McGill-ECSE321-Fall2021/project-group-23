@@ -29,7 +29,7 @@ public class OpeningsHoursRestController {
 	@Autowired
 	private OpeningsHoursService service;
 	
-	@PostMapping(value = { "/openingsHours/{openingDay}", "/openingsHours/{openingDay}/" })
+	@PostMapping(value = { "/createOpeningsHour/{openingDay}", "/createOpeningsHour/{openingDay}/" })
 	public OpeningsHoursDto createOpeningsHours(@PathVariable("openingDay") DayOfWeek openingDay,@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime)
 	throws IllegalArgumentException {
@@ -37,7 +37,7 @@ public class OpeningsHoursRestController {
 		return convertToDto(oh);
 	}
 
-	@GetMapping(value = { "/openingsHours", "/openingsHours/" })
+	@GetMapping(value = { "/getAllOpeningsHours", "/getAllOpeningsHours/" })
 	public List<OpeningsHoursDto> getAllOpeningsHours() {
 		List<OpeningsHoursDto> openingsHoursDtos = new ArrayList<>();
 		for (OpeningsHours openingsHours : service.getAllOpeningsHours()) {
@@ -46,7 +46,7 @@ public class OpeningsHoursRestController {
 		return openingsHoursDtos;
 	}
 
-	@GetMapping(value = { "/openingsHours/{openingDay}", "/openingsHourss/{openingDay}/" })
+	@GetMapping(value = { "/getOpeningsHoursByName/{openingDay}", "/getOpeningsHoursByName/{openingDay}/" })
 	public OpeningsHoursDto getOpeningsHoursByName(@PathVariable("openingDay") DayOfWeek openingDay) throws IllegalArgumentException {
 		return convertToDto(service.getOpeningsHours(openingDay));
 	}
