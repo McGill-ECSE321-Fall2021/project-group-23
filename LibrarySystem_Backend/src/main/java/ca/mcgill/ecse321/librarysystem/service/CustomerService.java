@@ -30,12 +30,15 @@ public class CustomerService {
 	 */
   @Transactional
   public Customer createCustomer(String firstName, String lastName, String password, String email, boolean isVerified, boolean isLocal, String address, int balance) {
+    //Checks if first name is null or empty
     if (firstName == null || firstName.replaceAll("\\s+","").length() == 0) {
       throw new IllegalArgumentException("Your first name cannot be empty.");
     }
+    //Checks if first name contains special characters
     else if (firstName.matches(".*\\d.*") || containsSpecialCharacter(firstName)) {
       throw new IllegalArgumentException("Your first name cannot contain a number or a special character.");
     }
+    //Checks that last name is not null or is empty
     else if (lastName == null || lastName.replaceAll("\\s+","").length() == 0) {
       throw new IllegalArgumentException("Your last name cannot be empty.");
     }
