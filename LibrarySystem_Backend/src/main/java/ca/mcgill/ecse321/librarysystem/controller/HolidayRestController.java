@@ -26,9 +26,9 @@ public class HolidayRestController {
 	private HolidayService service;
 	
 	@PostMapping(value = { "/holidays/{name}", "/holidays/{name}/" })
-	public HolidayDto createHoliday(@PathVariable("name") String name, @RequestParam Date startDate,@RequestParam Date endDate)
+	public HolidayDto createHoliday(@PathVariable("name") String name, @RequestParam String startDate,@RequestParam String endDate)
 	throws IllegalArgumentException {
-		Holiday holiday = service.createHoliday(name, startDate, endDate);
+		Holiday holiday = service.createHoliday(name, Date.valueOf(startDate), Date.valueOf(endDate));
 		return convertToDto(holiday);
 	}
 
@@ -47,9 +47,9 @@ public class HolidayRestController {
 	}
 	
 	@PutMapping(value = { "/updateHolidayDates/{name}", "/updateHolidayDate/{name}/" })
-	public HolidayDto updateHolidayDates(@PathVariable("name") String name, @RequestParam Date newStartDate,@RequestParam Date newEndDate)
+	public HolidayDto updateHolidayDates(@PathVariable("name") String name, @RequestParam String newStartDate,@RequestParam String newEndDate)
 	throws IllegalArgumentException {
-		Holiday holiday = service.updateHolidayDates(name, newStartDate, newEndDate);
+		Holiday holiday = service.updateHolidayDates(name, Date.valueOf(newStartDate), Date.valueOf(newEndDate));
 		return convertToDto(holiday);
 	}
 	
