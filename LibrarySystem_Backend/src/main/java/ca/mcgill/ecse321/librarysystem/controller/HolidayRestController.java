@@ -25,14 +25,15 @@ public class HolidayRestController {
 	@Autowired
 	private HolidayService service;
 	
-	@PostMapping(value = { "/holidays/{name}", "/holidays/{name}/" })
+
+	@PostMapping(value = { "/createHoliday/{name}", "/createHoliday/{name}/" })
 	public HolidayDto createHoliday(@PathVariable("name") String name, @RequestParam String startDate,@RequestParam String endDate)
 	throws IllegalArgumentException {
 		Holiday holiday = service.createHoliday(name, Date.valueOf(startDate), Date.valueOf(endDate));
 		return convertToDto(holiday);
 	}
 
-	@GetMapping(value = { "/holidays", "/holidays/" })
+	@GetMapping(value = { "/getAllHolidays", "/getAllHolidays/" })
 	public List<HolidayDto> getAllHolidays() {
 		List<HolidayDto> holidayDtos = new ArrayList<>();
 		for (Holiday holiday : service.getAllHolidays()) {
@@ -41,7 +42,7 @@ public class HolidayRestController {
 		return holidayDtos;
 	}
 
-	@GetMapping(value = { "/holidays/{name}", "/holidays/{name}/" })
+	@GetMapping(value = { "/getHolidayByName/{name}", "/getHolidayByName/{name}/" })
 	public HolidayDto getHolidayByName(@PathVariable("name") String name) throws IllegalArgumentException {
 		return convertToDto(service.getHoliday(name));
 	}
