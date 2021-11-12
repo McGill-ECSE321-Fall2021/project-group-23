@@ -87,7 +87,7 @@ public class ItemController {
      * @param newTitle
      * @return
      */
-    @PutMapping(value = { "/modifyItem/{stringId}/{newTitle}", "/deleteItem/{stringId}/{newTitle}/" })
+    @PutMapping(value = { "/modifyItem/{stringId}/{newTitle}", "/modifyItem/{stringId}/{newTitle}/" })
     public ItemDto modifyItem(@PathVariable("stringId") String stringId, @PathVariable("newTitle") String newTitle) {
         itemService.modifyItem(Integer.valueOf(stringId), newTitle);
         ;
