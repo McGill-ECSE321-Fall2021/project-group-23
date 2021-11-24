@@ -31,7 +31,7 @@
           <td>
               <button>Sign Up</button>
           </td>
-      <tr>  
+      </tr>  
     </table>
     <p>
         <span style="color:red">Error: Message text comes here</span>
