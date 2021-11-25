@@ -1,13 +1,15 @@
 <template>
   <div id="CreateItem">
     <table>
+      <tr>
       <h2>Create Item</h2>
+      </tr>
       <tr>
         <td>
-          <input type="text" placeholder="Title" />
+          <input type="text" v-model="newItem" placeholder="Title">
         </td>
         <td>
-          ​<select>
+          ​<select type="text" v-model="newType">
             ​<option disabled selected value="">Select Type</option>
             <option >Book</option>
             <option >Movie</option>
@@ -18,17 +20,20 @@
         </td>
       </tr>
       <tr>
-          <button>Create Item</button>
+          <button v-bind:disabled="!newType || !newItem" @click="createItem(newItem, newType)">Create Item</button>
       </tr>
     </table>
     <p>
-        <span style="color:red">Error: Message text comes here</span>
+        <span v-if="errorItem" style="color:red"> {{errorItem}} </span>
     </p>
   </div>
 </template>
 
-<script>
+<script src="./CreateItem.js">
 </script>
 
-<style>
+<style scoped>
+select {
+ height: 30px;
+}
 </style>
