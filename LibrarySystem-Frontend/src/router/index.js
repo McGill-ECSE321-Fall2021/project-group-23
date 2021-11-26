@@ -4,6 +4,7 @@ import Hello from '@/components/Hello'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
 import Profile from '@/components/Profile'
+import Test from '@/components/Test'
 Vue.use(Router)
 
 export default new Router({
@@ -29,6 +30,12 @@ export default new Router({
       path: '/Profile',
       name: 'Profile',
       component: Profile
+    },
+    {
+      path: '/Test/:name',
+      name: 'Test',
+      component: Test,
+      props: true
     }
   ]
 })
