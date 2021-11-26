@@ -42,6 +42,11 @@ public class CustomerRestController {
     return convertToDto(customerService.getCustomerByAccountId(id));
   }
 
+  @GetMapping(value = { "/loginCustomer/{id}/{password}/", "/loginCustomer/{id}/{password}" })
+  public CustomerDto loginCustomer(@PathVariable("id") int id, @PathVariable("password") String password) throws IllegalArgumentException {
+    return convertToDto(customerService.loginCustomer(id, password));
+  }
+
   @GetMapping(value = { "/getCustomerByEmail/{email}", "/getCustomerByEmail/{email}/" })
   public CustomerDto getCustomerByEmail(@PathVariable("email") String email) throws IllegalArgumentException {
     return convertToDto(customerService.getCustomerByEmail(email));

@@ -8,6 +8,7 @@ import ca.mcgill.ecse321.librarysystem.dao.CustomerRepository;
 import ca.mcgill.ecse321.librarysystem.dao.LibrarianRepository;
 import ca.mcgill.ecse321.librarysystem.dao.WeeklyScheduleRepository;
 import ca.mcgill.ecse321.librarysystem.model.Customer;
+import ca.mcgill.ecse321.librarysystem.model.Librarian;
 
 @Service
 public class LibrarianService {
@@ -44,6 +45,18 @@ public class LibrarianService {
       customerRepository.save(customer);
       return customer;
     }
+  }
+
+  @Transactional
+  public Librarian loginLibrarian(int id, String password) {
+    Librarian librarian = librarianRepository.findByAccountId(id);
+    if(librarian == null){
+      throw new IllegalArgumentException("no librarian exists with id "+ Integer.toString(id));
+    }
+    if(!librarian.getPassword().equals(password)){
+      throw new IllegalArgumentException("incorrect password : " + password + " ,  db password : " + librarian.getPassword());
+    }
+    return librarian;
   }
 
   @Transactional
