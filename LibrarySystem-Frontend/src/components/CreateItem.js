@@ -22,21 +22,47 @@ export default {
                 this.errorItem = e
             })
     },
-
     data() {
         return {
-            items: [],
             errorItem: '',
             newItem: '',
-            newType: ''
+            newType: '',
+            items: [],
+            selectedItem: [],
+            filters: {
+                title: { value: '', keys: ['title'] }
+            },
+            currentPage: 1,
+            totalPages: 0
         }
     },
 
     methods: {
-
+        getAllItems: function () {
+            AXIOS.get('/getAllItems')
+                .then(response => {
+                    // JSON responses are automatically parsed.
+                    this.items = response.data
+                })
+                .catch(e => {
+                    this.errorItem = e
+                })
+        },
         createItem: function (title, type) {
             AXIOS.post('/createItem/' + title + '/' + type).then(response => {
-                this.items.push(response.data)
+                this.getAllItems()
+                this.errorItem = ''
+            }).catch(e => {
+                var errorMsg = e.response.data.message
+                console.log(errorMsg)
+                this.errorItem = errorMsg
+            })
+
+        },
+        deleteItem: function (id) {
+            console.log(id)
+            AXIOS.delete('/deleteItem/' + id).then(response => {
+                this.getAllItems()
                 this.errorItem = ''
             }).catch(e => {
                 var errorMsg = e.response.data.message
