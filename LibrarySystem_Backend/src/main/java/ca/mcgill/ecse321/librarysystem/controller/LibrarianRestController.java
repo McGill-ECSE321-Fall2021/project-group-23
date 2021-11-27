@@ -2,13 +2,16 @@ package ca.mcgill.ecse321.librarysystem.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.librarysystem.dto.CustomerDto;
+import ca.mcgill.ecse321.librarysystem.dto.LibrarianDto;
 import ca.mcgill.ecse321.librarysystem.model.Customer;
+import ca.mcgill.ecse321.librarysystem.model.Librarian;
 import ca.mcgill.ecse321.librarysystem.service.LibrarianService;
 
 @CrossOrigin(origins = "*")
@@ -21,6 +24,12 @@ public class LibrarianRestController {
 	public CustomerDto updateCustomer(@PathVariable("id") int id, @PathVariable("newIsVerified") boolean newIsVerified, @PathVariable("newIsLocal") boolean newIsLocal, @PathVariable("newBalance") int newBalance) {
 		Customer customer = librarianService.updateCustomer(id, newIsVerified, newIsLocal, newBalance);
 		return convertToDto(customer);
+	}
+
+	@GetMapping(value= { "/loginLibrarian/{id}/{password}/", "/loginLibrarian/{id}/{password}" })
+	public LibrarianDto loginLibrarian(@PathVariable("id") int id, @PathVariable("password") String password) {
+		Librarian librarian = librarianService.loginLibrarian(id, password);
+		return convertToDto(librarian);
 	}
 
 	// Create customer account with first name, last name, email, address, and balance
@@ -43,5 +52,13 @@ public class LibrarianRestController {
 		CustomerDto customerDto = new CustomerDto(customer.getFirstName(), customer.getLastName(), customer.getAccountId(), customer.getPassword(), customer.getEmail(), customer.getIsVerified(), customer.getIsLocal(), customer.getAccountBalance());
 	
 		return customerDto;
+	}
+	private LibrarianDto convertToDto(Librarian librarian) {
+		if (librarian == null) {
+			throw new IllegalArgumentException("The provided librarian does not exist.");
+		}
+		LibrarianDto librarianDto = new LibrarianDto(librarian.getAccountId(), librarian.getFirstName(), librarian.getLastName(), librarian.getPassword());
+	
+		return librarianDto;
 	}
 }

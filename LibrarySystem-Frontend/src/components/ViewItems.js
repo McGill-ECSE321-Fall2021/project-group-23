@@ -26,6 +26,7 @@ export default {
 
     data() {
         return {
+            selectedItem: null,
             items: [],
             errorItem: '',
             // selectedItem

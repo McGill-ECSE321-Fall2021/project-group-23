@@ -5,6 +5,7 @@ import Login from '@/components/Login'
 import Signup from '@/components/Signup'
 import CreateItem from '@/components/CreateItem.vue'
 import ViewItems from '@/components/ViewItems.vue'
+import Profile from '@/components/Profile'
 
 Vue.use(Router)
 
@@ -26,6 +27,11 @@ export default new Router({
       path: '/Signup',
       name: 'Signup',
       component: Signup
+    },
+    {
+      path: '/Profile',
+      name: 'Profile',
+      component: Profile
     }
     ,
     {

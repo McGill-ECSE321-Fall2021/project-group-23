@@ -85,6 +85,18 @@ public class CustomerService {
   }
 
   @Transactional
+  public Customer loginCustomer(int id, String password) {
+    Customer customer = customerRepository.findCustomerByAccountId(id);
+    if(customer == null){
+      throw new IllegalArgumentException("no Customer exists with id "+ Integer.toString(id));
+    }
+    if(!customer.getPassword().equals(password)){
+      throw new IllegalArgumentException("incorrect password : " + password + " ,  db password : " + customer.getPassword());
+    }
+    return customer;
+  }
+
+  @Transactional
   public Customer getCustomerByEmail(String email) {
     Customer customer = customerRepository.findCustomerByEmail(email);
     return customer;
