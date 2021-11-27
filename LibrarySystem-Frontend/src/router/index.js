@@ -5,7 +5,7 @@ import Login from '@/components/Login'
 import Signup from '@/components/Signup'
 import Profile from '@/components/Profile'
 import LibrarianManagement from '@/components/LibrarianManagement'
-import Schedule from '@/components/Schedule'
+import ScheduleAssignment from '@/components/ScheduleAssignment'
 Vue.use(Router)
 
 export default new Router({
@@ -38,9 +38,9 @@ export default new Router({
       component: LibrarianManagement
     },
     {
-      path: '/Schedule',
-      name: 'Schedule',
-      component: Schedule
+      path: '/ScheduleAssignment',
+      name: 'ScheduleAssignment',
+      component: ScheduleAssignment
     }
   ]
 })
