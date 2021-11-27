@@ -6,6 +6,9 @@ import Signup from '@/components/Signup'
 import CreateItem from '@/components/CreateItem.vue'
 import ViewItems from '@/components/ViewItems.vue'
 import Profile from '@/components/Profile'
+import LibrarianManagement from '@/components/LibrarianManagement'
+import ScheduleAssignment from '@/components/ScheduleAssignment'
+import Test from '@/components/Test'
 
 Vue.use(Router)
 
@@ -32,6 +35,22 @@ export default new Router({
       path: '/Profile',
       name: 'Profile',
       component: Profile
+    },
+    {
+      path: '/LibrarianManagement',
+      name: 'LibrarianManagement',
+      component: LibrarianManagement
+    },
+    {
+      path: '/ScheduleAssignment',
+      name: 'ScheduleAssignment',
+      component: ScheduleAssignment
+    },
+    {
+      path: '/Test/:name',
+      name: 'Test',
+      component: Test,
+      props: true
     }
     ,
     {
