@@ -1,6 +1,6 @@
 <template>
     <div id="assign-schedule" class="container-fluid">
-        <h1 style="text-align:left">Assign Weekly Shifts</h1>
+        <h1 style="text-align:left">Update Weekly Shifts</h1>
             <table>
                 <tr>
                     <th>Day of Shift</th>
