@@ -6,6 +6,8 @@ import Signup from '@/components/Signup'
 import Profile from '@/components/Profile'
 import LibrarianManagement from '@/components/LibrarianManagement'
 import ScheduleAssignment from '@/components/ScheduleAssignment'
+import Test from '@/components/Test'
+
 Vue.use(Router)
 
 export default new Router({
@@ -41,6 +43,12 @@ export default new Router({
       path: '/ScheduleAssignment',
       name: 'ScheduleAssignment',
       component: ScheduleAssignment
+    },
+    {
+      path: '/Test/:name',
+      name: 'Test',
+      component: Test,
+      props: true
     }
   ]
 })
