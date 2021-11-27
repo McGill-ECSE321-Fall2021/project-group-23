@@ -9,22 +9,11 @@ var AXIOS = axios.create({
     headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
-function CustomerDto (firstName, lastName, address, email, password) {
-    this.firstName=firstName
-    this.lastName=lastName
-    this.address=address
-    this.email=email
-    this.password=password
-    this.accountBalance=0
-    this.isLocal=false
-    this.isVerified=false
-}
-
 export default {
     name: 'Login',
 
     created: function () {
-        ​AXIOS.get('/perons') //modify this
+        ​AXIOS.get('/getAllCustomers')
         ​.then(response => {
           ​this.customerAccounts = response.data
         ​})
@@ -35,20 +24,11 @@ export default {
     data() {
         return {
             customerAccounts: [],
-            newCustomerAccount: {
-                firstName: '',
-                lastName: '',
-                email: '',
-                address: '',
-                password: '',
-            },
-            selectedCustomerAccount: {
-                firstName: '',
-                lastName: '',
-                email: '',
-                address: '',
-                password: '',
-            },
+            firstName: '',
+            lastName: '',
+            email: '',
+            address: '',
+            password: '',
             errorSignupCustomer: '',
             response: [],
 
@@ -61,21 +41,17 @@ export default {
 methods: {
     signupCustomer: function (firstName, lastName, address, email, password) {
         AXIOS.post('/createCustomer/' + firstName + '/' + lastName + '/' + password + '/' + email + '/false/false/' + address + '/0' ).then(response => {
-            var customer = new  CustomerDto(firstName, lastName, address, email, password);
-            this.customerAccounts.push(customer)
-            this.newCustomerAccount.firstName=''
-            this.newCustomerAccount.lastName=''
-            this.newCustomerAccount.email=''
-            this.newCustomerAccount.address=''
-            this.newCustomerAccount.password=''
+            this.customerAccounts.push(response.data)
+            this.firstName=''
+            this.lastName=''
+            this.email=''
+            this.address=''
+            this.password=''
             this.errorSignupCustomer=''
-
-            //add code here
-
         }).catch(e => {
             var errorMsg = e.response.data.message
             console.log(errorMsg)
-            this.errorItem = errorMsg
+            this.errorSignupCustomer = errorMsg
         })
     },
 
@@ -85,7 +61,7 @@ methods: {
         }).catch(e => {
             var errorMsg = e.response.data.message
             console.log(errorMsg)
-            this.errorItem = errorMsg
+            this.errorSignupCustomer = errorMsg
 
         })
     }

@@ -13,21 +13,21 @@ export default {
     name: 'Login',
 
     created: function () {
-        ​AXIOS.get('/perons') //modify this
+        ​AXIOS.get('/getAllCustomers') 
         ​.then(response => {
           ​this.customerAccounts = response.data
         ​})
         ​.catch(e => {
           ​this.errorLoginCustomer = e
         ​})
-        ​AXIOS.get('/events') // modify this
+        ​AXIOS.get('/getAllLibrarians') 
         ​.then(response => {
      ​   this.librarianAccounts = response.data
         ​})
    ​     .catch(e => {
      ​   this.errorLoginLibrarian = e
         })
-        AXIOS.get('/events') //modify this
+        AXIOS.get('/getAllLibrarians') //might lead to an error
         ​.then(response => {
      ​   this.headLibrarianAccounts = response.data
         ​})
@@ -75,28 +75,58 @@ export default {
 
 
 
-methods: {
-    loginCustomer: function (accountId, password) {
-        AXIOS.get('/loginCustomer/' + accountId + '/' + password).then(response => {
-            //add code here
-        }).catch(e => {
-            var errorMsg = e.response.data.message
-            console.log(errorMsg)
-            this.errorItem = errorMsg
-        })
-    },
+    methods: {
+        loginCustomer: function (accountId, password) {
+            AXIOS.get('/loginCustomer/' + accountId + '/' + password).then(response => {
+                //add code here
+            }).catch(e => {
+                var errorMsg = e.response.data.message
+                console.log(errorMsg)
+                this.errorLoginCustomer = errorMsg
+            })
+        },
 
-    loginLibrarian: function (accountId, password) {
-        AXIOS.get('/loginCustomer/' + accountId + '/' + password).then(response => {
-            //add code here
-        })
-    },
+        loginLibrarian: function (accountId, password) {
+            AXIOS.get('/loginCustomer/' + accountId + '/' + password).then(response => {
+                //add code here
+            }).catch(e => {
+                var errorMsg = e.response.data.message
+                console.log(errorMsg)
+                this.errorLoginLibrarian = errorMsg
+            })
+        },
 
-    loginHeadLibrarian: function (password) {
-        AXIOS.get('/loginCustomer/' + password).then(response => {
-            //add code here
-        })
+        loginHeadLibrarian: function (password) {
+            AXIOS.get('/loginCustomer/' + password).then(response => {
+                //add code here
+            }).catch(e => {
+                var errorMsg = e.response.data.message
+                console.log(errorMsg)
+                this.errorLoginHeadLibrarian = errorMsg
+            })
         
+        },
+        getAllCustomerAccounts: function () {
+            AXIOS.get('/getAllCustomers').then(response => {
+                this.customerAccounts = response.data
+            }).catch(e => {
+                var errorMsg = e.response.data.message
+                console.log(errorMsg)
+                this.errorSignupCustomer = errorMsg
+    
+            })
+        },
+        getAllLibrarianAccounts: function () {
+            AXIOS.get('/getAllLibrarians').then(response => {
+                this.librarianAccounts = response.data
+                this.headlibrarianAccounts = response.data
+            }).catch(e => {
+                var errorMsg = e.response.data.message
+                console.log(errorMsg)
+                this.errorSignupCustomer = errorMsg
+    
+            })
+        }
+
     }
-}
 }
