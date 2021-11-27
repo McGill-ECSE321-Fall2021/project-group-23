@@ -6,6 +6,9 @@ import App from './App'
 import router from './router'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import SmartTable from 'vuejs-smart-table'
+
+Vue.use(SmartTable)
 
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
