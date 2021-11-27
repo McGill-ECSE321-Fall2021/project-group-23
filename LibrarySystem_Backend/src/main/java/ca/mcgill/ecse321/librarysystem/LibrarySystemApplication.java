@@ -2,13 +2,11 @@ package ca.mcgill.ecse321.librarysystem;
 
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ca.mcgill.ecse321.librarysystem.model.HeadLibrarian;
 import ca.mcgill.ecse321.librarysystem.service.HeadLibrarianService;
 import ca.mcgill.ecse321.librarysystem.service.ShiftService;
 import ca.mcgill.ecse321.librarysystem.service.WeeklyScheduleService;
