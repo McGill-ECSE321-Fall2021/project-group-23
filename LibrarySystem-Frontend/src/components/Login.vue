@@ -5,17 +5,17 @@
       <h2>Customer Login</h2>
       <tr>
           <td>
-              <input type="text" v-model="accountId" placeholder="AccountId">
+              <input type="text" v-model="newCustomerAccount.accountId" placeholder="AccountId">
           </td>
       </tr>
       <tr>
           <td>
-              <input type="text" v-model="password" placeholder="Password">
+              <input type="text" v-model="newCustomerAccount.password" placeholder="Password">
           </td>
       </tr>
       <tr>
           <td>
-              <button v-bind:disabled="!accountId || !password"  @click="loginCustomer(accountId, password)">Login</button>
+              <button v-bind:disabled="!newCustomerAccount.accountId || !newCustomerAccount.password"  @click="loginCustomer(newCustomerAccount.accountId, newCustomerAccount.password)">Login</button>
           </td>
       </tr>
       <tr>
@@ -38,17 +38,17 @@
       <h2>Librarian Login</h2>
       <tr>
           <td>
-              <input type="text" v-model="accountId" placeholder="AccountId">
+              <input type="text" v-model="newLibrarianAccount.accountId" placeholder="AccountId">
           </td>
       </tr>
       <tr>
           <td>
-              <input type="text" v-model="password" placeholder="Password">
+              <input type="text" v-model="newLibrarianAccount.password" placeholder="Password">
           </td>
       </tr>
       <tr>
           <td>
-              <button v-bind:disabled="!accountId || !password"  @click="loginLibrarian(accountId, password)">Login</button>
+              <button v-bind:disabled="!newLibrarianAccount.accountId || !newLibrarianAccount.password"  @click="loginLibrarian(newLibrarianAccount.accountId, newLibrarianAccount.password)">Login</button>
           </td>
       </tr>  
     </table>
@@ -61,12 +61,12 @@
       <h2>Head Librarian Login</h2>
       <tr>
           <td>
-              <input type="text" v-model="password" placeholder="Password">
+              <input type="text" v-model="newHeadLibrarianAccount.password" placeholder="Password">
           </td>
       </tr>
       <tr>
           <td>
-              <button v-bind:disabled="!password"  @click="loginHeadLibrarian(password)">Login</button>
+              <button v-bind:disabled="!newHeadLibrarianAccount.password"  @click="loginHeadLibrarian(newHeadLibrarianAccount.password)">Login</button>
           </td>
       </tr>  
     </table>

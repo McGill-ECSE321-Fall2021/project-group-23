@@ -13,13 +13,12 @@ export default {
     name: 'Login',
 
     created: function () {
-        ​AXIOS.get('/getAllCustomers')
-        ​.then(response => {
-          ​this.customerAccounts = response.data
-        ​})
-        ​.catch(e => {
-          ​this.errorSignupCustomer = e
-        ​})
+        AXIOS.get('/getAllCustomers').then(response => {
+        this.customerAccounts = response.data
+        })
+        .catch(e => {
+        this.errorSignupCustomer = e
+        })
     },
     data() {
         return {

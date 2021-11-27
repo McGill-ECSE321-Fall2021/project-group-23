@@ -13,26 +13,23 @@ export default {
     name: 'Login',
 
     created: function () {
-        ​AXIOS.get('/getAllCustomers') 
-        ​.then(response => {
-          ​this.customerAccounts = response.data
-        ​})
-        ​.catch(e => {
-          ​this.errorLoginCustomer = e
-        ​})
-        ​AXIOS.get('/getAllLibrarians') 
-        ​.then(response => {
-     ​   this.librarianAccounts = response.data
-        ​})
-   ​     .catch(e => {
-     ​   this.errorLoginLibrarian = e
+        AXIOS.get('/getAllCustomers').then(response => {
+        this.customerAccounts = response.data
         })
-        AXIOS.get('/getAllLibrarians') //might lead to an error
-        ​.then(response => {
-     ​   this.headLibrarianAccounts = response.data
-        ​})
-   ​     .catch(e => {
-     ​   this.errorLoginHeadLibrarian = e
+        .catch(e => {
+        this.errorLoginCustomer = e
+        }),
+        AXIOS.get('/getAllLibrarians').then(response => {
+        this.librarianAccounts = response.data
+        })
+        .catch(e => {
+        this.errorLoginLibrarian = e
+        }),
+        AXIOS.get('/getAllLibrarians').then(response => {
+        this.headLibrarianAccounts = response.data
+        })
+        .catch(e => {
+        this.errorLoginHeadLibrarian = e
         })
     },
 
@@ -78,7 +75,7 @@ export default {
     methods: {
         loginCustomer: function (accountId, password) {
             AXIOS.get('/loginCustomer/' + accountId + '/' + password).then(response => {
-                //add code here
+                return response.data
             }).catch(e => {
                 var errorMsg = e.response.data.message
                 console.log(errorMsg)
@@ -87,8 +84,8 @@ export default {
         },
 
         loginLibrarian: function (accountId, password) {
-            AXIOS.get('/loginCustomer/' + accountId + '/' + password).then(response => {
-                //add code here
+            AXIOS.get('/loginLibrarian/' + accountId + '/' + password).then(response => {
+                return response.data
             }).catch(e => {
                 var errorMsg = e.response.data.message
                 console.log(errorMsg)
@@ -97,8 +94,8 @@ export default {
         },
 
         loginHeadLibrarian: function (password) {
-            AXIOS.get('/loginCustomer/' + password).then(response => {
-                //add code here
+            AXIOS.get('/login/' + password).then(response => {
+                return response.data
             }).catch(e => {
                 var errorMsg = e.response.data.message
                 console.log(errorMsg)
