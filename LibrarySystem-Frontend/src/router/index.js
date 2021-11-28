@@ -6,10 +6,8 @@ import Signup from '@/components/Signup'
 import CreateItem from '@/components/CreateItem.vue'
 import ViewItems from '@/components/ViewItems.vue'
 import Profile from '@/components/Profile'
-import CustomerHomePage from '@/components/CustomerHomePage'
 import LibrarianManagement from '@/components/LibrarianManagement'
 import ScheduleAssignment from '@/components/ScheduleAssignment'
-import CreateReservation from '@/components/CreateReservation'
 import Test from '@/components/Test'
 
 Vue.use(Router)
@@ -37,11 +35,6 @@ export default new Router({
       path: '/Profile',
       name: 'Profile',
       component: Profile
-    },
-    {
-      path: '/CustomerHomePage',
-      name: 'CustomerHomePage',
-      component: CustomerHomePage
     },
     {
       path: '/LibrarianManagement',
@@ -72,10 +65,5 @@ export default new Router({
       component: ViewItems
     }
     ,
-    {
-      path: '/CreateReservation',
-      name: 'CreateReservation',
-      component: CreateReservation
-    }
   ]
 })
