@@ -2,7 +2,7 @@
   <div id="customer-profile">
     <div id="header">
       <h2>User Profile - {{ accountType }}</h2>
-      <h2>{{ usernameP }}</h2>
+      <h2>{{ name + " " +familyname}}</h2>
       <hr />
     </div>
     <div id="body">
@@ -27,7 +27,7 @@
             type="button"
             class="btn btn-light"
             v-bind:disabled="!newAddress"
-            @click="updateAddress(newAddress)"
+            v-on:click="updateAddress(newAddress)"
           >
             Update
           </button>
@@ -39,7 +39,7 @@
             type="button"
             class="btn btn-light"
             v-bind:disabled="!newPassword"
-            @click="updatePassword(newPassword)"
+            v-on:click="updatePassword(newPassword)"
           >
             Update
           </button>

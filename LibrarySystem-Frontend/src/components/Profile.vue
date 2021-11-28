@@ -1,12 +1,13 @@
 <template>
   <div id="profile">
     <customer-profile
-      usernameP="habibi"
+      nameP= "bashar"
+      familynameP="eskandar"
       passwordP="lol123"
       idP="12345"
-      addressP="lol Street"
+      addressP="69 lol Street, Laval, Qc"
       emailP="habibi@lol.com"
-      accountTypeP="habibi type"
+      accountTypeP="Customer"
     />
     <p>
       <button v-on:click="go">click to route </button>
@@ -26,8 +27,8 @@ export default {
   methods: {
 
     go: function(){
-      var path = "bashar"
-      this.$router.push({ path: `/test/${path}` })
+      var a = "bashar"
+      this.$router.push({ path: `/customerhomepage/${a}/dfgfdg/fgf/` })
     }
   }
 };
