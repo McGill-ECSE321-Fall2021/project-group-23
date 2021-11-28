@@ -37,33 +37,12 @@ export default {
         return {
             customerAccounts: [],
             librarianAccounts: [],
-            headLibrarianAccounts: [],
-            newCustomerAccount: {
-                accountId: '',
-                password: '',
-            },
-            newLibrarianAccount: {
-                accountId: '',
-                password: '',
-            },
-            selectedCustomerAccount: {
-                accountId: '',
-                password: '',
-            },
-            selectedLibrarianAccount: {
-                accountId: '',
-                password: '',
-            },
-            newHeadLibrarianAccount: {
-                password: '',
-            },
-            selectedHeadLibrarianAccount: {
-                accountId: '',
-                password: '',
-            },
+            customerAccountId: '',
+            customerPassword: '',
+            librarianAccountId: '',
+            librarianPassword: '',
             errorLoginCustomer: '',
             errorLoginLibrarian: '',
-            errorLoginHeadLibrarian: '',
             response: [],
 
         }
@@ -73,36 +52,30 @@ export default {
 
 
     methods: {
-        loginCustomer: function (accountId, password) {
-            AXIOS.get('/loginCustomer/' + accountId + '/' + password).then(response => {
-                return response.data
+        loginCustomer: function (customerAccountId, customerPassword) {
+            AXIOS.get('/loginCustomer/' + customerAccountId + '/' + customerPassword).then(response => {
+                this.customerAccounts.push(response.data)
+                errorLoginCustomer= ''
+                errorLoginLibrarian= ''
             }).catch(e => {
-                var errorMsg = e.response.data.message
+                var errorMsg = "Invalid accountId-password Combo"
                 console.log(errorMsg)
                 this.errorLoginCustomer = errorMsg
             })
         },
 
-        loginLibrarian: function (accountId, password) {
-            AXIOS.get('/loginLibrarian/' + accountId + '/' + password).then(response => {
-                return response.data
+        loginLibrarian: function (librarianAccountId, librarianPassword) {
+            AXIOS.get('/loginLibrarian/' + librarianAccountId + '/' + librarianPassword).then(response => {
+                this.librarianAccounts.push(response.data)
+                errorLoginCustomer= ''
+                errorLoginLibrarian= ''
             }).catch(e => {
-                var errorMsg = e.response.data.message
+                var errorMsg = "Invalid accountId-password Combo"
                 console.log(errorMsg)
                 this.errorLoginLibrarian = errorMsg
             })
         },
 
-        loginHeadLibrarian: function (password) {
-            AXIOS.get('/login/' + password).then(response => {
-                return response.data
-            }).catch(e => {
-                var errorMsg = e.response.data.message
-                console.log(errorMsg)
-                this.errorLoginHeadLibrarian = errorMsg
-            })
-        
-        },
         getAllCustomerAccounts: function () {
             AXIOS.get('/getAllCustomers').then(response => {
                 this.customerAccounts = response.data
@@ -116,7 +89,6 @@ export default {
         getAllLibrarianAccounts: function () {
             AXIOS.get('/getAllLibrarians').then(response => {
                 this.librarianAccounts = response.data
-                this.headlibrarianAccounts = response.data
             }).catch(e => {
                 var errorMsg = e.response.data.message
                 console.log(errorMsg)

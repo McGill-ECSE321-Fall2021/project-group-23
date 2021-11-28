@@ -36,6 +36,12 @@
     <p>
         <span v-if="errorSignupCustomer" style="color:red">Error: {{errorSignupCustomer}}</span>
     </p>
+    <p>
+        <span v-if="errorSignupCustomer2" style="color:red">{{errorSignupCustomer2}}</span>
+    </p>
+    <p>
+        <span v-if="errorSignupCustomer3" style="color:red">{{errorSignupCustomer3}}</span>
+    </p>
   </div>
 </template>
 <script src="./signup.js">

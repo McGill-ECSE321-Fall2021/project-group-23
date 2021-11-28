@@ -29,6 +29,8 @@ export default {
             address: '',
             password: '',
             errorSignupCustomer: '',
+            errorSignupCustomer2: '',
+            errorSignupCustomer3: '',
             response: [],
 
         }
@@ -47,10 +49,17 @@ methods: {
             this.address=''
             this.password=''
             this.errorSignupCustomer=''
+            this.errorSignupCustomer2=''
+            this.errorSignupCustomer3=''
         }).catch(e => {
-            var errorMsg = e.response.data.message
+            var errorMsg = "-Your first name and last Name cannot contain numbers or special characters"
+            var errorMsg2 = "-Your password must contain at least 8 characters and a capital letter"       
+            var errorMsg3="-Otherwise, an account with this email already exists"
             console.log(errorMsg)
             this.errorSignupCustomer = errorMsg
+            this.errorSignupCustomer2 = errorMsg2
+            this.errorSignupCustomer3 = errorMsg3
+            
         })
     },
 
