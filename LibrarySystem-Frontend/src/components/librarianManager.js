@@ -18,26 +18,6 @@ var AXIOS = axios.create({
     headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
-// Data transfer objects for Shift, Librarian and WeeklySchedule
-function LibrarianDto (id, firstName, lastName, password) {
-    this.libId = id
-    this.fName = firstName
-    this.lName = lastName
-    this.pass = password
-}
-
-function ShiftDto(day, startTime, endTime, id) {
-    this.dayOfWeek = day
-    this.start = startTime
-    this.end = endTime
-    this.shiftId = id
-}
-
-function WeeklyScheduleDto(id, shifts) {
-    this.scheduleId = id
-    this.schedShifts = shifts
-}
-
 export default {
     name: 'librarianmanagement',
     data () {
@@ -97,7 +77,8 @@ export default {
                 this.errorLibrarian = e
             }) 
         },
-        createLibrarian: function (librarianFName, librarianLName, librarianPass) {
+        // async required to wait for post request for schedule before creating librarian
+        createLibrarian: async function (librarianFName, librarianLName, librarianPass) {
             // Loop through shifts added to use for URI request for weekly schedule
             var x;
             var shift;
@@ -108,12 +89,15 @@ export default {
                 text += shift.shiftId;
                 text += ','
             }
-
+            
+            // removes the extra comma from the end of text
             text = text.substring(0, text.length - 1);
-
-            AXIOS.post('/createWeeklySchedule/'.concat(text), {}, {})
+            
+            var lastSchedule;
+            await AXIOS.post('/createWeeklySchedule/'.concat(text), {}, {})
             .then(response => {
                 this.schedules.push(response.data)
+                lastSchedule = JSON.parse(JSON.stringify(this.schedules[this.schedules.length-1]))
                 this.errorLibrarian = ''
             })
             .catch(e => {
@@ -121,20 +105,17 @@ export default {
                 console.log(errorMsg)
                 this.errorLibrarian = errorMsg
             })
-            
-            // If no error is thrown create the librarian
-            // if (this.errorLibrarian.length == 0) {
-                AXIOS.post('/createLibrarian/'.concat(librarianFName + '/' + librarianLName + '/' + librarianPass + '/' + this.schedules[this.schedules.length-1].weeklyScheduleId), {}, {})
-                .then(response => {
-                    this.librarians.push(response.data)
-                    this.errorLibrarian = ''
-                })
-                .catch(e => {
-                    var errorMsg = e.response.data.message
-                    console.log(errorMsg)
-                    this.errorLibrarian = errorMsg
-                })
-            // }
+
+            AXIOS.post('/createLibrarian/'.concat(librarianFName + '/' + librarianLName + '/' + librarianPass + '/' + lastSchedule.weeklyScheduleId), {}, {})
+            .then(response => {
+                this.librarians.push(response.data)
+                this.errorLibrarian = ''
+            })
+            .catch(e => {
+                var errorMsg = e.response.data.message
+                console.log(errorMsg)
+                this.errorLibrarian = errorMsg
+            })
         },
         createShift: function (day, start, end) {
             AXIOS.post('/createShift', {}, {
@@ -151,28 +132,33 @@ export default {
             .catch(e => {
                 var errorMsg = e.response.data.message
                 console.log(errorMsg)
-                this.errorShift = errorMsg
+                this.errorShift = 'Please ensure that the provided times are correct and within library opening hours.'
             })
         },
-        deleteLibrarian: function(id) {
-            // Delete the librarian first
-            AXIOS.delete('/deleteLibrarian/' + id, {}, {})
+        // await and async for step-by-step process in deletion
+        deleteLibrarian: async function(id) {
+            // Delete the librarian first and store in variable
+            var removedLib;
+            await AXIOS.delete('/deleteLibrarian/' + id, {}, {})
             .then(response => {
                 this.getAllLibrarians()
                 this.deletedLibrarian.push(response.data)
+                removedLib = JSON.parse(JSON.stringify(this.deletedLibrarian[this.deletedLibrarian.length-1]))
                 this.errorLibrarian = ''
             })
             .catch(e => {
-                var errorMsg = e.response.data.message
+                var errorMsg = 'Librarian account to delete not selected.'
                 console.log(errorMsg)
                 this.errorLibrarian = errorMsg
             })
-            // Delete associated weekly schedule and shifts
-            var arr = this.deletedLibrarian
-            arr = JSON.parse(JSON.stringify(arr))
-            AXIOS.delete('/deleteWeeklySchedule/' + arr.weeklySchedule.weeklyScheduleId, {}, {})
+            
+            // Internal deletions
+            // Delete associated weekly schedule and store in variable...
+            var removedSched;
+            await AXIOS.delete('/deleteWeeklySchedule/' + removedLib.weeklySchedule.weeklyScheduleId, {}, {})
             .then(response => {
                 this.deletedWeeklySchedule.push(response.data)
+                removedSched = JSON.parse(JSON.stringify(this.deletedWeeklySchedule[this.deletedWeeklySchedule.length-1]))
                 this.errorLibrarian = ''
             })
             .catch(e => {
@@ -180,8 +166,10 @@ export default {
                 console.log(errorMsg)
                 this.errorLibrarian = errorMsg
             })
+
+            //.. and loop through shifts to delete each one with its id
             for (x in this.deletedWeeklySchedule.shifts) {
-                AXIOS.delete('/deleteShiftById/' + this.deletedWeeklySchedule.shifts[x], {}, {})
+                AXIOS.delete('/deleteShiftById/' + removedSched.shifts[x].shiftId, {}, {})
                 .then(response => {
                     this.errorLibrarian = ''
                 })

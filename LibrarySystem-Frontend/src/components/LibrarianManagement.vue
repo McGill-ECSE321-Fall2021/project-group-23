@@ -33,7 +33,6 @@
                     </td>
                 </tr>
             </table>
-            <span v-if="errorShift" style="color:red"> {{errorShift}} </span>
 
         <!-- Section for assigning shifts to a new librarian; includes creation and deletion. -->
         <h3 style="text-align:left">Shifts to Assign</h3>
@@ -78,6 +77,9 @@
                     </button> </td>
                 </tr>
             </table>
+            <p>
+                <span v-if="errorShift" style="text-align:center; color:red"> {{errorShift}} </span>
+            </p>
             <v-table :data="shifts" selectedClass="table-info" class="table-hover">
                 <thead slot="head">
                     <th style="padding: 20px">Day of Week</th>
@@ -111,6 +113,9 @@
                     </td>
                 </tr>
             </table>
+            <p>
+                <span v-if="errorLibrarian" style="color:red">{{errorLibrarian}} </span>
+            </p>
             <v-table :data="librarians" selectedClass="table-info" @selectionChanged="selectedLibrarian = $event" class="table-hover">
                 <thead slot="head">
                     <th style="padding: 20px">First Name</th>
@@ -125,7 +130,6 @@
                     </v-tr>
                 </tbody>
             </v-table>
-            <span v-if="errorLibrarian" style="color:red"> {{errorLibrarian}} </span>
     </div>    
 </template>
 
