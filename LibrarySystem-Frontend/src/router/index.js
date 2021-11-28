@@ -9,6 +9,7 @@ import Profile from '@/components/Profile'
 import CustomerHomePage from '@/components/CustomerHomePage'
 import LibrarianManagement from '@/components/LibrarianManagement'
 import ScheduleAssignment from '@/components/ScheduleAssignment'
+import CreateReservation from '@/components/CreateReservation'
 import Test from '@/components/Test'
 
 Vue.use(Router)
@@ -71,5 +72,10 @@ export default new Router({
       component: ViewItems
     }
     ,
+    {
+      path: '/CreateReservation',
+      name: 'CreateReservation',
+      component: CreateReservation
+    }
   ]
 })
