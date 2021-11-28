@@ -42,7 +42,7 @@ public class WeeklyScheduleRestController {
 	// Get a schedule by id
 	@GetMapping(value = { "/getWeeklyScheduleById/{weeklyScheduleId}", "/getWeeklyScheduleById/{weeklyScheduleId}/" })
 	public WeeklyScheduleDto getWeeklyScheduleById(@PathVariable("weeklyScheduleId") int weeklyScheduleId)
-	throws IllegalArgumentException{
+	throws InvalidInputException{
 		return convertToDto(weeklyScheduleService.getWeeklySchedule(weeklyScheduleId));
 	}
 	
@@ -55,14 +55,14 @@ public class WeeklyScheduleRestController {
 	// Update a schedule with new shifts
 	@PutMapping(value = { "/updateWeeklyScheduleShifts/{scheduleId}/{shiftsToSet}", "/updateWeeklyScheduleShifts/{scheduleId}/{shiftsToSet}/" })
 	public WeeklyScheduleDto updateScheduleShifts(@PathVariable("scheduleId") int scheduleId, @PathVariable("shiftsToSet") List<Integer> shiftsToSet)
-	throws IllegalArgumentException{
+	throws InvalidInputException{
 		return convertToDto(weeklyScheduleService.updateWeeklyScheduleShifts(scheduleId, shiftsToSet));
 	}
 	
 	// Delete a schedule by id
 	@DeleteMapping(value = { "/deleteWeeklySchedule/{weeklyScheduleId}", "/deleteWeeklySchedule/{weeklyScheduleId}/" })
 	public WeeklyScheduleDto deleteWeeklyScheduleById(@PathVariable("weeklyScheduleId") int weeklyScheduleId)
-	throws IllegalArgumentException{
+	throws InvalidInputException{
 		return convertToDto(weeklyScheduleService.deleteWeeklySchedule(weeklyScheduleId));
 	}
 	
@@ -78,7 +78,7 @@ public class WeeklyScheduleRestController {
 	
 	private WeeklyScheduleDto convertToDto(WeeklySchedule ws) {
 		if (ws == null) {
-			throw new IllegalArgumentException("There is no such WeeklySchedule!");
+			throw new InvalidInputException("There is no such WeeklySchedule!");
 		}
 		Set<ShiftDto> shiftDtos = new HashSet<ShiftDto>();
 		for (Shift s : ws.getShifts()) {
@@ -90,7 +90,7 @@ public class WeeklyScheduleRestController {
 	
 	private ShiftDto convertToDto(Shift s) {
 		if (s == null) {
-			throw new IllegalArgumentException("There is no such WeeklySchedule!");
+			throw new InvalidInputException("There is no such WeeklySchedule!");
 		}
 		ShiftDto shiftDto = new ShiftDto(s.getWorkingDay(),s.getStartTime(),s.getEndTime(),s.getShiftId());
 		return shiftDto;
