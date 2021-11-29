@@ -8,13 +8,14 @@ import ViewItems from '@/components/ViewItems.vue'
 import Profile from '@/components/Profile'
 import LibrarianManagement from '@/components/LibrarianManagement'
 import ScheduleAssignment from '@/components/ScheduleAssignment'
-import CreateReservation from '@/components/CreateReservation'
+import CreateReservation from '@/components/CreateReservation.vue'
 import CustomerHomePage from '@/components/CustomerHomePage.vue'
 import SignupCustomerLibrarian from '@/components/SignupCustomerLibrarian.vue'
 import Test from '@/components/Test'
 import Holiday from '@/components/Holiday.vue'
 import OpeningsHours from '@/components/OpeningsHours.vue'
 import UpdateHeadLibrarian from '@/components/UpdateHeadLibrarian.vue'
+
 
 Vue.use(Router)
 
