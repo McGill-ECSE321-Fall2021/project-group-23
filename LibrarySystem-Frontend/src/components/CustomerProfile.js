@@ -1,24 +1,16 @@
 import axios from 'axios'
 var config = require('../../config')
 
-var backendConfigurer = function () {
-    switch (process.env.NODE_ENV) {
-        case 'development':
-            return 'http://' + config.dev.backendHost + ':' + config.dev.backendPort;
-        case 'production':
-            return 'https://' + config.build.backendHost + ':' + config.build.backendPort;
-    }
-};
-
-var backendUrl = backendConfigurer();
+var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
+var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
 
 var AXIOS = axios.create({
     baseURL: backendUrl,
-    //headers: { 'Access-Control-Allow-Origin': frontendUrl }
+    headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
 export default {
-    props: ["nameP","familynameP", "idP", "addressP", "emailP", "passwordP", "accountTypeP"],
+    props: ["nameP", "familynameP", "idP", "addressP", "emailP", "passwordP", "accountTypeP"],
     data() {
         return {
             name: this.nameP,
@@ -27,28 +19,30 @@ export default {
             email: this.emailP,
             password: this.passwordP,
             accountType: this.accountTypeP,
-            id : this.idP,
-            newAddress: "",
-            newPassword: "",
+            newAddress: '',
+            newPassword: '',
+            id: this.idP,
             isShow: false,
+            isError: false,
         };
     },
     methods: {
         updatePassword: function (pass) {
-            AXIOS.put("/updateCustomer/" + id + "/" + { newPassword } + "/" + { address }, {}, {})
+            AXIOS.put('/updateCustomer/' + this.id + "/" + pass + "/" + this.address, {}, {})
                 .then((response) => {
-                    password = response.data.password;
+                    this.isError = false
+                    this.password = response.data.password;
                 })
                 .catch((e) => {
                     var errorMsg = e.response.data.message;
                     console.log(errorMsg);
+                    this.isError = true;
                 });
         },
         updateAddress: function (addr) {
-            AXIOS.put("/updateCustomer/" + id + "/" + { password } + "/" + { newAddress }, {}, {})
+            AXIOS.put('/updateCustomer/' + this.id + "/" + this.password + "/" + addr, {}, {})
                 .then((response) => {
-
-                    address = response.data.address;
+                    this.address = response.data.address;
                 })
                 .catch((e) => {
                     var errorMsg = e.response.data.message;
