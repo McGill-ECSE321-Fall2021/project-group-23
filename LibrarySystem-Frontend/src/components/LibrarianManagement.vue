@@ -109,7 +109,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <button>View/Edit Weekly Schedule</button>
+                        <button v-on:click="go(selectedLibrarian[0])">View/Edit Weekly Schedule</button>
                     </td>
                 </tr>
             </table>

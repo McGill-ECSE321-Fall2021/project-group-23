@@ -7,7 +7,7 @@ import CreateItem from '@/components/CreateItem.vue'
 import ViewItems from '@/components/ViewItems.vue'
 import Profile from '@/components/Profile'
 import LibrarianManagement from '@/components/LibrarianManagement'
-import ScheduleAssignment from '@/components/ScheduleAssignment'
+import ScheduleAssignment from '@/components/ScheduleAssignment.vue'
 import Test from '@/components/Test'
 
 Vue.use(Router)
@@ -42,9 +42,10 @@ export default new Router({
       component: LibrarianManagement
     },
     {
-      path: '/ScheduleAssignment',
+      path: '/ScheduleAssignment/:id',
       name: 'ScheduleAssignment',
-      component: ScheduleAssignment
+      component: ScheduleAssignment,
+      props: true
     },
     {
       path: '/Test/:name',

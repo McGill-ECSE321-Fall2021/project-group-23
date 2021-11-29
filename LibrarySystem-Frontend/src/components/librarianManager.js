@@ -37,7 +37,6 @@ export default {
                 endTime: '',
                 id: ''
             },
-            selectedLibrarian: '',
             errorLibrarian: '',
             errorShift: '',
             deletedLibrarian: [],
@@ -76,6 +75,11 @@ export default {
             .catch(e => {
                 this.errorLibrarian = e
             }) 
+        },
+        // Method for switching page to edit schedule
+        go: function(id) {
+            var path = id
+            this.$router.push({ path: `/ScheduleAssignment/${id}` })
         },
         // async required to wait for post request for schedule before creating librarian
         createLibrarian: async function (librarianFName, librarianLName, librarianPass) {
