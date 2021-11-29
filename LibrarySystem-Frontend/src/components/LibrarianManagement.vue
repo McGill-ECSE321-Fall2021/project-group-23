@@ -1,7 +1,10 @@
 <template>
     <div id="hire/fire-librarian" class="container-fluid">
-        <h1 style="text-align:left">Librarian Management</h1>
+        <h1 style="text-align:left">Head Librarian Management</h1>
+        <button v-on:click="updateHeadInfo()">Update Head Librarian Information</button>
         <hr>
+
+        <!-- Section for adding a new librarian; inputs are names and the password.-->
         <h2 style="text-align:left">Add Librarian</h2>
             <table>
                 <tr>
@@ -10,10 +13,10 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" id="fname">
+                        <input type="text" v-model="newLibrarian.firstN" id="fname">
                     </td>
                     <td>
-                        <input type="text" id="lname">
+                        <input type="text" v-model="newLibrarian.lastN" id="lname">
                     </td>
                 </tr>
                 <tr>
@@ -21,9 +24,20 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="password" id="libpassword">
+                        <input type="password" v-model="newLibrarian.pass" id="libpassword">
+                    </td>
+                    <td>
+                        <button
+                            v-bind:disabled="!newLibrarian.firstN || !newLibrarian.lastN || !newLibrarian.pass"
+                            v-on:click="createLibrarian(newLibrarian.firstN, newLibrarian.lastN, newLibrarian.pass)">Add New Librarian
+                        </button>
                     </td>
                 </tr>
+            </table>
+
+        <!-- Section for assigning shifts to a new librarian; includes creation and deletion. -->
+        <h3 style="text-align:left">Shifts to Assign</h3>
+            <table>
                 <tr>
                     <th>Day of Shift</th>
                     <th>Start Time</th>
@@ -48,56 +62,80 @@
                         <input type="time" v-model="newShift.endTime" id="endtime">
                     </td>
                 </tr>
+            </table>
+            <table style="text-align:left">
                 <tr>
                     <td></td>
-                    <td> <button v-on:click="createShift(newShift.day, newShift.startTime, newShift.endTime)">Add Shift to Table</button> </td>
+                    <td> <button
+                            v-bind:disabled="!newShift.day || !newShift.startTime || !newShift.endTime" 
+                            v-on:click="createShift(newShift.day, newShift.startTime, newShift.endTime)">Add Shift to Table
+                    </button> </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td> <button
+                            v-on:click="deleteAllShifts()">Clear Shifts
+                    </button> </td>
                 </tr>
             </table>
-            <span v-if="errorShift" style="color:red"> {{errorShift}} </span>
-        <h3 style="text-align:left">Shifts to Assign</h3>
-            <table>
-                <tr>
-                    <td> <th style="padding: 20px">Day of Week</th> </td>
-                    <td> <th style="padding: 20px">Start Time</th> </td>
-                    <td> <th style="padding: 20px">End Time</th> </td>
-                    <td> <th style="padding: 20px">Shift ID</th> </td>
-                </tr>
-                <tr v-for="shift in shifts" :key=shift>
-                    <td> {{shift.dayOfWeek}} </td>
-                    <td> {{shift.startTime}} </td>
-                    <td> {{shift.endTime}} </td>
-                    <td> {{shift.shiftId}} </td>
-                </tr>
-            </table> 
+            <p>
+                <span v-if="errorShift" style="text-align:center; color:red"> {{errorShift}} </span>
+            </p>
+            <v-table :data="shifts" selectedClass="table-info" class="table-hover">
+                <thead slot="head">
+                    <th style="padding: 20px">Day of Week</th>
+                    <th style="padding: 20px">Start Time</th>
+                    <th style="padding: 20px">End Time</th>
+                    <th style="padding: 20px">Shift ID</th>
+                </thead>
+                <tbody slot="body">
+                    <v-tr v-for="shift in shifts" :key=shift.shiftId :row=shift.dayOfWeek>
+                        <td> {{shift.dayOfWeek}} </td>
+                        <td> {{shift.startTime}} </td>
+                        <td> {{shift.endTime}} </td>
+                        <td> {{shift.shiftId}} </td>
+                    </v-tr>
+                </tbody>
+            </v-table> 
         <hr>
+
+        <!-- Table of current librarians in the system -->
         <h2 style="text-align:left">Current Librarians</h2>
-            <table>
-                <tr>
-                    <td> <th style="padding: 20px">First Name</th> </td>
-                    <td> <th style="padding: 20px">Last Name</th> </td>
-                    <td> <th style="padding: 20px">Librarian ID</th> </td>
-                </tr>
-                <tr v-for="librarian in librarians" :key=librarian>
-                    <td> {{librarian.fName}} </td>
-                    <td> {{librarian.lName}} </td>
-                    <td> {{librarian.libId}} </td>
-                </tr>
+            <table style="text-align:left">
                 <tr>
                     <td>
-                        <button>Remove Librarian</button>
+                        <button 
+                            v-on:click="deleteLibrarian(selectedLibrarian[0])">Remove Librarian</button>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <button>View/Edit Weekly Schedule</button>
+                        <button v-on:click="editSchedule(selectedLibrarian[0])">View/Edit Weekly Schedule</button>
                     </td>
                 </tr>
             </table>
-
+            <p>
+                <span v-if="errorLibrarian" style="color:red">{{errorLibrarian}} </span>
+            </p>
+            <v-table :data="librarians" selectedClass="table-info" @selectionChanged="selectedLibrarian = $event" class="table-hover">
+                <thead slot="head">
+                    <th style="padding: 20px">First Name</th>
+                    <th style="padding: 20px">Last Name</th>
+                    <th style="padding: 20px">Librarian ID</th>
+                </thead>
+                <tbody slot="body">
+                    <v-tr v-for="librarian in librarians" :key=librarian.librarianId :row=librarian.librarianId>
+                        <td> {{librarian.firstName}} </td>
+                        <td> {{librarian.lastName}} </td>
+                        <td> {{librarian.librarianId}} </td>
+                    </v-tr>
+                </tbody>
+            </v-table>
     </div>    
 </template>
 
 <script src="./librarianManager.js"></script>
 
 <style>
+
 </style>
