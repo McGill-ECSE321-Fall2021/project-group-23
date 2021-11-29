@@ -32,30 +32,30 @@ public class CustomerService {
   public Customer createCustomer(String firstName, String lastName, String password, String email, boolean isVerified, boolean isLocal, String address, int balance) {
     //Checks if first name is null or empty
     if (firstName == null || firstName.replaceAll("\\s+","").length() == 0) {
-      throw new IllegalArgumentException("Your first name cannot be empty.");
+      throw new InvalidInputException("Your first name cannot be empty.");
     }
     //Checks if first name contains special characters
     else if (firstName.matches(".*\\d.*") || containsSpecialCharacter(firstName)) {
-      throw new IllegalArgumentException("Your first name cannot contain a number or a special character.");
+      throw new InvalidInputException("Your first name cannot contain a number or a special character.");
     }
     //Checks that last name is not null or is empty
     else if (lastName == null || lastName.replaceAll("\\s+","").length() == 0) {
-      throw new IllegalArgumentException("Your last name cannot be empty.");
+      throw new InvalidInputException("Your last name cannot be empty.");
     }
     else if (lastName.matches(".*\\d.*") || containsSpecialCharacter(lastName)) {
-      throw new IllegalArgumentException("Your last name cannot contain a number or a special character.");
+      throw new InvalidInputException("Your last name cannot contain a number or a special character.");
     }
     else if (password == null || password.length() < 8 || !password.matches(".*[A-Z].*")) {
-      throw new IllegalArgumentException("Your password must have at least 8 characters and a capital letter.");
+      throw new InvalidInputException("Your password must have at least 8 characters and a capital letter.");
     }
     else if (email == null || email.replaceAll("\\s+","").length() == 0) {
-      throw new IllegalArgumentException("Your email cannot be empty.");
+      throw new InvalidInputException("Your email cannot be empty.");
     }
     else if (customerRepository.existsByEmail(email)) {
-      throw new IllegalArgumentException("A customer with the provided email already exists.");
+      throw new InvalidInputException("A customer with the provided email already exists.");
     }
     else if (address == null || address.replaceAll("\\s+","").length() == 0) {
-      throw new IllegalArgumentException("Your address cannot be empty.");
+      throw new InvalidInputException("Your address cannot be empty.");
     }
     else {
       Customer customer = new Customer();
@@ -88,10 +88,10 @@ public class CustomerService {
   public Customer loginCustomer(int id, String password) {
     Customer customer = customerRepository.findCustomerByAccountId(id);
     if(customer == null){
-      throw new IllegalArgumentException("no Customer exists with id "+ Integer.toString(id));
+      throw new InvalidInputException("no Customer exists with id "+ Integer.toString(id));
     }
     if(!customer.getPassword().equals(password)){
-      throw new IllegalArgumentException("incorrect password : " + password + " ,  db password : " + customer.getPassword());
+      throw new InvalidInputException("incorrect password : " + password + " ,  db password : " + customer.getPassword());
     }
     return customer;
   }
@@ -110,18 +110,18 @@ public class CustomerService {
   @Transactional
   public Customer updateCustomer(int id, String newPassword, String newAddress) {
     if (id == 0) {
-      throw new IllegalArgumentException("Customer id cannot be empty.");
+      throw new InvalidInputException("Customer id cannot be empty.");
     } 
     else {
       Customer customer = customerRepository.findCustomerByAccountId(id);
       if (customer == null) {
-        throw new IllegalArgumentException("The customer with provided id cannot be found.");
+        throw new InvalidInputException("The customer with provided id cannot be found.");
       }
       else if (newPassword == null || newPassword.length() < 8 || !newPassword.matches(".*[A-Z].*")) {
-        throw new IllegalArgumentException("Your password must have at least 8 characters and a capital letter.");
+        throw new InvalidInputException("Your password must have at least 8 characters and a capital letter.");
       }
       else if (newAddress == null || newAddress.replaceAll("\\s+","").length() == 0 ) {
-        throw new IllegalArgumentException("Your address cannot be empty.");
+        throw new InvalidInputException("Your address cannot be empty.");
       }
       else {
         customer.setPassword(newPassword);
@@ -135,7 +135,7 @@ public class CustomerService {
   @Transactional
   public Customer deleteCustomer(int id) {
     if (!customerRepository.existsByAccountId(id)) {
-      throw new IllegalArgumentException("Customer account with provided id does not exist.");
+      throw new InvalidInputException("Customer account with provided id does not exist.");
     }
       Customer customer = customerRepository.findCustomerByAccountId(id);
       customerRepository.delete(customer);
