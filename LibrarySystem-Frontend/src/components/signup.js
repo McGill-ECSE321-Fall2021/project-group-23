@@ -51,6 +51,8 @@ methods: {
             this.errorSignupCustomer=''
             this.errorSignupCustomer2=''
             this.errorSignupCustomer3=''
+            var newCustomer = this.customerAccounts[this.customerAccounts.length-1]
+            this.$router.push({ path: `/CustomerHomePage/` + newCustomer.firstName + '/' + newCustomer.lastName + '/' + newCustomer.customerId + '/' + newCustomer.address + '/' + newCustomer.email + '/' + newCustomer.password + '/Customer' })
         }).catch(e => {
             var errorMsg = "-Your first name and last name cannot contain numbers or special characters"
             var errorMsg2 = "-Your password must contain at least 8 characters and a capital letter"       

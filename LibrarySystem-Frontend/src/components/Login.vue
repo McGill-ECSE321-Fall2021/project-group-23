@@ -20,12 +20,7 @@
       </tr>
       <tr>
           <td>
-              <button>Forgot password?</button>
-          </td>
-      </tr>
-      <tr>
-          <td>
-              <button>Create new Account</button>
+              <button v-on:click="signUpCustomer()">Create new Account</button>
           </td>
       </tr>  
     </table>

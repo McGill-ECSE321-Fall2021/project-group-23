@@ -39,9 +39,10 @@ export default new Router({
       component: Signup
     },
     {
-      path: '/Profile',
+      path: '/Profile/:nameP/:familynameP/:idP/:addressP/:emailP/:passwordP/:accountTypeP',
       name: 'Profile',
-      component: Profile
+      component: Profile,
+      props: true
     }
     ,
     {

@@ -35,16 +35,10 @@
                     </p>
                 </td>
             </tr>
-            <tr>
-                <th>Password</th>
-            </tr>
-            <tr>
-                <input type="password" id="newPass" v-model="newPassword">
-            </tr>
         </table>
         <button
-            v-bind:disabled="!newFirst || !newLast || !newPassword" 
-            v-on:click="updateHeadInfo(newFirst, newLast, newPassword)">Update Account Information
+            v-bind:disabled="!newFirst || !newLast" 
+            v-on:click="updateHeadInfo(newFirst, newLast)">Update Account Information
         </button>
         <button v-on:click="returnToPrev()">Return to Previous Page</button>
     </div>
