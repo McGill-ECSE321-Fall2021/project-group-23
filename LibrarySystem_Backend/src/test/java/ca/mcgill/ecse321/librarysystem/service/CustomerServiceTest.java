@@ -195,7 +195,7 @@ public class CustomerServiceTest {
 		Customer customer = null;
 		try {
 			customer = customerService.createCustomer(FNAME, LNAME, PASSWORD, EMAIL, ISVERIFIED, ISLOCAL, ADDRESS, BALANCE);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(customer);
@@ -216,7 +216,7 @@ public class CustomerServiceTest {
 		String error = null;
 		try {
 			customer = customerService.createCustomer("", LNAME, PASSWORD, EMAIL, ISVERIFIED, ISLOCAL, ADDRESS, BALANCE);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(customer);
@@ -230,7 +230,7 @@ public class CustomerServiceTest {
 		String error = null;
 		try {
 			customer = customerService.createCustomer("Zi Chao 2", LNAME, PASSWORD, EMAIL, ISVERIFIED, ISLOCAL, ADDRESS, BALANCE);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(customer);
@@ -245,7 +245,7 @@ public class CustomerServiceTest {
 		String error = null;
 		try {
 			customer = customerService.createCustomer("Zi Chao*", LNAME, PASSWORD, EMAIL, ISVERIFIED, ISLOCAL, ADDRESS, BALANCE);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(customer);
@@ -259,7 +259,7 @@ public class CustomerServiceTest {
 		String error = null;
 		try {
 			customer = customerService.createCustomer(FNAME, "", PASSWORD, EMAIL, ISVERIFIED, ISLOCAL, ADDRESS, BALANCE);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(customer);
@@ -273,7 +273,7 @@ public class CustomerServiceTest {
 		String error = null;
 		try {
 			customer = customerService.createCustomer(FNAME, "Zhang1", PASSWORD, EMAIL, ISVERIFIED, ISLOCAL, ADDRESS, BALANCE);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(customer);
@@ -287,7 +287,7 @@ public class CustomerServiceTest {
 		String error = null;
 		try {
 			customer = customerService.createCustomer(FNAME, "_Zhang", PASSWORD, EMAIL, ISVERIFIED, ISLOCAL, ADDRESS, BALANCE);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(customer);
@@ -301,7 +301,7 @@ public class CustomerServiceTest {
     String error = null;
     try {
       customer = customerService.createCustomer(FNAME, LNAME, "2Short", EMAIL, ISVERIFIED, ISLOCAL, ADDRESS, BALANCE);
-    } catch (IllegalArgumentException e) {
+    } catch (InvalidInputException e) {
       error = e.getMessage();
     }
     assertNull(customer);
@@ -315,7 +315,7 @@ public class CustomerServiceTest {
     String error = null;
     try {
       customer = customerService.createCustomer(FNAME, LNAME, "passwordnocap", EMAIL, ISVERIFIED, ISLOCAL, ADDRESS, BALANCE);
-    } catch (IllegalArgumentException e) {
+    } catch (InvalidInputException e) {
       error = e.getMessage();
     }
     assertNull(customer);
@@ -329,7 +329,7 @@ public class CustomerServiceTest {
 		String error = null;
 		try {
 			customer = customerService.createCustomer(FNAME, LNAME, PASSWORD, "", ISVERIFIED, ISLOCAL, ADDRESS, BALANCE);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(customer);
@@ -344,7 +344,7 @@ public class CustomerServiceTest {
 		lenient().when(customerRepository.existsByEmail(anyString())).thenReturn(true);
 		try {
 			customer = customerService.createCustomer(FNAME, LNAME, PASSWORD, EMAIL, ISVERIFIED, ISLOCAL, ADDRESS, BALANCE);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(customer);
@@ -358,7 +358,7 @@ public class CustomerServiceTest {
 		String error = null;
 		try {
 			customer = customerService.createCustomer(FNAME, LNAME, PASSWORD, EMAIL, ISVERIFIED, ISLOCAL, "", BALANCE);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(customer);
@@ -371,7 +371,7 @@ public class CustomerServiceTest {
 		Customer customer = null;
 		try {
 			customer = customerService.updateCustomer(ACCOUNTID, "Thismynewpass123", "1 Queen Street");
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(customer);
@@ -386,7 +386,7 @@ public class CustomerServiceTest {
 		String error = null;
 		try {
 			customer = customerService.updateCustomer(NONACCOUNTID, "Abdouallah", "Tahdi");
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(customer);
@@ -400,7 +400,7 @@ public class CustomerServiceTest {
 		String error = null;
 		try {
 			customer = customerService.updateCustomer(ACCOUNTID, "2Short", "1 King Street");
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
       error = e.getMessage();
     }
     assertNull(customer);
@@ -414,7 +414,7 @@ public class CustomerServiceTest {
 		String error = null;
 		try {
 			customer = customerService.updateCustomer(ACCOUNTID, "newpassnocap", "1 King Street");
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
       error = e.getMessage();
     }
     assertNull(customer);
@@ -428,7 +428,7 @@ public class CustomerServiceTest {
 		String error = null;
 		try {
 			customer = customerService.updateCustomer(ACCOUNTID, "Topsecret123", "");
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
       error = e.getMessage();
     }
     assertNull(customer);
@@ -442,7 +442,7 @@ public class CustomerServiceTest {
 		lenient().when(customerRepository.existsByAccountId(anyInt())).thenReturn(true);
 		try {
 			customer = customerService.deleteCustomer(ACCOUNTID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(customer);
@@ -456,7 +456,7 @@ public class CustomerServiceTest {
 		String error = null;
 		try {
 			customer = customerService.deleteCustomer(NONACCOUNTID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(customer);
