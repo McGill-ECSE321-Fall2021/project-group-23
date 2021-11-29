@@ -1,6 +1,7 @@
 <template>
     <div id="hire/fire-librarian" class="container-fluid">
-        <h1 style="text-align:left">Librarian Management</h1>
+        <h1 style="text-align:left">Head Librarian Management</h1>
+        <button v-on:click="updateHeadInfo()">Update Head Librarian Information</button>
         <hr>
 
         <!-- Section for adding a new librarian; inputs are names and the password.-->
@@ -109,7 +110,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <button v-on:click="go(selectedLibrarian[0])">View/Edit Weekly Schedule</button>
+                        <button v-on:click="editSchedule(selectedLibrarian[0])">View/Edit Weekly Schedule</button>
                     </td>
                 </tr>
             </table>

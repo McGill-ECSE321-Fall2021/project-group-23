@@ -45,10 +45,6 @@ export default {
         }
     },
     created: function () {
-        // // Test data
-        // const p1 = new LibrarianDto(12, 'Mac', 'Donald', 'ummm1')
-        // this.librarians = [p1]
-
         // Initialize librarians from backend
         AXIOS.get('/getAllLibrarians')
         .then(response => {
@@ -67,6 +63,7 @@ export default {
         })
     },
     methods: {
+        // Method for when table needs to be reset
         getAllLibrarians: function() {
             AXIOS.get('/getAllLibrarians')
             .then(response => {
@@ -76,10 +73,16 @@ export default {
                 this.errorLibrarian = e
             }) 
         },
+        // Method for editing head librarian info
+        updateHeadInfo: function() {
+            this.$router.push({ path: `/UpdateHeadLibrarian` })
+        },
         // Method for switching page to edit schedule
-        go: function(id) {
-            var path = id
-            this.$router.push({ path: `/ScheduleAssignment/${id}` })
+        editSchedule: function(id) {
+            if (id == undefined) {
+                this.errorLibrarian = "Please select the librarian whose shifts you wish to edit."
+            }
+            else this.$router.push({ path: `/ScheduleAssignment/${id}` })
         },
         // async required to wait for post request for schedule before creating librarian
         createLibrarian: async function (librarianFName, librarianLName, librarianPass) {
@@ -98,6 +101,7 @@ export default {
             text = text.substring(0, text.length - 1);
             
             var lastSchedule;
+            // Create the weekly schedule and wait for response before creating Librarian
             await AXIOS.post('/createWeeklySchedule/'.concat(text), {}, {})
             .then(response => {
                 this.schedules.push(response.data)
@@ -121,6 +125,7 @@ export default {
                 this.errorLibrarian = errorMsg
             })
         },
+        // Creates a new shift; takes params and inputs by itself
         createShift: function (day, start, end) {
             AXIOS.post('/createShift', {}, {
                 params: {

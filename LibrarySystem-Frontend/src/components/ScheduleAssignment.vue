@@ -2,7 +2,9 @@
     <div id="assign-schedule" class="container-fluid">
         <h1 style="text-align:left">Update Weekly Shifts</h1>
         <hr>
-        <h2 style="text-align:left">Shifts to Add</h2>
+        <h2 style="text-align:left">Shifts to Assign</h2>
+        <button style="padding:5px" v-on:click="returnToPrev()">Return to Previous Page</button>
+        <p> Please note resetting the shifts removes the previous ones. </p>
             <table>
                 <tr>
                     <th>Day of Shift</th>
@@ -11,7 +13,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <select name="Day of Week" id="day">
+                        <select name="Day of Week" id="day" v-model="newShift.day">
                             <option value="Monday">Monday</option>
                             <option value="Tuesday">Tuesday</option>
                             <option value="Wednesday">Wednesday</option>
@@ -22,15 +24,37 @@
                         </select>
                     </td>
                     <td>
-                        <input type="time" id="starttime">
+                        <input type="time" id="starttime" v-model="newShift.startTime">
                     </td>
                     <td>
-                        <input type="time" id="endtime">
+                        <input type="time" id="endtime" v-model="newShift.endTime">
                     </td>
+                </tr>
+            </table>
+            <table style="text-align:left">
+                <tr>
+                    <td></td>
+                    <td> <button
+                            v-bind:disabled="!newShift.day || !newShift.startTime || !newShift.endTime" 
+                            v-on:click="createShift(newShift.day, newShift.startTime, newShift.endTime)">Add Shift to Table
+                    </button> </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td> <button
+                            v-on:click="deleteAllShifts()">Clear Shifts
+                    </button> </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td> <button
+                            v-on:click="updateWeeklySchedule()">Update Schedule
+                    </button> </td>
                 </tr>
             </table>
             <p>
                 <span v-if="errorShift" style="text-align:center; color:red"> {{errorShift}} </span>
+                <span v-else-if="successShift" style="text-align:center; color:green"> {{successShift}} </span>
             </p>
             <v-table :data="shifts" selectedClass="table-info" class="table-hover">
                 <thead slot="head">
