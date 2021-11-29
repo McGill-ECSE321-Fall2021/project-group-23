@@ -82,9 +82,10 @@ export default new Router({
     }
     ,
     {
-      path: '/CustomerHomePage',
+      path: '/CustomerHomePage/:firstNameP/:lastNameP/:idP/:addressP/:emailP/:passwordP/:accountTypeP',
       name: 'CustomerHomePage',
-      component: CustomerHomePage
+      component: CustomerHomePage,
+      props: true
     },
     {
       path: '/Holiday',

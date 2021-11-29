@@ -12,3 +12,5 @@
     </form>
   </div>
 </template>
+<script src="./CustomerHomePage.js">
+</script>
