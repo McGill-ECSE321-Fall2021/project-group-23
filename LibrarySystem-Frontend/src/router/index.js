@@ -6,11 +6,12 @@ import Signup from '@/components/Signup'
 import CreateItem from '@/components/CreateItem.vue'
 import ViewItems from '@/components/ViewItems.vue'
 import Profile from '@/components/Profile'
-import LibrarianManagement from '@/components/LibrarianManagement'
-import ScheduleAssignment from '@/components/ScheduleAssignment'
+import LibrarianManagement from '@/components/LibrarianManagement.vue'
+import ScheduleAssignment from '@/components/ScheduleAssignment.vue'
 import Test from '@/components/Test'
 import Holiday from '@/components/Holiday.vue'
 import OpeningsHours from '@/components/OpeningsHours.vue'
+import UpdateHeadLibrarian from '@/components/UpdateHeadLibrarian.vue'
 
 Vue.use(Router)
 
@@ -44,9 +45,10 @@ export default new Router({
       component: LibrarianManagement
     },
     {
-      path: '/ScheduleAssignment',
+      path: '/ScheduleAssignment/:id',
       name: 'ScheduleAssignment',
-      component: ScheduleAssignment
+      component: ScheduleAssignment,
+      props: true
     },
     {
       path: '/Test/:name',
@@ -79,5 +81,10 @@ export default new Router({
       component: OpeningsHours
     }
     ,
+    {
+      path: '/UpdateHeadLibrarian',
+      name: 'UpdateHeadLibrarian',
+      component: UpdateHeadLibrarian
+    }
   ]
 })

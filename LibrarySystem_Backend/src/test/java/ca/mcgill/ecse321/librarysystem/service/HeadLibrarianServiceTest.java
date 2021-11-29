@@ -122,7 +122,7 @@ public class HeadLibrarianServiceTest {
 		lenient().when(weeklyScheduleRepository.existsByWeeklyScheduleId(anyInt())).thenReturn(true);
 		try {
 			hl = headLibrarianService.createHeadLibrarian(FIRSTNAME, LASTNAME, PASSWORD, SCHEDULEID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(hl);
@@ -139,7 +139,7 @@ public class HeadLibrarianServiceTest {
 		String error = null;
 		try {
 			hl = headLibrarianService.createHeadLibrarian(null, LASTNAME, PASSWORD, SCHEDULEID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(hl);
@@ -153,7 +153,7 @@ public class HeadLibrarianServiceTest {
 		String error = null;
 		try {
 			hl = headLibrarianService.createHeadLibrarian(FIRSTNAME, null, PASSWORD, SCHEDULEID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(hl);
@@ -167,7 +167,7 @@ public class HeadLibrarianServiceTest {
 		String error = null;
 		try {
 			hl = headLibrarianService.createHeadLibrarian(FIRSTNAME, LASTNAME, null, SCHEDULEID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(hl);
@@ -181,7 +181,7 @@ public class HeadLibrarianServiceTest {
 		String error = null;
 		try {
 			hl = headLibrarianService.createHeadLibrarian(FIRSTNAME, LASTNAME, PASSWORD, NONSCHEDULEID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(hl);
@@ -197,7 +197,7 @@ public class HeadLibrarianServiceTest {
 		lenient().when(librarianRepository.existsById(anyInt())).thenReturn(true);
 		try {
 			hl = headLibrarianService.updateHeadLibrarian(ACCOUNTID, NEWFNAME, NEWLNAME, NEWPWORD, NONSCHEDULEID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(hl);
@@ -215,7 +215,7 @@ public class HeadLibrarianServiceTest {
 		lenient().when(weeklyScheduleRepository.existsByWeeklyScheduleId(anyInt())).thenReturn(true);
 		try {
 			hl = headLibrarianService.updateHeadLibrarian(ACCOUNTID, NEWFNAME, NEWLNAME, NEWPWORD, NONSCHEDULEID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(hl);
@@ -229,7 +229,7 @@ public class HeadLibrarianServiceTest {
 		lenient().when(weeklyScheduleRepository.existsByWeeklyScheduleId(anyInt())).thenReturn(true);
 		try {
 			l = headLibrarianService.createLibrarian(FIRSTNAME, LASTNAME, PASSWORD, SCHEDULEID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(l);
@@ -248,7 +248,7 @@ public class HeadLibrarianServiceTest {
 		lenient().when(librarianRepository.existsByAccountId(anyInt())).thenReturn(true);
 		try {
 			l = headLibrarianService.assignWeeklySchedule(ACCOUNTID, NONSCHEDULEID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(l);
@@ -263,7 +263,7 @@ public class HeadLibrarianServiceTest {
 		lenient().when(weeklyScheduleRepository.existsByWeeklyScheduleId(anyInt())).thenReturn(true);
 		try {
 			l = headLibrarianService.assignWeeklySchedule(NONACCOUNTID, NONSCHEDULEID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(l);
@@ -277,7 +277,7 @@ public class HeadLibrarianServiceTest {
 		lenient().when(librarianRepository.existsByAccountId(anyInt())).thenReturn(true);
 		try {
 			l = headLibrarianService.deleteLibrarian(ACCOUNTID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(l);
@@ -291,7 +291,7 @@ public class HeadLibrarianServiceTest {
 		String error = null;
 		try {
 			l = headLibrarianService.deleteLibrarian(NONACCOUNTID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(l);
@@ -333,7 +333,7 @@ public class HeadLibrarianServiceTest {
 		String error = null;
 		try {
 			l = headLibrarianService.getLibrarianByNames(FIRSTNAME, LASTNAME);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(l);
@@ -359,7 +359,7 @@ public class HeadLibrarianServiceTest {
 		lenient().when(weeklyScheduleRepository.existsByWeeklyScheduleId(anyInt())).thenReturn(true);
 		try {
 			l = headLibrarianService.getLibrarianByScheduleId(NONSCHEDULEID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(l);

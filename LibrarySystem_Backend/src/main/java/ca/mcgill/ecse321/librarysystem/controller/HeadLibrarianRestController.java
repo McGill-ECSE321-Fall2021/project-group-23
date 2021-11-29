@@ -47,21 +47,21 @@ public class HeadLibrarianRestController {
 	// Return librarian matching id
 	@GetMapping(value = { "/getLibrarianById/{librarianId}", "getLibrarianById/{librarianId}/" })
 	public LibrarianDto getLibrarianById(@PathVariable("librarianId") int librarianId)
-	throws IllegalArgumentException{
+	throws InvalidInputException{
 		return convertToDto(headLibrarianService.getLibrarianByAccountId(librarianId));
 	}
 	
 	// Return librarian matching names
 	@GetMapping(value = { "/getLibrarianByNames/{firstName}/{lastName}", "getLibrarianByNames/{firstName}/{lastName}/" })
 	public LibrarianDto getLibrarianByFirstAndLastName(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName)
-	throws IllegalArgumentException{
+	throws InvalidInputException{
 		return convertToDto(headLibrarianService.getLibrarianByNames(firstName, lastName));
 	}
 	
 	// Return librarian with associated schedule
 	@GetMapping(value = { "/getLibrarianBySchedule/{weeklyScheduleId}", "getLibrarianBySchedule/{weeklyScheduleId}/" })
 	public LibrarianDto getLibrarianByWeeklySchedule(@PathVariable("weeklyScheduleId") int weeklyScheduleId)
-	throws IllegalArgumentException{
+	throws InvalidInputException{
 		return convertToDto(headLibrarianService.getLibrarianByScheduleId(weeklyScheduleId));
 	}
 	
@@ -70,7 +70,7 @@ public class HeadLibrarianRestController {
 	public LibrarianDto createHeadLibrarian(@PathVariable("firstName") String firstName, 
 			@PathVariable("lastName") String lastName,
 			@PathVariable("password") String password,
-			@PathVariable("scheduleId") int scheduleId) throws IllegalArgumentException{
+			@PathVariable("scheduleId") int scheduleId) throws InvalidInputException{
 		HeadLibrarian headLibrarian = headLibrarianService.createHeadLibrarian(firstName, lastName, password, scheduleId);
 		return convertToDto(headLibrarian);
 	}
@@ -80,7 +80,7 @@ public class HeadLibrarianRestController {
 	public LibrarianDto createLibrarian(@PathVariable("firstName") String firstName, 
 			@PathVariable("lastName") String lastName,
 			@PathVariable("password") String password,
-			@PathVariable("scheduleId") int scheduleId) throws IllegalArgumentException{
+			@PathVariable("scheduleId") int scheduleId) throws InvalidInputException{
 		Librarian librarian = headLibrarianService.createLibrarian(firstName, lastName, password, scheduleId);
 		return convertToDto(librarian);
 	}
@@ -91,7 +91,7 @@ public class HeadLibrarianRestController {
 			@PathVariable("firstName") String firstName, 
 			@PathVariable("lastName") String lastName,
 			@PathVariable("password") String password,
-			@PathVariable("scheduleId") int scheduleId) throws IllegalArgumentException{
+			@PathVariable("scheduleId") int scheduleId) throws InvalidInputException{
 		HeadLibrarian headLibrarian = headLibrarianService.updateHeadLibrarian(accountId, firstName, lastName, password, scheduleId);
 		return convertToDto(headLibrarian);
 	}
@@ -136,7 +136,7 @@ public class HeadLibrarianRestController {
 	
 	private LibrarianDto convertToDto(Librarian l) {
 		if (l == null) {
-			throw new IllegalArgumentException("There is no such Librarian!");
+			throw new InvalidInputException("There is no such Librarian!");
 		}
 		LibrarianDto librarianDto = new LibrarianDto(l.getAccountId(), l.getFirstName(), l.getLastName(), l.getPassword(), convertToDto(l.getLibrarianSchedule()));
 		return librarianDto;
@@ -144,7 +144,7 @@ public class HeadLibrarianRestController {
 	
 	private WeeklyScheduleDto convertToDto(WeeklySchedule ws) {
 		if (ws == null) {
-			throw new IllegalArgumentException("There is no such WeeklySchedule!");
+			throw new InvalidInputException("There is no such WeeklySchedule!");
 		}
 		Set<ShiftDto> shiftDtos = new HashSet<ShiftDto>();
 		for (Shift s : ws.getShifts()) {
@@ -156,7 +156,7 @@ public class HeadLibrarianRestController {
 	
 	private ShiftDto convertToDto(Shift s) {
 		if (s == null) {
-			throw new IllegalArgumentException("There is no such Shift!");
+			throw new InvalidInputException("There is no such Shift!");
 		}
 		ShiftDto shiftDto = new ShiftDto(s.getWorkingDay(),s.getStartTime(),s.getEndTime(),s.getShiftId());
 		return shiftDto;
@@ -170,9 +170,9 @@ public class HeadLibrarianRestController {
 	 */
 	private CustomerDto convertToDto(Customer customer) {
 		if (customer == null) {
-			throw new IllegalArgumentException("The provided customer does not exist.");
+			throw new InvalidInputException("The provided customer does not exist.");
 		}
-		CustomerDto customerDto = new CustomerDto(customer.getFirstName(), customer.getLastName(), customer.getAccountId(), customer.getPassword(), customer.getEmail(), customer.getIsVerified(), customer.getIsLocal(), customer.getAccountBalance());
+		CustomerDto customerDto = new CustomerDto(customer.getFirstName(), customer.getLastName(), customer.getAccountId(), customer.getPassword(), customer.getEmail(), customer.getIsVerified(), customer.getIsLocal(), customer.getAccountBalance(), customer.getAddress());
 	
 		return customerDto;
 	}

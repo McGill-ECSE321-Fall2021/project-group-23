@@ -47,15 +47,15 @@ public class LibrarianRestController {
 	 */
 	private CustomerDto convertToDto(Customer customer) {
 		if (customer == null) {
-			throw new IllegalArgumentException("The provided customer does not exist.");
+			throw new InvalidInputException("The provided customer does not exist.");
 		}
-		CustomerDto customerDto = new CustomerDto(customer.getFirstName(), customer.getLastName(), customer.getAccountId(), customer.getPassword(), customer.getEmail(), customer.getIsVerified(), customer.getIsLocal(), customer.getAccountBalance());
+		CustomerDto customerDto = new CustomerDto(customer.getFirstName(), customer.getLastName(), customer.getAccountId(), customer.getPassword(), customer.getEmail(), customer.getIsVerified(), customer.getIsLocal(), customer.getAccountBalance(), customer.getAddress());
 	
 		return customerDto;
 	}
 	private LibrarianDto convertToDto(Librarian librarian) {
 		if (librarian == null) {
-			throw new IllegalArgumentException("The provided librarian does not exist.");
+			throw new InvalidInputException("The provided librarian does not exist.");
 		}
 		LibrarianDto librarianDto = new LibrarianDto(librarian.getAccountId(), librarian.getFirstName(), librarian.getLastName(), librarian.getPassword());
 	

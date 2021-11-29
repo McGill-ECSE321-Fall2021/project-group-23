@@ -22,19 +22,19 @@ public class LibrarianService {
   @Transactional
   public Customer createCustomer(String firstName, String lastName, String email, String address, int balance) {
     if (firstName == null || firstName.replaceAll("\\s+", "").length() == 0) {
-      throw new IllegalArgumentException("Your first name cannot be empty.");
+      throw new InvalidInputException("Your first name cannot be empty.");
     } else if (firstName.matches(".*\\d.*") || containsSpecialCharacter(firstName)) {
-      throw new IllegalArgumentException("Your first name cannot contain a number or a special character.");
+      throw new InvalidInputException("Your first name cannot contain a number or a special character.");
     } else if (lastName == null || lastName.replaceAll("\\s+", "").length() == 0) {
-      throw new IllegalArgumentException("Your last name cannot be empty.");
+      throw new InvalidInputException("Your last name cannot be empty.");
     } else if (lastName.matches(".*\\d.*") || containsSpecialCharacter(firstName)) {
-      throw new IllegalArgumentException("Your last name cannot contain a number or a special character.");
+      throw new InvalidInputException("Your last name cannot contain a number or a special character.");
     } else if (email == null || email.replaceAll("\\s+", "").length() == 0) {
-      throw new IllegalArgumentException("Your email cannot be empty.");
+      throw new InvalidInputException("Your email cannot be empty.");
     } else if (customerRepository.existsByEmail(email)) {
-      throw new IllegalArgumentException("A customer with the provided email already exists.");
+      throw new InvalidInputException("A customer with the provided email already exists.");
     } else if (address == null || address.replaceAll("\\s+", "").length() == 0) {
-      throw new IllegalArgumentException("Your address cannot be empty.");
+      throw new InvalidInputException("Your address cannot be empty.");
     } else {
       Customer customer = new Customer();
       customer.setFirstName(firstName);
@@ -51,10 +51,10 @@ public class LibrarianService {
   public Librarian loginLibrarian(int id, String password) {
     Librarian librarian = librarianRepository.findByAccountId(id);
     if(librarian == null){
-      throw new IllegalArgumentException("no librarian exists with id "+ Integer.toString(id));
+      throw new InvalidInputException("no librarian exists with id "+ Integer.toString(id));
     }
     if(!librarian.getPassword().equals(password)){
-      throw new IllegalArgumentException("incorrect password : " + password + " ,  db password : " + librarian.getPassword());
+      throw new InvalidInputException("incorrect password : " + password + " ,  db password : " + librarian.getPassword());
     }
     return librarian;
   }
@@ -63,10 +63,10 @@ public class LibrarianService {
   public Customer updateCustomer(int id, boolean newIsVerified, boolean newIsLocal, int newBalance) {
       Customer customer = customerRepository.findCustomerByAccountId(id);
       if (customer == null) {
-        throw new IllegalArgumentException("The customer with provided id cannot be found.");
+        throw new InvalidInputException("The customer with provided id cannot be found.");
       }
       if (newBalance < 0) {
-        throw new IllegalArgumentException("The provided account balance cannot be negative.");
+        throw new InvalidInputException("The provided account balance cannot be negative.");
       } else {
         customer.setIsVerified(newIsVerified);
         customer.setIsLocal(newIsLocal);
