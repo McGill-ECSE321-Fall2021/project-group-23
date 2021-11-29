@@ -39,7 +39,7 @@
                 <th>Password</th>
             </tr>
             <tr>
-                <input type="text" id="newPass" v-model="newPassword">
+                <input type="password" id="newPass" v-model="newPassword">
             </tr>
         </table>
         <button
