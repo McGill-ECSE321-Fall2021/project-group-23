@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
-import Login from '@/components/Login'
-import Signup from '@/components/Signup'
+import Login from '@/components/Login.vue'
+import Signup from '@/components/Signup.vue'
 import CreateItem from '@/components/CreateItem.vue'
 import ViewItems from '@/components/ViewItems.vue'
 import Profile from '@/components/Profile'
@@ -10,7 +10,11 @@ import LibrarianManagement from '@/components/LibrarianManagement'
 import ScheduleAssignment from '@/components/ScheduleAssignment'
 import CreateReservation from '@/components/CreateReservation'
 import CustomerHomePage from '@/components/CustomerHomePage.vue'
+import SignupCustomerLibrarian from '@/components/SignupCustomerLibrarian.vue'
 import Test from '@/components/Test'
+import Holiday from '@/components/Holiday.vue'
+import OpeningsHours from '@/components/OpeningsHours.vue'
+import UpdateHeadLibrarian from '@/components/UpdateHeadLibrarian.vue'
 
 Vue.use(Router)
 
@@ -37,17 +41,21 @@ export default new Router({
       path: '/Profile',
       name: 'Profile',
       component: Profile
-    },
+    }
+    ,
     {
       path: '/LibrarianManagement',
       name: 'LibrarianManagement',
       component: LibrarianManagement
-    },
+    }
+    ,
     {
-      path: '/ScheduleAssignment',
+      path: '/ScheduleAssignment/:id',
       name: 'ScheduleAssignment',
-      component: ScheduleAssignment
-    },
+      component: ScheduleAssignment,
+      props: true
+    }
+    ,
     {
       path: '/Test/:name',
       name: 'Test',
@@ -77,6 +85,29 @@ export default new Router({
       path: '/CustomerHomePage',
       name: 'CustomerHomePage',
       component: CustomerHomePage
+    },
+    {
+      path: '/Holiday',
+      name: 'Holiday',
+      component: Holiday
+    }
+    ,
+    {
+      path: '/OpeningHours',
+      name: 'OpeningsHours',
+      component: OpeningsHours
+    }
+    ,
+    {
+      path: '/SignupCustomerLibrarian',
+      name: 'SignupCustomerLibrarian',
+      component: SignupCustomerLibrarian
+    }
+    ,
+    {
+      path: '/UpdateHeadLibrarian',
+      name: 'UpdateHeadLibrarian',
+      component: UpdateHeadLibrarian
     }
   ]
 })

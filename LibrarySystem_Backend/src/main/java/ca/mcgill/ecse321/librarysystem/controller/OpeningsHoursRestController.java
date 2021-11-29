@@ -32,7 +32,7 @@ public class OpeningsHoursRestController {
 	@PostMapping(value = { "/createOpeningsHour/{openingDay}", "/createOpeningsHour/{openingDay}/" })
 	public OpeningsHoursDto createOpeningsHours(@PathVariable("openingDay") DayOfWeek openingDay,@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime)
-	throws IllegalArgumentException {
+	throws InvalidInputException {
 		OpeningsHours oh = service.createOpeningsHours(openingDay, Time.valueOf(startTime), Time.valueOf(endTime));
 		return convertToDto(oh);
 	}
@@ -47,14 +47,14 @@ public class OpeningsHoursRestController {
 	}
 	//Returns a specific opening hours
 	@GetMapping(value = { "/getOpeningsHoursByName/{openingDay}", "/getOpeningsHoursByName/{openingDay}/" })
-	public OpeningsHoursDto getOpeningsHoursByName(@PathVariable("openingDay") DayOfWeek openingDay) throws IllegalArgumentException {
+	public OpeningsHoursDto getOpeningsHoursByName(@PathVariable("openingDay") DayOfWeek openingDay) throws InvalidInputException {
 		return convertToDto(service.getOpeningsHours(openingDay));
 	}
 	//Updates the opening hours of an opening day
 	@PutMapping(value = { "/updateOpeningsHoursTimes/{openingDay}", "/updateOpeningsHoursTimes/{openingDay}/" })
 	public OpeningsHoursDto updateOpeningsHoursTimes(@PathVariable("openingDay") DayOfWeek openingDay,@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime newStartTime,
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime newEndTime)
-	throws IllegalArgumentException {
+	throws InvalidInputException {
 		OpeningsHours oh = service.updateOpeningsHours(openingDay, Time.valueOf(newStartTime), Time.valueOf(newEndTime));
 		return convertToDto(oh);
 	}
@@ -79,7 +79,7 @@ public class OpeningsHoursRestController {
 	//Converts an opening hours to an opening hourDto
 	private OpeningsHoursDto convertToDto(OpeningsHours oh) {
 		if (oh == null) {
-			throw new IllegalArgumentException("There is no such opening Hours!");
+			throw new InvalidInputException("There is no such opening Hours!");
 		}
 		OpeningsHoursDto openingsHoursDto = new OpeningsHoursDto(oh.getOpeningDay(),oh.getStartTime(),oh.getEndTime());
 		return openingsHoursDto;

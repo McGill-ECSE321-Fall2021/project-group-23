@@ -39,7 +39,7 @@ public class ShiftRestController {
 	
 	// Get a shift by id
 	@GetMapping(value = { "/getShiftById/{shiftId}", "/getShiftById/{shiftId}/" })
-	public ShiftDto getShiftById(@PathVariable("shiftId") int shiftId) throws IllegalArgumentException{
+	public ShiftDto getShiftById(@PathVariable("shiftId") int shiftId) throws InvalidInputException{
 		return convertToDto(shiftService.getShift(shiftId));
 	}
 	
@@ -56,7 +56,7 @@ public class ShiftRestController {
 	public ShiftDto createShift(@RequestParam DayOfWeek dayOfWeek, 
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime)
-			throws IllegalArgumentException{
+			throws InvalidInputException{
 		Shift shift = shiftService.createShift(dayOfWeek, Time.valueOf(startTime), Time.valueOf(endTime));
 		return convertToDto(shift);
 	}
@@ -67,14 +67,14 @@ public class ShiftRestController {
 			@RequestParam DayOfWeek dayOfWeek, 
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime)
-			throws IllegalArgumentException{
+			throws InvalidInputException{
 		Shift shift = shiftService.updateShift(shiftId, dayOfWeek, Time.valueOf(startTime), Time.valueOf(endTime));
 		return convertToDto(shift);
 	}
 	
 	// Delete a shift by id
 	@DeleteMapping(value = { "/deleteShiftById/{shiftId}", "/deleteShift/{shiftId}/" })
-	public ShiftDto deleteShiftById(@PathVariable("shiftId") int shiftId) throws IllegalArgumentException {
+	public ShiftDto deleteShiftById(@PathVariable("shiftId") int shiftId) throws InvalidInputException {
 		Shift shift = shiftService.deleteShift(shiftId);
 		return convertToDto(shift);
 	}
@@ -92,7 +92,7 @@ public class ShiftRestController {
 	// Helper method to convert to DTO
 	private ShiftDto convertToDto(Shift s) {
 		if (s == null) {
-			throw new IllegalArgumentException("There is no such Shift!");
+			throw new InvalidInputException("There is no such Shift!");
 		}
 		ShiftDto shiftDto = new ShiftDto(s.getWorkingDay(), s.getStartTime(), s.getEndTime(), s.getShiftId());
 		return shiftDto;

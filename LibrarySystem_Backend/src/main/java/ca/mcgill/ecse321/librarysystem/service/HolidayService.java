@@ -35,11 +35,11 @@ public class HolidayService {
 		
 		error = error.trim();
 		if (error.length() > 0) {
-			throw new IllegalArgumentException(error);
+			throw new InvalidInputException(error);
 		}
 		for (Holiday h: toList(holidayRepository.findAll())) {
 			if (h.getName().equals(name)) {
-				throw new IllegalArgumentException("There are already holiday for this day (Try updating).");
+				throw new InvalidInputException("There are already holiday for this day (Try updating).");
 			}
 		}
 		Holiday holiday = new Holiday();
@@ -58,7 +58,7 @@ public class HolidayService {
 		
 		error = error.trim();
 		if (error.length() > 0) {
-			throw new IllegalArgumentException(error);
+			throw new InvalidInputException(error);
 		}
 		Holiday holiday = holidayRepository.findHolidayByName(name);
 		return holiday;
@@ -80,7 +80,7 @@ public class HolidayService {
 		}
 		error = error.trim();
 		if (error.length() > 0) {
-			throw new IllegalArgumentException(error);
+			throw new InvalidInputException(error);
 		}
 		Holiday holiday = holidayRepository.findHolidayByName(name);
 		holiday.setStartDate(newStartDate);
@@ -98,7 +98,7 @@ public class HolidayService {
 		}
 		error = error.trim();
 		if (error.length() > 0) {
-			throw new IllegalArgumentException(error);
+			throw new InvalidInputException(error);
 		}
 		Holiday holiday = holidayRepository.findHolidayByName(name);
 		holidayRepository.delete(holiday);;
