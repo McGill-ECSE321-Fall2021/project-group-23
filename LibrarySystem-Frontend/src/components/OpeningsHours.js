@@ -48,7 +48,7 @@ export default {
                 })
         },
         createOpeningsHours: function (day, startTime, endTime) {
-            AXIOS.post('/createOpeningsHours/' + day + '/' + startTime + '/' + endTime).then(response => {
+            AXIOS.post('/createOpeningsHour/' + day + '?startTime=' + startTime + '&endTime=' + endTime).then(response => {
                 this.getAllOpeningsHours()
                 this.errorOpeningsHours= ''
             }).catch(e => {
@@ -59,7 +59,7 @@ export default {
 
         },
         updateOpeningsHours: function (day, startTime, endTime) {
-            AXIOS.put('/updateOpeningsHours/' + day + '/' + startTime + '/' + endTime).then(response => {
+            AXIOS.put('/updateOpeningsHoursTimes/' + day + '?newStartTime=' + startTime + '&newEndTime=' + endTime).then(response => {
                 this.getAllOpeningsHours()
                 this.errorOpeningsHours= ''
             }).catch(e => {
