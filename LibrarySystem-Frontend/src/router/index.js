@@ -5,9 +5,9 @@ import Login from '@/components/Login.vue'
 import Signup from '@/components/Signup.vue'
 import CreateItem from '@/components/CreateItem.vue'
 import ViewItems from '@/components/ViewItems.vue'
-import Profile from '@/components/Profile'
-import LibrarianManagement from '@/components/LibrarianManagement'
-import ScheduleAssignment from '@/components/ScheduleAssignment'
+import Profile from '@/components/Profile.vue'
+import LibrarianManagement from '@/components/LibrarianManagement.vue'
+import ScheduleAssignment from '@/components/ScheduleAssignment.vue'
 import CreateReservation from '@/components/CreateReservation.vue'
 import CustomerHomePage from '@/components/CustomerHomePage.vue'
 import SignupCustomerLibrarian from '@/components/SignupCustomerLibrarian.vue'
@@ -39,9 +39,10 @@ export default new Router({
       component: Signup
     },
     {
-      path: '/Profile',
+      path: '/Profile/:nameP/:familynameP/:idP/:addressP/:emailP/:passwordP/:accountTypeP',
       name: 'Profile',
-      component: Profile
+      component: Profile,
+      props: true
     }
     ,
     {
@@ -77,9 +78,10 @@ export default new Router({
     }
     ,
     {
-      path: '/CreateReservation',
+      path: '/CreateReservation/:customerIdP',
       name: 'CreateReservation',
-      component: CreateReservation
+      component: CreateReservation,
+      props: true
     }
     ,
     {

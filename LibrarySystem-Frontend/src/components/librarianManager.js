@@ -22,6 +22,7 @@ export default {
     name: 'librarianmanagement',
     data () {
         return {
+            headLib: {},
             librarians: [],
             shifts: [],
             schedules: [],
@@ -72,6 +73,25 @@ export default {
             .catch(e => {
                 this.errorLibrarian = e
             }) 
+        },
+        goToProfile: async function() {
+            await AXIOS.get('/getLibrarianById/' + 1234)
+            .then(response => {
+                this.headLib = response.data
+            })
+            .catch(e => {
+                this.errorLibrarian = e
+            }) 
+            this.$router.push({ path: `/Profile/` + this.headLib.firstName + '/' + this.headLib.lastName + '/' + 1234 + '/' + this.headLib.address + '/' + this.headLib.email + '/' + this.headLib.password + '/' + 'Head Librarian'})
+        },
+        createItem: function() {
+            this.$router.push({ path: `/CreateItem` })
+        },
+        holidayStuff: function() {
+            this.$router.push({ path: `/Holiday` })
+        },
+        openingHourStuff: function() {
+            this.$router.push({ path: `/OpeningHours` })
         },
         // Method for editing head librarian info
         updateHeadInfo: function() {

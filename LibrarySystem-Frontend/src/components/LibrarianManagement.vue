@@ -1,7 +1,14 @@
 <template>
     <div id="hire/fire-librarian" class="container-fluid">
         <h1 style="text-align:left">Head Librarian Management</h1>
-        <button v-on:click="updateHeadInfo()">Update Head Librarian Information</button>
+        <div>
+            <button class="btn btn-light" v-on:click="updateHeadInfo()">Update Head Librarian Information</button>
+            <button class="btn btn-light" v-on:click="openingHourStuff()">Opening Hour Management</button>
+            <button class="btn btn-light" v-on:click="holidayStuff()">Holiday Management</button>
+            <button class="btn btn-light" v-on:click="createItem()">Item Management</button>
+            <button class="btn btn-light" v-on:click="goToProfile()">Profile</button>
+        </div>
+
         <hr>
 
         <!-- Section for adding a new librarian; inputs are names and the password.-->

@@ -29,8 +29,8 @@ export default {
             cStartDate: '',
             cEndDate: '',
             uName: '',
-            uStartDate: '',
-            uEndDate: '',
+            uNewStartDate: '',
+            uNewEndDate: '',
             dName: '',
             holidays: [],
         }
@@ -48,7 +48,7 @@ export default {
                 })
         },
         createHoliday: function (name, startDate, endDate) {
-            AXIOS.post('/createHoliday/' + name + '/' + startDate + '/' + endDate).then(response => {
+            AXIOS.post('/createHoliday/' + name + '?startDate=' + startDate + '&endDate=' + endDate).then(response => {
                 this.getAllHolidays()
                 this.errorHoliday= ''
             }).catch(e => {
@@ -59,7 +59,7 @@ export default {
 
         },
         updateHoliday: function (name, startDate, endDate) {
-            AXIOS.put('/updateHoliday/' + name + '/' + startDate + '/' + endDate).then(response => {
+            AXIOS.put('/updateHolidayDates/' + name + '?newStartDate=' + startDate + '&newEndDate=' + endDate).then(response => {
                 this.getAllHolidays()
                 this.errorHoliday= ''
             }).catch(e => {
@@ -69,7 +69,7 @@ export default {
             })
 
         },
-        deleteHOliday: function (name) {
+        deleteHoliday: function (name) {
             console.log(name)
             AXIOS.delete('/deleteHoliday/' + name).then(response => {
                 this.getAllHolidays()
