@@ -21,7 +21,9 @@
     "popper.js": "^1.12.9",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
-    "vuejs-smart-table": "^0.0.8"
+    "vuejs-smart-table": "^0.0.8",
+    "postinstall": "npm run build",
+    "start": "node server.js"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
