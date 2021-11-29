@@ -7,7 +7,7 @@ module.exports = {
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/app',
+    assetsPublicPath: '',
     productionSourceMap: true,
     host: 'librarysystem-frontendyolo.herokuapp.com',
     port: 8087,
