@@ -196,7 +196,7 @@ public class ReservationRestController {
         }
         CustomerDto customerDto = new CustomerDto(customer.getFirstName(), customer.getLastName(),
                 customer.getAccountId(), customer.getPassword(), customer.getEmail(), customer.getIsVerified(),
-                customer.getIsLocal(), customer.getAccountBalance());
+                customer.getIsLocal(), customer.getAccountBalance(), customer.getAddress());
         return customerDto;
     }
 

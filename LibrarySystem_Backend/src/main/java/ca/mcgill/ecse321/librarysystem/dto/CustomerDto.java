@@ -9,6 +9,7 @@ public class CustomerDto {
   private boolean isVerified;
   private boolean isLocal;
   private int accountBalance;
+  private String address;
 
   public CustomerDto() {
 
@@ -22,10 +23,11 @@ public class CustomerDto {
     this.email = null;
     this.isVerified = false;
     this.isLocal = false;
+    this.address = null;
     this.accountBalance = 0;
   }
 
-  public CustomerDto(String firstName, String lastName, int customerId, String password, String email, boolean isVerified, boolean isLocal, int accountBalance) {
+  public CustomerDto(String firstName, String lastName, int customerId, String password, String email, boolean isVerified, boolean isLocal, int accountBalance, String address) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.customerId = customerId;
@@ -33,6 +35,7 @@ public class CustomerDto {
     this.email = email;
     this.isVerified = isVerified;
     this.isLocal = isLocal;
+    this.address = address;
     this.accountBalance = accountBalance;
   }
 
@@ -43,6 +46,10 @@ public class CustomerDto {
 	
 	public String getLastName() {
 		return this.lastName;
+	}
+
+  public String getAddress() {
+		return this.address;
 	}
 	
   public int getCustomerId() {
@@ -88,6 +95,10 @@ public class CustomerDto {
   public void setEmail(String email) {
     this.email = email;
   }
+
+  public void setAddress(String address) {
+		this.address = address;
+	}
 
   public void setIsVerified(boolean isVerified) {
     this.isVerified = isVerified;
