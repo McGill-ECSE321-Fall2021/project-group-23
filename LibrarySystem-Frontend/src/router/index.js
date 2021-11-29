@@ -15,6 +15,7 @@ import Test from '@/components/Test'
 import Holiday from '@/components/Holiday.vue'
 import OpeningsHours from '@/components/OpeningsHours.vue'
 import UpdateHeadLibrarian from '@/components/UpdateHeadLibrarian.vue'
+import LibraryBooking from '@/components/LibraryBooking.vue'
 
 
 Vue.use(Router)
@@ -113,5 +114,12 @@ export default new Router({
       name: 'UpdateHeadLibrarian',
       component: UpdateHeadLibrarian
     }
+    ,
+    {
+      path: '/LibraryBooking/:customerIdP',
+      name: 'LibraryBooking',
+      component: LibraryBooking,
+      props: true
+    },
   ]
 })

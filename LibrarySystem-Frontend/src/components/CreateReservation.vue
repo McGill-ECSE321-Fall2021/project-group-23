@@ -1,7 +1,6 @@
 <template>
   <div id="CreateReservation">
-        
-    <v-table :data="reservations"> 
+    <v-table :data="reservations">
       <thead slot="head">
         <th>RESERVATION ID</th>
         <th>ITEM TITLE</th>
@@ -10,10 +9,10 @@
       </thead>
       <tbody slot="body">
         <tr v-for="reservation in reservations" :key="reservation.id">
-          <td> {{ reservation.id }} </td>
-          <td> {{ reservation.item.title}} </td>
-          <td> {{ reservation.startDate }} </td>
-          <td> {{ reservation.endDate }} </td>
+          <td>{{ reservation.id }}</td>
+          <td>{{ reservation.item.title }}</td>
+          <td>{{ reservation.startDate }}</td>
+          <td>{{ reservation.endDate }}</td>
         </tr>
       </tbody>
     </v-table>
@@ -21,6 +20,8 @@
     <v-table
       :data="items"
       :filters="filters"
+      :currentPage.sync="currentPage"
+      :pageSize="10"
       @totalPagesChanged="totalPages = $event"
       selectedClass="table-info"
       @selectionChanged="selectedItem = $event"
@@ -32,8 +33,8 @@
         <th>TYPE</th>
         <th>Status</th>
       </thead>
-      <tbody slot="body">
-        <v-tr v-for="item in items" :key="item.id" :row="item">
+      <tbody slot="body" slot-scope="{ displayData }">
+        <v-tr v-for="item in displayData" :key="item.id" :row="item">
           <td>{{ item.id }}</td>
           <td>{{ item.title }}</td>
           <td>{{ item.type }}</td>
@@ -41,20 +42,28 @@
         </v-tr>
       </tbody>
     </v-table>
-    <button type="button" @click="createReservation(customerId , selectedItem[0].id, false, date)" >Create Reservation</button>
-    <span v-if="errorReservation" style="color:red"> {{errorReservation}} </span>
-
-    
+    <smart-pagination
+      :currentPage.sync="currentPage"
+      :totalPages="totalPages"
+    />
+    <button
+      type="button"
+      @click="createReservation(customerId, selectedItem[0].id, false, date)"
+    >
+      Create Reservation
+    </button>
+    <span v-if="errorReservation" style="color: red">
+      {{ errorReservation }}
+    </span>
   </div>
 </template>
 
 <script src="./CreateReservation.js">
-
 </script>
 
 <style scoped>
 select {
- height: 30px;
+  height: 30px;
 }
 v-table {
   font-family: Arial, Helvetica, sans-serif;
