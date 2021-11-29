@@ -9,10 +9,10 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     productionSourceMap: true,
-    host: 'eventregistration-frontend-123.herokuapp.com',
-    port: 443,
+    host: 'librarysystem-frontendyolo.herokuapp.com',
+    port: 8087,
     backendHost: 'sysbackend-ecse321fall2021yolo.herokuapp.com',
-    backendPort: 443,
+    backendPort: 80,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
     // Before setting to `true`, make sure to:
