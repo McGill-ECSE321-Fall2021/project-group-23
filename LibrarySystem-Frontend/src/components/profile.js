@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { Axios } from 'axios'
 var config = require('../../config')
 
 var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
@@ -27,6 +27,18 @@ export default {
         };
     },
     methods: {
+        deleteAccount: function () {
+            if(this.accountType == "Customer"){
+                AXIOS.delete('/deleteCustomer/' + this.id)
+                .then((response) => {
+                    this.$router.push({ path: `/Signup` })
+                }).catch((e) => {
+                    var errorMsg = e.response.data.message;
+                    console.log(errorMsg);
+                });
+            }
+            
+        },
         updatePassword: function (pass) {
             AXIOS.put('/updateCustomer/' + this.id + "/" + pass + "/" + this.address, {}, {})
                 .then((response) => {

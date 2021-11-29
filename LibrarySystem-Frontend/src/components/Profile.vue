@@ -17,7 +17,7 @@
       <button type="button" class="btn btn-info" v-on:click="isShow = !isShow">
         Update Account
       </button>
-      <button type="button" class="btn btn-danger" id="deleteAccountButton">
+      <button type="button" class="btn btn-danger" v-on:click="deleteAccount()" id="deleteAccountButton">
         Delete Account
       </button>
       <div v-show="isShow" id="update-account">
