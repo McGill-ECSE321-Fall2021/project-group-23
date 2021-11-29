@@ -113,7 +113,7 @@ public class ShiftServiceTest {
 	
 		try {
 			shift = shiftService.createShift(DayOfWeek.valueOf(DAYOFWEEK), Time.valueOf(STARTTIME), Time.valueOf(ENDTIME));
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		
@@ -131,7 +131,7 @@ public class ShiftServiceTest {
 		String error = null;
 		try {
 			shift = shiftService.createShift(null, Time.valueOf(STARTTIME), Time.valueOf(ENDTIME));
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(shift);
@@ -144,7 +144,7 @@ public class ShiftServiceTest {
 		String error = null;
 		try {
 			shift = shiftService.createShift(DayOfWeek.valueOf(DAYOFWEEK), null, Time.valueOf(ENDTIME));
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(shift);
@@ -157,7 +157,7 @@ public class ShiftServiceTest {
 		String error = null;
 		try {
 			shift = shiftService.createShift(DayOfWeek.valueOf(DAYOFWEEK), Time.valueOf(STARTTIME), null);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(shift);
@@ -171,7 +171,7 @@ public class ShiftServiceTest {
 		String error = null;
 		try {
 			shift = shiftService.createShift(DayOfWeek.valueOf(DAYOFWEEK), Time.valueOf("10:00:00"), Time.valueOf("09:00:00"));
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(shift);
@@ -186,7 +186,7 @@ public class ShiftServiceTest {
 		
 		try {
 			shift = shiftService.createShift(DayOfWeek.valueOf(DAYOFWEEK), Time.valueOf("06:00:00"), Time.valueOf(ENDTIME));
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(shift);
@@ -200,7 +200,7 @@ public class ShiftServiceTest {
 		
 		try {
 			shift = shiftService.createShift(DayOfWeek.valueOf(DAYOFWEEK), Time.valueOf(STARTTIME), Time.valueOf("16:00:00"));
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(shift);
@@ -214,7 +214,7 @@ public class ShiftServiceTest {
 		lenient().when(shiftRepository.existsByShiftId(anyInt())).thenReturn(true);
 		try {
 			shiftU = shiftService.updateShift(SHIFTID, DayOfWeek.valueOf("Tuesday"), Time.valueOf("12:00:00"), Time.valueOf("16:00:00"));
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(shiftU);
@@ -229,7 +229,7 @@ public class ShiftServiceTest {
 		String error = null;
 		try {
 			shiftU = shiftService.updateShift(SHIFTID, DayOfWeek.valueOf("Tuesday"), Time.valueOf("12:00:00"), Time.valueOf("16:00:00"));
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();	
 		}
 		assertNull(shiftU);
@@ -243,7 +243,7 @@ public class ShiftServiceTest {
 		lenient().when(shiftRepository.existsByShiftId(anyInt())).thenReturn(true);
 		try {
 			shiftD = shiftService.deleteShift(SHIFTID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(shiftD);
@@ -259,7 +259,7 @@ public class ShiftServiceTest {
 		String error = null;
 		try {
 			shiftD = shiftService.deleteShift(SHIFTID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();	
 		}
 		assertNull(shiftD);
@@ -281,7 +281,7 @@ public class ShiftServiceTest {
 		lenient().when(shiftRepository.existsByShiftId(anyInt())).thenReturn(true);
 		try {
 			s = shiftService.getShift(SHIFTID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(s);
@@ -302,7 +302,7 @@ public class ShiftServiceTest {
 				any(Time.class))).thenReturn(true);
 		try {
 			s = shiftService.getShift(DayOfWeek.valueOf(DAYOFWEEK), Time.valueOf(STARTTIME), Time.valueOf(ENDTIME));
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(s);
@@ -318,7 +318,7 @@ public class ShiftServiceTest {
 		String error = null;
 		try {
 			s = shiftService.getShift(DayOfWeek.valueOf(DAYOFWEEK), Time.valueOf(STARTTIME), Time.valueOf(ENDTIME));
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		

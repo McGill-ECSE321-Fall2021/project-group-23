@@ -10,6 +10,7 @@ import LibrarianManagement from '@/components/LibrarianManagement'
 import ScheduleAssignment from '@/components/ScheduleAssignment'
 import SignupCustomerLibrarian from '@/components/SignupCustomerLibrarian.vue'
 import Test from '@/components/Test'
+import UpdateHeadLibrarian from '@/components/UpdateHeadLibrarian.vue'
 
 Vue.use(Router)
 
@@ -43,9 +44,10 @@ export default new Router({
       component: LibrarianManagement
     },
     {
-      path: '/ScheduleAssignment',
+      path: '/ScheduleAssignment/:id',
       name: 'ScheduleAssignment',
-      component: ScheduleAssignment
+      component: ScheduleAssignment,
+      props: true
     },
     {
       path: '/Test/:name',
@@ -70,6 +72,12 @@ export default new Router({
       path: '/SignupCustomerLibrarian',
       name: 'SignupCustomerLibrarian',
       component: SignupCustomerLibrarian
+    }
+    ,
+    {
+      path: '/UpdateHeadLibrarian',
+      name: 'UpdateHeadLibrarian',
+      component: UpdateHeadLibrarian
     }
   ]
 })

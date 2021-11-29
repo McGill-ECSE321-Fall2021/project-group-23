@@ -133,7 +133,7 @@ public class WeeklyScheduleServiceTest {
 		
 		try {
 			ws = weeklyScheduleService.createWeeklySchedule(shiftIds);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(ws);
@@ -148,7 +148,7 @@ public class WeeklyScheduleServiceTest {
 		String error = null;
 		try {
 			ws = weeklyScheduleService.createWeeklySchedule(null);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(ws);
@@ -166,7 +166,7 @@ public class WeeklyScheduleServiceTest {
 		shiftIds.add(NONSHIFTID);
 		try {
 			ws = weeklyScheduleService.createWeeklySchedule(shiftIds);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(ws);
@@ -187,7 +187,7 @@ public class WeeklyScheduleServiceTest {
 		shiftIds.add(SHIFTID2);
 		try {
 			ws = weeklyScheduleService.updateWeeklyScheduleShifts(SCHEDULEID, shiftIds);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(ws);
@@ -208,7 +208,7 @@ public class WeeklyScheduleServiceTest {
 		shiftIds.add(SHIFTID2);
 		try {
 			ws = weeklyScheduleService.updateWeeklyScheduleShifts(SCHEDULEID, shiftIds);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(ws);
@@ -222,7 +222,7 @@ public class WeeklyScheduleServiceTest {
 		lenient().when(weeklyScheduleRepository.existsByWeeklyScheduleId(anyInt())).thenReturn(true);
 		try {
 			ws = weeklyScheduleService.deleteWeeklySchedule(SCHEDULEID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(ws);
@@ -235,7 +235,7 @@ public class WeeklyScheduleServiceTest {
 		String error = null;
 		try {
 			ws = weeklyScheduleService.deleteWeeklySchedule(NONSCHEDULEID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(ws);
@@ -266,7 +266,7 @@ public class WeeklyScheduleServiceTest {
 		String error = null;
 		try {
 			ws = weeklyScheduleService.getWeeklySchedule(SCHEDULEID);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(ws);
