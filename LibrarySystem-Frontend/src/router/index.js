@@ -11,7 +11,6 @@ import ScheduleAssignment from '@/components/ScheduleAssignment.vue'
 import CreateReservation from '@/components/CreateReservation.vue'
 import CustomerHomePage from '@/components/CustomerHomePage.vue'
 import SignupCustomerLibrarian from '@/components/SignupCustomerLibrarian.vue'
-import Test from '@/components/Test'
 import Holiday from '@/components/Holiday.vue'
 import OpeningsHours from '@/components/OpeningsHours.vue'
 import UpdateHeadLibrarian from '@/components/UpdateHeadLibrarian.vue'
@@ -56,13 +55,6 @@ export default new Router({
       path: '/ScheduleAssignment/:id',
       name: 'ScheduleAssignment',
       component: ScheduleAssignment,
-      props: true
-    }
-    ,
-    {
-      path: '/Test/:name',
-      name: 'Test',
-      component: Test,
       props: true
     }
     ,
