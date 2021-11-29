@@ -76,7 +76,7 @@ public class HolidayServiceTest {
 		Date endDate = new Date(c1.getTimeInMillis());
 		try {
 			holiday = holidayService.createHoliday(name, startDate, endDate);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(holiday);
@@ -98,7 +98,7 @@ public class HolidayServiceTest {
 		Date endDate = new Date(c1.getTimeInMillis());
 		try {
 			holiday = holidayService.createHoliday(HOLIDAY_KEY, startDate, endDate);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(holiday);
@@ -115,7 +115,7 @@ public class HolidayServiceTest {
 		Date endDate = null;
 		try {
 			holiday = holidayService.createHoliday(name, startDate, endDate);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(holiday);
@@ -137,7 +137,7 @@ public class HolidayServiceTest {
 		Date endDate = new Date(c1.getTimeInMillis());
 		try {
 			holiday = holidayService.createHoliday(name, startDate, endDate);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(holiday);
@@ -156,7 +156,7 @@ public class HolidayServiceTest {
 		Date endDate = new Date(c1.getTimeInMillis());
 		try {
 			holiday = holidayService.createHoliday(name, startDate, endDate);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(holiday);
@@ -175,7 +175,7 @@ public class HolidayServiceTest {
 		Date endDate = null;
 		try {
 			holiday = holidayService.createHoliday(name, startDate, endDate);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(holiday);
@@ -197,7 +197,7 @@ public class HolidayServiceTest {
 		Holiday holiday = null;
 		try {
 			holiday = holidayService.createHoliday(name, startDate, endDate);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(holiday);
@@ -217,7 +217,7 @@ public class HolidayServiceTest {
 		Holiday holiday = null;
 		try {
 			holiday = holidayService.getHoliday(NONEXISTING_KEY);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(holiday);
@@ -233,7 +233,7 @@ public class HolidayServiceTest {
 		Holiday holiday = null;
 		try {
 			holiday = holidayService.getHoliday(name);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(holiday);
@@ -256,7 +256,7 @@ public class HolidayServiceTest {
 		Holiday holiday = null;
 		try {
 			holiday = holidayService.updateHolidayDates(name, newStartDate, newEndDate);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(holiday);
@@ -272,7 +272,7 @@ public class HolidayServiceTest {
 		Holiday holiday = null;
 		try {
 			holiday = holidayService.deleteHoliday(name);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(holiday);
@@ -292,7 +292,7 @@ public class HolidayServiceTest {
 		Date newEndDate = new Date(c1.getTimeInMillis());
 		try {
 			holiday = holidayService.updateHolidayDates(HOLIDAY_KEY, newStartDate, newEndDate);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(holiday);
@@ -314,7 +314,7 @@ public class HolidayServiceTest {
 		Date newEndDate = new Date(c1.getTimeInMillis());
 		try {
 			holiday = holidayService.updateHolidayDates(HOLIDAY_KEY, newStartDate, newEndDate);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(holiday);
@@ -327,7 +327,7 @@ public class HolidayServiceTest {
 		Holiday holiday = null;
 		try {
 			holiday = holidayService.deleteHoliday(HOLIDAY_KEY);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(holiday);

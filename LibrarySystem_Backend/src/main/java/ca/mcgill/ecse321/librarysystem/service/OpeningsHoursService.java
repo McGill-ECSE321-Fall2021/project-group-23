@@ -35,11 +35,11 @@ public class OpeningsHoursService {
 		}
 		error = error.trim();
 		if (error.length() > 0) {
-			throw new IllegalArgumentException(error);
+			throw new InvalidInputException(error);
 		}
 		for (OpeningsHours ohs : toList(openingsHoursRepository.findAll())) {
 			if (ohs.getOpeningDay().equals(day)) {
-				throw new IllegalArgumentException("There are already opening hours for this day (Try updating).");
+				throw new InvalidInputException("There are already opening hours for this day (Try updating).");
 			}
 		}
 		OpeningsHours oh = new OpeningsHours();
@@ -57,7 +57,7 @@ public class OpeningsHoursService {
 		}
 		error = error.trim();
 		if (error.length() > 0) {
-			throw new IllegalArgumentException(error);
+			throw new InvalidInputException(error);
 		}
 		OpeningsHours oh = openingsHoursRepository.findOpeningsHoursByOpeningDay(day);
 		return oh;
@@ -79,7 +79,7 @@ public class OpeningsHoursService {
 		}
 		error = error.trim();
 		if (error.length() > 0) {
-			throw new IllegalArgumentException(error);
+			throw new InvalidInputException(error);
 		}
 		OpeningsHours oh = openingsHoursRepository.findOpeningsHoursByOpeningDay(day);
 		oh.setStartTime(newStartTime);
@@ -96,7 +96,7 @@ public class OpeningsHoursService {
 		}
 		error = error.trim();
 		if (error.length() > 0) {
-			throw new IllegalArgumentException(error);
+			throw new InvalidInputException(error);
 		}
 		OpeningsHours oh = openingsHoursRepository.findOpeningsHoursByOpeningDay(day);
 		openingsHoursRepository.delete(oh);

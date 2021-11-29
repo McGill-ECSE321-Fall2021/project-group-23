@@ -71,7 +71,7 @@ public class OpeningsHoursServiceTest {//openings Hours service test
 		LocalTime endTime = LocalTime.parse("16:00");//set end time which will be converted to Time
 		try {
 			openingsHours = openingsHoursService.createOpeningsHours(day, Time.valueOf(startTime), Time.valueOf(endTime));
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(openingsHours);
@@ -90,7 +90,7 @@ public class OpeningsHoursServiceTest {//openings Hours service test
 		LocalTime endTime = LocalTime.parse("16:00");//set end time which will be converted to Time
 		try {
 			openingsHours = openingsHoursService.createOpeningsHours(day, Time.valueOf(startTime), Time.valueOf(endTime));
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(openingsHours);//should be null
@@ -107,7 +107,7 @@ public class OpeningsHoursServiceTest {//openings Hours service test
 		Time endTime = null;
 		try {
 			openingsHours = openingsHoursService.createOpeningsHours(day, startTime, endTime);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(openingsHours);//should be null
@@ -123,7 +123,7 @@ public class OpeningsHoursServiceTest {//openings Hours service test
 		LocalTime endTime = LocalTime.parse("16:00");
 		try {
 			openingsHours = openingsHoursService.createOpeningsHours(day, Time.valueOf(startTime), Time.valueOf(endTime));
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(openingsHours);
@@ -140,7 +140,7 @@ public class OpeningsHoursServiceTest {//openings Hours service test
 		LocalTime endTime = LocalTime.parse("16:00");
 		try {
 			openingsHours = openingsHoursService.createOpeningsHours(day, startTime, Time.valueOf(endTime));
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(openingsHours);
@@ -156,7 +156,7 @@ public class OpeningsHoursServiceTest {//openings Hours service test
 		Time endTime = null;
 		try {
 			openingsHours = openingsHoursService.createOpeningsHours(day, Time.valueOf(startTime), endTime);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(openingsHours);
@@ -173,7 +173,7 @@ public class OpeningsHoursServiceTest {//openings Hours service test
 		OpeningsHours openingsHours = null;
 		try {
 			openingsHours = openingsHoursService.createOpeningsHours(day,Time.valueOf(startTime), Time.valueOf(endTime));
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(openingsHours);
@@ -193,7 +193,7 @@ public class OpeningsHoursServiceTest {//openings Hours service test
 		OpeningsHours openingsHours = null;
 		try {
 			openingsHours = openingsHoursService.getOpeningsHours(NONEXISTING_KEY);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(openingsHours);
@@ -208,7 +208,7 @@ public class OpeningsHoursServiceTest {//openings Hours service test
 		OpeningsHours openingsHours = null;
 		try {
 			openingsHours = openingsHoursService.getOpeningsHours(day);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(openingsHours);
@@ -226,7 +226,7 @@ public class OpeningsHoursServiceTest {//openings Hours service test
 		OpeningsHours openingsHours = null;
 		try {
 			openingsHours = openingsHoursService.updateOpeningsHours(day, Time.valueOf(newStartTime), Time.valueOf(newEndTime));
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(openingsHours);
@@ -242,7 +242,7 @@ public class OpeningsHoursServiceTest {//openings Hours service test
 		OpeningsHours openingsHours = null;
 		try {
 			openingsHours = openingsHoursService.updateOpeningsHours(OPENINGSHOURS_KEY, Time.valueOf(newStartTime), Time.valueOf(newEndTime));
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(openingsHours);
@@ -260,7 +260,7 @@ public class OpeningsHoursServiceTest {//openings Hours service test
 		OpeningsHours openingsHours = null;
 		try {
 			openingsHours = openingsHoursService.updateOpeningsHours(OPENINGSHOURS_KEY, Time.valueOf(newStartTime), Time.valueOf(newEndTime));
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(openingsHours);
@@ -275,7 +275,7 @@ public class OpeningsHoursServiceTest {//openings Hours service test
 		OpeningsHours openingsHours = null;
 		try {
 			openingsHours = openingsHoursService.deleteOpeningsHours(day);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(openingsHours);
@@ -289,7 +289,7 @@ public class OpeningsHoursServiceTest {//openings Hours service test
 		OpeningsHours openingsHours = null;
 		try {
 			openingsHours = openingsHoursService.deleteOpeningsHours(OPENINGSHOURS_KEY);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(openingsHours);

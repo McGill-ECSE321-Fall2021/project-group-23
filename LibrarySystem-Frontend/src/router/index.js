@@ -10,6 +10,8 @@ import LibrarianManagement from '@/components/LibrarianManagement'
 import ScheduleAssignment from '@/components/ScheduleAssignment'
 import SignupCustomerLibrarian from '@/components/SignupCustomerLibrarian.vue'
 import Test from '@/components/Test'
+import Holiday from '@/components/Holiday.vue'
+import OpeningsHours from '@/components/OpeningsHours.vue'
 import UpdateHeadLibrarian from '@/components/UpdateHeadLibrarian.vue'
 
 Vue.use(Router)
@@ -66,6 +68,18 @@ export default new Router({
       path: '/ViewItems',
       name: 'ViewItems',
       component: ViewItems
+    }
+    ,
+    {
+      path: '/Holiday',
+      name: 'Holiday',
+      component: Holiday
+    }
+    ,
+    {
+      path: '/OpeningHours',
+      name: 'OpeningsHours',
+      component: OpeningsHours
     }
     ,
     {
