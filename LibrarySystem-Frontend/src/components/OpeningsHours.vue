@@ -1,19 +1,20 @@
 <template>
     <div id="OpeningsHours" class="container-fluid">
          <h1 style="text-align:left">Current Opening Hours</h1>
-            <table>
-                <tr>
-                    <th>Day</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                </tr>
-                ​<v-tr v-for="openingsHour in openingsHours" :key="openingsHour.openingDay" :row="openingsHour">
-                    <td>{{ openingsHour.openingDay }}</td>
-                    <td>{{ openingsHour.startTime }}</td>
-                    <td>{{ openingsHour.endTime }}</td>
-                </v-tr>
-            </table>
-        <hr>
+ <v-table :data="holidays">
+      <thead slot="head">
+        <th>DAY</th>
+        <th>START TIME</th>
+        <th>END TIME</th>
+      </thead>
+      <tbody slot="body">
+        <tr v-for="openingsHour in openingsHours" :key="openingsHour.openingDay">
+          <td>{{ openingsHour.openingDay }}</td>
+          <td>{{ openingsHour.startTime }}</td>
+          <td>{{ openingsHour.endTime }}</td>
+        </tr>
+      </tbody>
+    </v-table>
         <h2 style="text-align:left">Create Opening Hours</h2>
             <table>
                 <tr>
@@ -99,5 +100,22 @@
 <style scoped>
 select {
  height: 30px;
+}
+v-table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+th {
+  border: 1px solid #ddd;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #000;
+  color: white;
 }
 </style>
