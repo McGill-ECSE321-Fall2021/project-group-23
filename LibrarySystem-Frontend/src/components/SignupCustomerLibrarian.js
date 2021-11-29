@@ -10,7 +10,7 @@ var AXIOS = axios.create({
 })
 
 export default {
-    name: 'Signup',
+    name: 'SignupCustomerLibrarian',
 
     created: function () {
         AXIOS.get('/getAllCustomers').then(response => {
@@ -40,7 +40,7 @@ export default {
 
 
 methods: {
-    signupCustomer: function (firstName, lastName, address, email, password) {
+    SignupCustomerLibrarian: function (firstName, lastName, address, email, password) {
         AXIOS.post('/createCustomer/' + firstName + '/' + lastName + '/' + password + '/' + email + '/false/false/' + address + '/0' ).then(response => {
             this.customerAccounts.push(response.data)
             this.firstName=''

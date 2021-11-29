@@ -8,6 +8,7 @@ import ViewItems from '@/components/ViewItems.vue'
 import Profile from '@/components/Profile'
 import LibrarianManagement from '@/components/LibrarianManagement'
 import ScheduleAssignment from '@/components/ScheduleAssignment'
+import SignupCustomerLibrarian from '@/components/SignupCustomerLibrarian.vue'
 import Test from '@/components/Test'
 
 Vue.use(Router)
@@ -65,5 +66,10 @@ export default new Router({
       component: ViewItems
     }
     ,
+    {
+      path: '/SignupCustomerLibrarian',
+      name: 'SignupCustomerLibrarian',
+      component: SignupCustomerLibrarian
+    }
   ]
 })

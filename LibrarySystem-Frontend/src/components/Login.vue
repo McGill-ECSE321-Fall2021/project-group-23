@@ -46,12 +46,18 @@
               <input type="text" v-model="librarianPassword" placeholder="Password">
           </td>
       </tr>
+      <!--
+    These three spans are used to display an error message when the the signupCustomer function is not successful
+    -->
       <tr>
           <td>
               <button v-bind:disabled="!librarianAccountId || !librarianPassword"  @click="loginLibrarian(librarianAccountId, librarianPassword)">Login</button>
           </td>
       </tr>  
     </table>
+    <!--
+    Used to display an error when the login of a librarian is unsuccessful
+    -->
     <p>
         <span v-if="errorLoginLibrarian" style="color:red">Error: {{errorLoginLibrarian}}</span>
     </p>
