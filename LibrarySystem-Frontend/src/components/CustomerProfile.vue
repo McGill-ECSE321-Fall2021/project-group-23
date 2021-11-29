@@ -44,6 +44,10 @@
             Update
           </button>
         </div>
+
+        <div v-show="isError" id="error">
+          <H5>Your password must have at least 8 characters and a capital letter</H5>
+        </div>
       </div>
     </div>
   </div>
@@ -53,5 +57,9 @@
 <style>
 #update-account {
   margin-top: 10px;
+}
+#error {
+  margin-top : 12px;
+  color: rgb(184, 17, 17);
 }
 </style>
