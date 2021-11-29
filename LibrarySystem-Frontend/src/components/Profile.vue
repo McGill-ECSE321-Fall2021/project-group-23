@@ -44,7 +44,9 @@
             Update
           </button>
         </div>
-
+        <div v-show="deleteError" id="error">
+          <H5>Delete failed: outstanding Customer balance and/or reservation(s)</H5>
+        </div>
         <div v-show="isError" id="error">
           <H5>Your password must have at least 8 characters and a capital letter</H5>
         </div>
