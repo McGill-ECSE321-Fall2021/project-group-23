@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
-import Login from '@/components/Login'
-import Signup from '@/components/Signup'
+import Login from '@/components/Login.vue'
+import Signup from '@/components/Signup.vue'
 import CreateItem from '@/components/CreateItem.vue'
 import ViewItems from '@/components/ViewItems.vue'
 import Profile from '@/components/Profile'
-import LibrarianManagement from '@/components/LibrarianManagement.vue'
-import ScheduleAssignment from '@/components/ScheduleAssignment.vue'
+import LibrarianManagement from '@/components/LibrarianManagement'
+import ScheduleAssignment from '@/components/ScheduleAssignment'
+import SignupCustomerLibrarian from '@/components/SignupCustomerLibrarian.vue'
 import Test from '@/components/Test'
 import Holiday from '@/components/Holiday.vue'
 import OpeningsHours from '@/components/OpeningsHours.vue'
@@ -79,6 +80,12 @@ export default new Router({
       path: '/OpeningHours',
       name: 'OpeningsHours',
       component: OpeningsHours
+    }
+    ,
+    {
+      path: '/SignupCustomerLibrarian',
+      name: 'SignupCustomerLibrarian',
+      component: SignupCustomerLibrarian
     }
     ,
     {
