@@ -17,7 +17,7 @@
       <button type="button" class="btn btn-info" v-on:click="isShow = !isShow">
         Update Account
       </button>
-      <button type="button" class="btn btn-danger" id="deleteAccountButton">
+      <button type="button" class="btn btn-danger" v-on:click="deleteAccount()" id="deleteAccountButton">
         Delete Account
       </button>
       <div v-show="isShow" id="update-account">
@@ -44,7 +44,9 @@
             Update
           </button>
         </div>
-
+        <div v-show="deleteError" id="error">
+          <H5>Delete failed: outstanding Customer balance and/or reservation(s)</H5>
+        </div>
         <div v-show="isError" id="error">
           <H5>Your password must have at least 8 characters and a capital letter</H5>
         </div>

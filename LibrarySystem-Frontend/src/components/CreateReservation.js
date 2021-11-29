@@ -46,8 +46,11 @@ export default {
             reservations: [],
             selectedItem: [],
             filters: {
-                title: { value: '', keys: ['title'] }
+                title: { value: '', keys: ['title'] },
+                type: {value: '', custom: this.typeFilter}
             },
+            currentPage: 1,
+            totalPages: 0
         }
     },
 
@@ -62,6 +65,10 @@ export default {
             this.errorReservation = errorMsg
           })
         },
+
+        typeFilter (filterValue, row) {
+            return (row.type == "Book" || row.type == "Movie" || row.type == "Album")
+        }
     
       }
 }

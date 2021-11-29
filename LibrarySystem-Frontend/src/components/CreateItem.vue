@@ -54,8 +54,8 @@
         <th>TYPE</th>
         <th>Status</th>
       </thead>
-      <tbody slot="body" >
-        <v-tr v-for="item in items" :key="item.id" :row="item">
+      <tbody slot="body" slot-scope="{displayData}">
+        <v-tr v-for="item in displayData" :key="item.id" :row="item">
           <td>{{ item.id }}</td>
           <td>{{ item.title }}</td>
           <td>{{ item.type }}</td>
@@ -83,7 +83,7 @@ v-table {
   border-collapse: collapse;
   width: 100%;
 }
-th {
+th, td {
   border: 1px solid #ddd;
   padding: 8px;
 }
