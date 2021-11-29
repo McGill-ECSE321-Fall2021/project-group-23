@@ -77,9 +77,10 @@ export default new Router({
     }
     ,
     {
-      path: '/CreateReservation',
+      path: '/CreateReservation/:customerIdP',
       name: 'CreateReservation',
-      component: CreateReservation
+      component: CreateReservation,
+      props: true
     }
     ,
     {
