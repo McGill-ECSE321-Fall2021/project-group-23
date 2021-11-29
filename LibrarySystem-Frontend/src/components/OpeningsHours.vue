@@ -1,7 +1,7 @@
 <template>
     <div id="OpeningsHours" class="container-fluid">
          <h1 style="text-align:left">Current Opening Hours</h1>
- <v-table :data="holidays">
+ <v-table :data="openingsHours">
       <thead slot="head">
         <th>DAY</th>
         <th>START TIME</th>
@@ -19,12 +19,21 @@
             <table>
                 <tr>
                     <th>Day</th>
-                    <th>Openening</th>
+                    <th>Opening</th>
                     <th>Closing</th>
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" v-model="cDay">
+                        ​<select type="text" v-model="cDay">
+                            ​<option disabled selected value="">Select Type</option>
+                            <option >Monday</option>
+                            <option >Tuesday</option>
+                            <option >Wednesday</option>
+                            <option >Thursay</option>
+                            <option >Friday</option>
+                            <option >Saturday</option>
+                            <option >Sunday</option>
+                        </select>
                     </td>
                     <td>
                         <input type="time" v-model="cStartTime" >
@@ -47,12 +56,21 @@
             <table>
                 <tr>
                      <th>Day</th>
-                    <th>Openening</th>
+                    <th>Opening</th>
                     <th>Closing</th>
                 </tr>
                 <tr>
-                     <td>
-                        <input type="text" v-model="uDay">
+                    <td>
+                        ​<select type="text" v-model="uDay">
+                            ​<option disabled selected value="">Select Type</option>
+                            <option >Monday</option>
+                            <option >Tuesday</option>
+                            <option >Wednesday</option>
+                            <option >Thursay</option>
+                            <option >Friday</option>
+                            <option >Saturday</option>
+                            <option >Sunday</option>
+                        </select>
                     </td>
                     <td>
                         <input type="time" v-model="uStartTime" >
@@ -77,8 +95,17 @@
                      <th>Day</th>
                 </tr>
                 <tr>
-                     <td>
-                        <input type="text" v-model="dDay">
+                    <td>
+                        ​<select type="text" v-model="dDay">
+                            ​<option disabled selected value="">Select Type</option>
+                            <option >Monday</option>
+                            <option >Tuesday</option>
+                            <option >Wednesday</option>
+                            <option >Thursay</option>
+                            <option >Friday</option>
+                            <option >Saturday</option>
+                            <option >Sunday</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
