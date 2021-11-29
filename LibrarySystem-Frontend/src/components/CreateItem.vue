@@ -23,13 +23,16 @@
           <button v-bind:disabled="!newType || !newItem" @click="createItem(newItem, newType)">Create Item</button>
       </tr>
       <tr>
+          <h2>Delete Item</h2>
+      </tr>
+      <tr>
           <button @click="deleteItem(selectedItem[0].id)">Delete Item</button>
       </tr>
+
     </table>
     <p>
         <span v-if="errorItem" style="color:red"> {{errorItem}} </span>
     </p>
-    <h2>Delete Item</h2>
     <input
       class="form-control"
       v-model="filters.title.value"
