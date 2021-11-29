@@ -3,19 +3,19 @@
     <customer-profile
       nameP= "bashar"
       familynameP="eskandar"
-      passwordP="lol123"
-      idP="12345"
-      addressP="69 lol Street, Laval, Qc"
-      emailP="habibi@lol.com"
+      passwordP="Lollollol"
+      idP="1"
+      addressP="611 rue lol"
+      emailP="bashar@hotmail.com"
       accountTypeP="Customer"
     />
-    <p>
-      <button v-on:click="go">click to route </button>
+    
+      <!--<button v-on:click="go">click to route </button>-->
       <!-- use router-link component for navigation. -->
       <!-- specify the link by passing the `to` prop. -->
       <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
       <!--<router-link to="/test/Bashar">Go to Test with name Bashar</router-link>-->
-    </p>
+    
   </div>
 </template>
 <script>
