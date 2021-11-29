@@ -8,6 +8,8 @@ import ViewItems from '@/components/ViewItems.vue'
 import Profile from '@/components/Profile'
 import LibrarianManagement from '@/components/LibrarianManagement'
 import ScheduleAssignment from '@/components/ScheduleAssignment'
+import CreateReservation from '@/components/CreateReservation'
+import CustomerHomePage from '@/components/CustomerHomePage.vue'
 import SignupCustomerLibrarian from '@/components/SignupCustomerLibrarian.vue'
 import Test from '@/components/Test'
 import Holiday from '@/components/Holiday.vue'
@@ -39,18 +41,21 @@ export default new Router({
       path: '/Profile',
       name: 'Profile',
       component: Profile
-    },
+    }
+    ,
     {
       path: '/LibrarianManagement',
       name: 'LibrarianManagement',
       component: LibrarianManagement
-    },
+    }
+    ,
     {
       path: '/ScheduleAssignment/:id',
       name: 'ScheduleAssignment',
       component: ScheduleAssignment,
       props: true
-    },
+    }
+    ,
     {
       path: '/Test/:name',
       name: 'Test',
@@ -70,6 +75,17 @@ export default new Router({
       component: ViewItems
     }
     ,
+    {
+      path: '/CreateReservation',
+      name: 'CreateReservation',
+      component: CreateReservation
+    }
+    ,
+    {
+      path: '/CustomerHomePage',
+      name: 'CustomerHomePage',
+      component: CustomerHomePage
+    },
     {
       path: '/Holiday',
       name: 'Holiday',
