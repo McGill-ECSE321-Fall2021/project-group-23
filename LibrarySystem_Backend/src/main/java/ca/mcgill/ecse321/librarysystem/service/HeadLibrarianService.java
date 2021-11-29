@@ -21,18 +21,18 @@ public class HeadLibrarianService extends LibrarianService {
 	public HeadLibrarian createHeadLibrarian(String firstName, String lastName, String password, int newScheduleId) {
 		// Check for empty or null fields
 		if (firstName == null || firstName.trim().length() == 0) {
-			throw new IllegalArgumentException("First name cannot be empty.");
+			throw new InvalidInputException("First name cannot be empty.");
 		}
 		if (lastName == null || lastName.trim().length() == 0) {
-			throw new IllegalArgumentException("Last name cannot be empty.");
+			throw new InvalidInputException("Last name cannot be empty.");
 		}
 		if (password == null || password.trim().length() == 0) {
-			throw new IllegalArgumentException("Password cannot be empty.");
+			throw new InvalidInputException("Password cannot be empty.");
 		}
 		
 		// Check if weeklySchedule exists
 		if (!weeklyScheduleRepository.existsByWeeklyScheduleId(newScheduleId)) {
-			throw new IllegalArgumentException("Weekly schedule with provided id could not be found in the database");
+			throw new InvalidInputException("Weekly schedule with provided id could not be found in the database");
 		}
 		
 		HeadLibrarian headLibrarian = new HeadLibrarian();
@@ -48,22 +48,22 @@ public class HeadLibrarianService extends LibrarianService {
 	public HeadLibrarian updateHeadLibrarian(int accountId, String firstName, String lastName, String password, int newScheduleId) {
 		// Check for empty or null fields
 		if (firstName == null || firstName.trim().length() == 0) {
-			throw new IllegalArgumentException("First name cannot be empty.");
+			throw new InvalidInputException("First name cannot be empty.");
 		}
 		if (lastName == null || lastName.trim().length() == 0) {
-			throw new IllegalArgumentException("Last name cannot be empty.");
+			throw new InvalidInputException("Last name cannot be empty.");
 		}
 		if (password == null || password.trim().length() == 0) {
-			throw new IllegalArgumentException("Password cannot be empty.");
+			throw new InvalidInputException("Password cannot be empty.");
 		}
 		
 		// Check if weeklySchedule exists
 		if (!weeklyScheduleRepository.existsByWeeklyScheduleId(newScheduleId)) {
-			throw new IllegalArgumentException("Weekly schedule with provided id could not be found in the database");
+			throw new InvalidInputException("Weekly schedule with provided id could not be found in the database");
 		}
 		
 		if (!librarianRepository.existsById(accountId)) {
-			throw new IllegalArgumentException("Head librarian with provided id could not be found in the database");
+			throw new InvalidInputException("Head librarian with provided id could not be found in the database");
 		}
 		HeadLibrarian headLibrarian = (HeadLibrarian) librarianRepository.findByAccountId(accountId);
 		headLibrarian.setFirstName(firstName);
@@ -78,18 +78,18 @@ public class HeadLibrarianService extends LibrarianService {
 	public Librarian createLibrarian(String firstName, String lastName, String password, int newScheduleId) {
 		// Check for empty or null fields
 		if (firstName == null || firstName.trim().length() == 0) {
-			throw new IllegalArgumentException("First name cannot be empty.");
+			throw new InvalidInputException("First name cannot be empty.");
 		}
 		if (lastName == null || lastName.trim().length() == 0) {
-			throw new IllegalArgumentException("Last name cannot be empty.");
+			throw new InvalidInputException("Last name cannot be empty.");
 		}
 		if (password == null || password.trim().length() == 0) {
-			throw new IllegalArgumentException("Password cannot be empty.");
+			throw new InvalidInputException("Password cannot be empty.");
 		}
 		
 		// Check if weeklySchedule exists
 		if (!weeklyScheduleRepository.existsByWeeklyScheduleId(newScheduleId)) {
-			throw new IllegalArgumentException("Weekly schedule with provided id could not be found in the database");
+			throw new InvalidInputException("Weekly schedule with provided id could not be found in the database");
 		}
 		
 		Librarian librarian = new Librarian();
@@ -105,11 +105,11 @@ public class HeadLibrarianService extends LibrarianService {
 	public Librarian assignWeeklySchedule(int id, int newScheduleId) {
 		// check if weekly schedule exists
 		if (!weeklyScheduleRepository.existsByWeeklyScheduleId(newScheduleId)) {
-			throw new IllegalArgumentException("Weekly schedule with provided id could not be found in the database");
+			throw new InvalidInputException("Weekly schedule with provided id could not be found in the database");
 		}
 		// check if librarian exists
 		if (!librarianRepository.existsByAccountId(id)) {
-			throw new IllegalArgumentException("Librarian with provided account id could not found.");
+			throw new InvalidInputException("Librarian with provided account id could not found.");
 		}
 		
 		Librarian librarian = librarianRepository.findByAccountId(id);
@@ -122,7 +122,7 @@ public class HeadLibrarianService extends LibrarianService {
 	public Librarian deleteLibrarian(int accountId) {
 		// check if librarian exists
 		if (!librarianRepository.existsByAccountId(accountId)) {
-			throw new IllegalArgumentException("Librarian account to delete could not be found with provided id");
+			throw new InvalidInputException("Librarian account to delete could not be found with provided id");
 		}
 		
 		Librarian librarian = librarianRepository.findByAccountId(accountId);
@@ -141,7 +141,7 @@ public class HeadLibrarianService extends LibrarianService {
 	public Librarian getLibrarianByAccountId(int id) {
 		// check if librarian with provided id exists
 		if (!librarianRepository.existsByAccountId(id)) {
-			throw new IllegalArgumentException("Librarian with provided account id could not found.");
+			throw new InvalidInputException("Librarian with provided account id could not found.");
 		}
 		
 		Librarian librarian = librarianRepository.findByAccountId(id);
@@ -152,7 +152,7 @@ public class HeadLibrarianService extends LibrarianService {
 	public Librarian getLibrarianByNames(String firstName, String lastName) {
 		// check if librarian with first name and last name exists
 		if (!librarianRepository.existsByFirstNameAndLastName(firstName, lastName)) {
-			throw new IllegalArgumentException("Librarian with provided first name and last name could not be found.");
+			throw new InvalidInputException("Librarian with provided first name and last name could not be found.");
 		}
 		
 		Librarian librarian = librarianRepository.findByFirstNameAndLastName(firstName, lastName);
@@ -163,11 +163,11 @@ public class HeadLibrarianService extends LibrarianService {
 	public Librarian getLibrarianByScheduleId(int scheduleId) {
 		// Check if weekly schedule exists
 		if (!weeklyScheduleRepository.existsByWeeklyScheduleId(scheduleId)) {
-			throw new IllegalArgumentException("Provided weekly schedule could not be found in the database");
+			throw new InvalidInputException("Provided weekly schedule could not be found in the database");
 		}
 		WeeklySchedule schedule = weeklyScheduleRepository.findByWeeklyScheduleId(scheduleId);
 		if (!librarianRepository.existsByLibrarianSchedule(schedule)) {
-			throw new IllegalArgumentException("Librarian with provided weekly schedule could not be found.");
+			throw new InvalidInputException("Librarian with provided weekly schedule could not be found.");
 		}
 		
 		Librarian librarian = librarianRepository.findByLibrarianSchedule(schedule);

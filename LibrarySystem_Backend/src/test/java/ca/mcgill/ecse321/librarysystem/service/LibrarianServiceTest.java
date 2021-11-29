@@ -71,7 +71,7 @@ public class LibrarianServiceTest {
 		Customer c = null;
 		try {
 			c = librarianService.createCustomer(FNAME, LNAME, EMAIL, ADDRESS, BALANCE);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(c);
@@ -89,7 +89,7 @@ public class LibrarianServiceTest {
 		String error = null;
 		try {
 			c = librarianService.createCustomer("", LNAME, EMAIL, ADDRESS, BALANCE);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(c);
@@ -103,7 +103,7 @@ public class LibrarianServiceTest {
 		String error = null;
 		try {
 			c = librarianService.createCustomer("Abiola 2.0", LNAME, EMAIL, ADDRESS, BALANCE);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(c);
@@ -117,7 +117,7 @@ public class LibrarianServiceTest {
 		String error = null;
 		try {
 			c = librarianService.createCustomer(FNAME, "", EMAIL, ADDRESS, BALANCE);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(c);
@@ -131,7 +131,7 @@ public class LibrarianServiceTest {
 		String error = null;
 		try {
 			c = librarianService.createCustomer(FNAME, "Olaniyan 2.0", EMAIL, ADDRESS, BALANCE);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(c);
@@ -145,7 +145,7 @@ public class LibrarianServiceTest {
 		String error = null;
 		try {
 			c = librarianService.createCustomer(FNAME, LNAME, "", ADDRESS, BALANCE);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(c);
@@ -160,7 +160,7 @@ public class LibrarianServiceTest {
 		lenient().when(customerRepository.existsByEmail(anyString())).thenReturn(true);
 		try {
 			c = librarianService.createCustomer(FNAME, LNAME, EMAIL, ADDRESS, BALANCE);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(c);
@@ -174,7 +174,7 @@ public class LibrarianServiceTest {
 		String error = null;
 		try {
 			c = librarianService.createCustomer(FNAME, LNAME, EMAIL, "", BALANCE);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(c);
@@ -187,7 +187,7 @@ public class LibrarianServiceTest {
 		Customer c = null;
 		try {
 			c = librarianService.updateCustomer(ACCOUNTID, true, false, 100);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(c);
@@ -203,7 +203,7 @@ public class LibrarianServiceTest {
 		String error = null;
 		try {
 			c = librarianService.updateCustomer(NONACCOUNTID, false, false, BALANCE);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(c);
@@ -217,7 +217,7 @@ public class LibrarianServiceTest {
 		String error = null;
 		try {
 			c = librarianService.updateCustomer(ACCOUNTID, false, false, -9);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(c);

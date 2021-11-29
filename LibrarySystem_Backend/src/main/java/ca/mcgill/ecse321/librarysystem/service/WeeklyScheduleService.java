@@ -25,11 +25,11 @@ public class WeeklyScheduleService {
 	@Transactional
 	public WeeklySchedule createWeeklySchedule(List<Integer> shiftIds) {
 		if (shiftIds == null) {
-			throw new IllegalArgumentException("List of shifts cannot be null");
+			throw new InvalidInputException("List of shifts cannot be null");
 		}
 		for (Integer shiftId : shiftIds) {
 			if (!shiftRepository.existsByShiftId(shiftId)) {
-				throw new IllegalArgumentException("Shift(s) could not be found");
+				throw new InvalidInputException("Shift(s) could not be found");
 			}
 		}
 		WeeklySchedule ws = new WeeklySchedule();
@@ -46,16 +46,16 @@ public class WeeklyScheduleService {
 	@Transactional
 	public WeeklySchedule updateWeeklyScheduleShifts(int wsId, List<Integer> shiftIds) {
 		if (shiftIds == null) {
-			throw new IllegalArgumentException("List of shifts cannot be empty");
+			throw new InvalidInputException("List of shifts cannot be empty");
 		}
 		for (Integer shiftId : shiftIds) {
 			if (!shiftRepository.existsByShiftId(shiftId)) {
-				throw new IllegalArgumentException("Shift(s) could not be found");
+				throw new InvalidInputException("Shift(s) could not be found");
 			}
 		}
 		
 		if (!weeklyScheduleRepository.existsByWeeklyScheduleId(wsId)) {
-			throw new IllegalArgumentException("Weekly schedule with provided id does not exist");
+			throw new InvalidInputException("Weekly schedule with provided id does not exist");
 		}
 		WeeklySchedule wsToUpdate = weeklyScheduleRepository.findByWeeklyScheduleId(wsId);
 		Set<Shift> addedShifts = new HashSet<Shift>();
@@ -71,7 +71,7 @@ public class WeeklyScheduleService {
 	@Transactional
 	public WeeklySchedule deleteWeeklySchedule(int wsId) {
 		if (!weeklyScheduleRepository.existsByWeeklyScheduleId(wsId)) {
-			throw new IllegalArgumentException("Weekly schedule with provided id does not exist");
+			throw new InvalidInputException("Weekly schedule with provided id does not exist");
 		}
 		WeeklySchedule wsToDelete = weeklyScheduleRepository.findByWeeklyScheduleId(wsId);
 		weeklyScheduleRepository.delete(wsToDelete);
@@ -88,7 +88,7 @@ public class WeeklyScheduleService {
 	@Transactional
 	public WeeklySchedule getWeeklySchedule(int id) {
 		if (!weeklyScheduleRepository.existsByWeeklyScheduleId(id)) {
-			throw new IllegalArgumentException("Weekly schedule with provided id does not exist");
+			throw new InvalidInputException("Weekly schedule with provided id does not exist");
 		}
 		WeeklySchedule ws = weeklyScheduleRepository.findByWeeklyScheduleId(id);
 		return ws;
