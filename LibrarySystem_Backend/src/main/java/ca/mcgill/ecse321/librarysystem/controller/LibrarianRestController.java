@@ -49,7 +49,7 @@ public class LibrarianRestController {
 		if (customer == null) {
 			throw new InvalidInputException("The provided customer does not exist.");
 		}
-		CustomerDto customerDto = new CustomerDto(customer.getFirstName(), customer.getLastName(), customer.getAccountId(), customer.getPassword(), customer.getEmail(), customer.getIsVerified(), customer.getIsLocal(), customer.getAccountBalance());
+		CustomerDto customerDto = new CustomerDto(customer.getFirstName(), customer.getLastName(), customer.getAccountId(), customer.getPassword(), customer.getEmail(), customer.getIsVerified(), customer.getIsLocal(), customer.getAccountBalance(), customer.getAddress());
 	
 		return customerDto;
 	}

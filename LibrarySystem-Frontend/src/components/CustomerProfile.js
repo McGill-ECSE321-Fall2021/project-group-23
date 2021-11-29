@@ -18,14 +18,16 @@ var AXIOS = axios.create({
 })
 
 export default {
-    props: ['usernameP', "idP", "addressP", "emailP", "passwordP", "accountTypeP"],
+    props: ["nameP","familynameP", "idP", "addressP", "emailP", "passwordP", "accountTypeP"],
     data() {
         return {
-            username: this.usernameP,
+            name: this.nameP,
+            familyname: this.familynameP,
             address: this.addressP,
             email: this.emailP,
             password: this.passwordP,
             accountType: this.accountTypeP,
+            id : this.idP,
             newAddress: "",
             newPassword: "",
             isShow: false,
