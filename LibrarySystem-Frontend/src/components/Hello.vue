@@ -3,8 +3,8 @@
     <h1>{{ msg }}</h1>
     <h2>Login/Signup</h2>
     <ul>
-      <li><a href="https://vuejs.org" target="_blank">Login</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Signup</a></li>
+      <li><button v-on:click="goLogin()">Login</button></li>
+      <li><button v-on:click="goSignUp()">Signup</button></li>
     </ul>
     <h2>About us</h2>
       <li>{{ email }}</li>
@@ -20,8 +20,16 @@ export default {
     return {
       msg: 'Welcome to Your Library',
       email: 'Email: group13.mail.mcgill.ca',
-      adress: 'Adress: 13 McGill avenue',
+      adress: 'Address: 13 McGill avenue',
       number: 'Call: 514-100-1313'
+    }
+  },
+  methods: {
+    goLogin: function() {
+      this.$router.push({ path: `/Login` })
+    },
+    goSignUp: function() {
+      this.$router.push({ path: `/Signup` })
     }
   }
 }

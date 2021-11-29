@@ -27,7 +27,6 @@ export default {
             currLastName: '',
             newFirst: '',
             newLast: '',
-            newPassword: '',
             errorLibrarian: ''
         }
     },
@@ -46,8 +45,8 @@ export default {
         returnToPrev: function() {
             this.$router.push({ path: `/LibrarianManagement/`})
         },
-        updateHeadInfo: function(newFName, newLName, newPass) {
-            AXIOS.put('/updateHeadLibrarian/1234/'+ newFName + '/' + newLName + '/' + newPass + '/' + this.librarian.weeklySchedule.weeklyScheduleId)
+        updateHeadInfo: function(newFName, newLName) {
+            AXIOS.put('/updateHeadLibrarian/1234/'+ newFName + '/' + newLName + '/' + this.librarian.password + '/' + this.librarian.weeklySchedule.weeklyScheduleId)
             .then(response => {
                 this.librarian = response.data
                 this.currFirstName = this.librarian.firstName

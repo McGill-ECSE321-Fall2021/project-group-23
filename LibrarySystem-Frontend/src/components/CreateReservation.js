@@ -28,7 +28,7 @@ export default {
             .catch(e => {
                 this.errorReservation = e
             }),
-        AXIOS.get('/getAllReservation')
+        AXIOS.get('/getReservationByCustomer/' + this.customerId)
             .then(response => {
                 // JSON responses are automatically parsed.
                 this.reservations = response.data

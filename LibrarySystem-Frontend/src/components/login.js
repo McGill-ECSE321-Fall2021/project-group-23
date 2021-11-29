@@ -35,6 +35,7 @@ export default {
 
     data() {
         return {
+            customer: {},
             customerAccounts: [],
             librarianAccounts: [],
             customerAccountId: '',
@@ -52,14 +53,20 @@ export default {
 
 
     methods: {
+        signUpCustomer: function() {
+            this.$router.push({ path: `/Signup` })
+        },
         loginCustomer: function (customerAccountId, customerPassword) {
             AXIOS.get('/loginCustomer/' + customerAccountId + '/' + customerPassword).then(response => {
                 this.customerAccounts.push(response.data)
-                errorLoginCustomer= ''
-                errorLoginLibrarian= ''
+                this.errorLoginCustomer= ''
+                this.errorLoginLibrarian= ''
+                this.customer = this.customerAccounts[this.customerAccounts.length-1]
+                this.$router.push({ path: `/CustomerHomePage/${this.customer.firstName}/${this.customer.lastName}/${customerAccountId}/${this.customer.address}/${this.customer.email}/${this.customer.password}/Customer` })
+
             }).catch(e => {
                 var errorMsg = "Invalid accountId-password Combo"
-                console.log(errorMsg)
+                console.log(e)
                 this.errorLoginCustomer = errorMsg
             })
         },
@@ -67,8 +74,12 @@ export default {
         loginLibrarian: function (librarianAccountId, librarianPassword) {
             AXIOS.get('/loginLibrarian/' + librarianAccountId + '/' + librarianPassword).then(response => {
                 this.librarianAccounts.push(response.data)
-                errorLoginCustomer= ''
-                errorLoginLibrarian= ''
+                this.errorLoginCustomer= ''
+                this.errorLoginLibrarian= ''
+                if (librarianAccountId == 1234) {
+                    this.$router.push({ path: `/LibrarianManagement`})
+                }
+                else{}
             }).catch(e => {
                 var errorMsg = "Invalid accountId-password Combo"
                 console.log(errorMsg)
