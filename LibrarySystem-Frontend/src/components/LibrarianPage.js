@@ -26,6 +26,9 @@ export default {
            librarian: {},
            errorLibrarian: '',
            selectedCustomer: {},
+           newBalance: '',
+           verificationVal: '',
+           localVal: '',
            customers: [], 
            errorCustomer: '',
            id: this.librarianIdP,
@@ -33,7 +36,7 @@ export default {
         }
     },
     created: function () {
-        // Initialize librarians from backend
+        // Initialize customers from backend
         AXIOS.get('/getAllCustomers')
         .then(response => {
             this.customers = response.data
@@ -44,6 +47,16 @@ export default {
        
     },
     methods: {
+        resetCustomers: function() {
+            // Initialize customers from backend
+            AXIOS.get('/getAllCustomers')
+            .then(response => {
+                this.customers = response.data
+            })
+            .catch(e => {
+                this.errorCustomer = e
+            })
+        },
         goToProfile: async function() {
             await AXIOS.get('/getLibrarianById/' + this.id)
             .then(response => {
@@ -75,7 +88,28 @@ export default {
                 this.errorCustomer = ''
                 this.$router.push({ path: `/CustomerHomePage/${this.selectedCustomer.firstName}/${this.selectedCustomer.lastName}/${this.selectedCustomer.customerId}/${this.selectedCustomer.address}/${this.selectedCustomer.email}/${this.selectedCustomer.password}/Customer` })
             }
-        }
-        
+        },
+        updateValues: function(customerId) {
+            if (customerId == undefined) {
+                this.errorCustomer = 'Please select a customer to manage first.'
+            }
+            else {
+                // Get correct verification and local values input (checkbox does not give false)
+                var vVal = true;
+                var lVal = true;
+                if (this.verificationVal == '') vVal = 'false';
+                if (this.localVal == '') lVal = 'false';
+
+                AXIOS.put('/updateCustomer/' + customerId + '/' + vVal + '/' + lVal + '/' + this.newBalance)
+                .then(response => {
+                    this.errorCustomer = ''
+                    this.resetCustomers()  
+                })
+                .catch(e => {
+                    var errorMsg = 'Please input a new balance.'
+                    this.errorCustomer = errorMsg
+                })
+            }
+        }        
     }
 }

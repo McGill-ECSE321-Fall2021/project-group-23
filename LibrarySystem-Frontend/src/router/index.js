@@ -125,6 +125,6 @@ export default new Router({
       name: 'ViewShifts',
       component: ViewShifts,
       props: true
-    }
+    },
   ]
 })

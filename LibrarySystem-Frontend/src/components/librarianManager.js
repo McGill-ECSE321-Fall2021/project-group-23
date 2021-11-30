@@ -84,6 +84,9 @@ export default {
             }) 
             this.$router.push({ path: `/Profile/` + this.headLib.firstName + '/' + this.headLib.lastName + '/' + 1234 + '/' + this.headLib.address + '/' + this.headLib.email + '/' + this.headLib.password + '/' + 'Head Librarian'})
         },
+        goToRegularLibPage: function() { 
+            this.$router.push({ path: `/LibrarianPage/` + 1234 })
+        },
         createItem: function() {
             this.$router.push({ path: `/CreateItem` })
         },
@@ -129,7 +132,7 @@ export default {
                 this.errorLibrarian = ''
             })
             .catch(e => {
-                var errorMsg = e.response.data.message
+                var errorMsg = 'Please add shifts to the new librarian first.'
                 console.log(errorMsg)
                 this.errorLibrarian = errorMsg
             })
