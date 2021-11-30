@@ -2,7 +2,7 @@
     <div id="updateheadinfo" class="container-fluid">
         <h2>Update Head Librarian Information</h2>
         <!-- Inputs for changing account info -->
-        <table>
+        <table class="centerTable">
             <tr>
                 <th>First Name</th>
                 <td></td>
@@ -49,5 +49,5 @@
 </script>
 
 <style>
-
+.centerTable { margin: 0px auto; }
 </style>
