@@ -1,6 +1,6 @@
 <template>
   <div id="CreateReservation">
-    <v-table :data="reservations">
+    <v-table :data="reservations" id="ress">
       <thead slot="head">
         <th>RESERVATION ID</th>
         <th>ITEM TITLE</th>
@@ -26,6 +26,7 @@
       selectedClass="table-info"
       @selectionChanged="selectedItem = $event"
       class="table-hover"
+      id="itemm"
     >
       <thead slot="head">
         <th>ID</th>
@@ -85,4 +86,6 @@ th {
 input {
   width: 200px;
 }
+#itemm tr:nth-child(even){background-color: #f2f2f2;}
+#ress tr:nth-child(even){background-color: #f2f2f2;}
 </style>

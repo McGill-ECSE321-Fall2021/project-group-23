@@ -47,6 +47,7 @@
       selectedClass="table-info"
       @selectionChanged="selectedItem = $event"
       class="table-hover"
+      id="itemm"
     >
       <thead slot="head">
         <th>ID</th>
@@ -97,4 +98,5 @@ th {
 input {
   width: 200px;
 }
+#itemm tr:nth-child(even){background-color: #f2f2f2;}
 </style>
