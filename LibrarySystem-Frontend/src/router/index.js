@@ -16,6 +16,7 @@ import OpeningsHours from '@/components/OpeningsHours.vue'
 import UpdateHeadLibrarian from '@/components/UpdateHeadLibrarian.vue'
 import LibraryBooking from '@/components/LibraryBooking.vue'
 import LibrarianPage from '@/components/LibrarianPage.vue'
+import ViewShifts from '@/components/ViewShifts.vue'
 
 Vue.use(Router)
 
@@ -119,5 +120,11 @@ export default new Router({
       component: LibrarianPage,
       props: true
     },
+    {
+      path: '/ViewShifts/:librarianIdP',
+      name: 'ViewShifts',
+      component: ViewShifts,
+      props: true
+    }
   ]
 })

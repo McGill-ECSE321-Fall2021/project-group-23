@@ -79,7 +79,9 @@ export default {
                 if (librarianAccountId == 1234) {
                     this.$router.push({ path: `/LibrarianManagement`})
                 }
-                else{}
+                else{
+                    this.$router.push({ path: `/LibrarianPage/` + librarianAccountId})
+                }
             }).catch(e => {
                 var errorMsg = "Invalid accountId-password Combo"
                 console.log(errorMsg)

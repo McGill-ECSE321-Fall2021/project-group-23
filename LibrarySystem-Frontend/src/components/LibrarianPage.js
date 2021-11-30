@@ -18,8 +18,6 @@ var AXIOS = axios.create({
     headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
-
-
 export default {
     props: ["librarianIdP"],
     name: 'librarianPageManagement',
@@ -27,6 +25,7 @@ export default {
         return {
            librarian: {},
            errorLibrarian: '',
+           selectedCustomer: {},
            customers: [], 
            errorCustomer: '',
            id: this.librarianIdP,
@@ -58,6 +57,25 @@ export default {
         createItem: function() {
             this.$router.push({ path: `/CreateItem` })
         },
+        viewShifts: function() {
+            this.$router.push({ path: `/ViewShifts/` + this.id})
+        },
+        customerManagement: async function(customerId) {
+            if (customerId == undefined) {
+                this.errorCustomer = 'Please select a customer to manage first.'
+            }
+            else {
+                await AXIOS.get('getCustomerById/' + customerId)
+                .then(response => {
+                    this.selectedCustomer = response.data
+                })
+                .catch(e => {
+                    this.errorCustomer = e
+                })
+                this.errorCustomer = ''
+                this.$router.push({ path: `/CustomerHomePage/${this.selectedCustomer.firstName}/${this.selectedCustomer.lastName}/${this.selectedCustomer.customerId}/${this.selectedCustomer.address}/${this.selectedCustomer.email}/${this.selectedCustomer.password}/Customer` })
+            }
+        }
         
     }
 }
