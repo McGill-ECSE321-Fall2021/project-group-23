@@ -7,12 +7,16 @@
             <button class="btn btn-light" v-on:click="holidayStuff()">Holiday Management</button>
             <button class="btn btn-light" v-on:click="createItem()">Item Management</button>
             <button class="btn btn-light" v-on:click="goToProfile()">Profile</button>
+            <button class="btn btn-light" v-on:click="goToRegularLibPage()">General Librarian Functions</button>
         </div>
 
         <hr>
 
         <!-- Section for adding a new librarian; inputs are names and the password.-->
         <h2 style="text-align:left">Add Librarian</h2>
+        <p>
+            <span v-if="errorLibrarian" style="text-align:center; color:red">{{errorLibrarian}}</span>
+        </p>
             <table>
                 <tr>
                     <th>First Name</th>
@@ -121,9 +125,6 @@
                     </td>
                 </tr>
             </table>
-            <p>
-                <span v-if="errorLibrarian" style="color:red">{{errorLibrarian}} </span>
-            </p>
             <v-table :data="librarians" selectedClass="table-info" @selectionChanged="selectedLibrarian = $event" class="table-hover">
                 <thead slot="head">
                     <th style="padding: 20px">First Name</th>
