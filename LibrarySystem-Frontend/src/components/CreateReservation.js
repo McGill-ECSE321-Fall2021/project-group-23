@@ -45,6 +45,7 @@ export default {
             items: [],
             reservations: [],
             selectedItem: [],
+            selectedReservation: [],
             filters: {
                 title: { value: '', keys: ['title'] },
                 type: {value: '', custom: this.typeFilter}
@@ -66,9 +67,22 @@ export default {
           })
         },
 
+        deleteReservation: function (reservationId) {
+            AXIOS.delete('/deleteReservation/' + reservationId).then(response => {
+                this.reservations.delete(response.data)
+                this.errorReservation = ''
+            }).catch(e => {
+                var errorMsg = e.response.data.message
+                console.log(errorMsg)
+                this.errorReservation = errorMsg
+            })
+        },
+
         typeFilter (filterValue, row) {
             return (row.type == "Book" || row.type == "Movie" || row.type == "Album")
         }
+
+
     
       }
 }
