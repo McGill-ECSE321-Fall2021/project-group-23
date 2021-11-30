@@ -11,9 +11,8 @@
       :currentPage.sync="currentPage"
       :pageSize="10"
       @totalPagesChanged="totalPages = $event"
-      selectedClass="table-info"
-      @selectionChanged="selectedItem = $event"
       class="table-hover"
+      id="itemm"
     >
       <thead slot="head">
         <th>ID</th>
@@ -44,12 +43,13 @@
 v-table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 100%;
+  width: 50%;
 }
 td,
 th {
   border: 1px solid #ddd;
   padding: 8px;
+  width: 1%;
 }
 th {
   padding-top: 12px;
@@ -59,6 +59,7 @@ th {
   color: white;
 }
 input {
-  width: 25%;
+  width: 100%;
 }
+#itemm tr:nth-child(even){background-color: #f2f2f2;}
 </style>
