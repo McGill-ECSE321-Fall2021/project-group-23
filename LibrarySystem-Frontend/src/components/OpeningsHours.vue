@@ -29,7 +29,7 @@
                             <option >Monday</option>
                             <option >Tuesday</option>
                             <option >Wednesday</option>
-                            <option >Thursay</option>
+                            <option >Thursday</option>
                             <option >Friday</option>
                             <option >Saturday</option>
                             <option >Sunday</option>
@@ -66,7 +66,7 @@
                             <option >Monday</option>
                             <option >Tuesday</option>
                             <option >Wednesday</option>
-                            <option >Thursay</option>
+                            <option >Thursday</option>
                             <option >Friday</option>
                             <option >Saturday</option>
                             <option >Sunday</option>
@@ -101,7 +101,7 @@
                             <option >Monday</option>
                             <option >Tuesday</option>
                             <option >Wednesday</option>
-                            <option >Thursay</option>
+                            <option >Thursday</option>
                             <option >Friday</option>
                             <option >Saturday</option>
                             <option >Sunday</option>

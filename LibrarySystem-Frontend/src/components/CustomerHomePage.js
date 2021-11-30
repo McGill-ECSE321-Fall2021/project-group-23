@@ -19,6 +19,9 @@ export default {
     },
     goToReservations: function() {
       this.$router.push({ path: `/CreateReservation/` + this.id })
+    },
+    goToBookings: function() {
+      this.$router.push({ path: `/LibraryBooking/` + this.id })
     }
   }
 
