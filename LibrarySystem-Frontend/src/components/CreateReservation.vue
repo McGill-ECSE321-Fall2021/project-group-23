@@ -1,6 +1,16 @@
 <template>
   <div id="CreateReservation">
-    <v-table :data="reservations" id="ress">
+    <v-table
+      :data="reservations" 
+      :filters="filters"
+      :currentPage.sync="currentPage"
+      :pageSize="10"
+      @totalPagesChanged="totalPages = $event"
+      selectedClass="table-info"
+      @selectionChanged="selectedReservation = $event"
+      class="table-hover"
+      id="ress"
+    >
       <thead slot="head">
         <th>RESERVATION ID</th>
         <th>ITEM TITLE</th>
@@ -8,12 +18,12 @@
         <th>RESERVATION END DATE</th>
       </thead>
       <tbody slot="body">
-        <tr v-for="reservation in reservations" :key="reservation.id">
+        <v-tr v-for="reservation in reservations" :key="reservation.id" :row="reservation">
           <td>{{ reservation.id }}</td>
           <td>{{ reservation.item.title }}</td>
           <td>{{ reservation.startDate }}</td>
           <td>{{ reservation.endDate }}</td>
-        </tr>
+        </v-tr>
       </tbody>
     </v-table>
 
@@ -52,6 +62,12 @@
       @click="createReservation(customerId, selectedItem[0].id, false, date)"
     >
       Create Reservation
+    </button>
+    <button
+      type="button"
+      @click="deleteReservation(selectedReservation[0].id)"
+    >
+      Delete Reservation
     </button>
     <span v-if="errorReservation" style="color: red">
       {{ errorReservation }}
