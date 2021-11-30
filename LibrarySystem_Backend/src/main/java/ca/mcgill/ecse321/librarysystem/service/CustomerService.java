@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.librarysystem.dao.CustomerRepository;
+import ca.mcgill.ecse321.librarysystem.dao.ReservationRepository;
 import ca.mcgill.ecse321.librarysystem.model.Customer;
 
 @Service
@@ -15,6 +16,8 @@ public class CustomerService {
   
   @Autowired
   CustomerRepository customerRepository;
+  @Autowired
+  ReservationRepository reservationRepository;
   	/**
 	 * Create a Customer account
 	 * @author Zi Chao
@@ -138,6 +141,12 @@ public class CustomerService {
       throw new InvalidInputException("Customer account with provided id does not exist.");
     }
       Customer customer = customerRepository.findCustomerByAccountId(id);
+      if(customer.getAccountBalance() > 0){
+        throw new InvalidInputException("Customer has to pay balance");
+      }
+      if(reservationRepository.findByCustomer(customer).size() > 0){
+        throw new InvalidInputException("Customer has reservations");
+      }
       customerRepository.delete(customer);
       return customer;
   }
