@@ -15,7 +15,7 @@ import Holiday from '@/components/Holiday.vue'
 import OpeningsHours from '@/components/OpeningsHours.vue'
 import UpdateHeadLibrarian from '@/components/UpdateHeadLibrarian.vue'
 import LibraryBooking from '@/components/LibraryBooking.vue'
-
+import LibrarianPage from '@/components/LibrarianPage.vue'
 
 Vue.use(Router)
 
@@ -111,6 +111,12 @@ export default new Router({
       path: '/LibraryBooking/:customerIdP',
       name: 'LibraryBooking',
       component: LibraryBooking,
+      props: true
+    },
+    {
+      path: '/LibrarianPage/:librarianIdP',
+      name: 'LibrarianPage',
+      component: LibrarianPage,
       props: true
     },
   ]
