@@ -58,7 +58,7 @@ export default {
     methods: {
         createReservation: function (customerId, itemId, isCheckedOut, date) {
           AXIOS.post('/createReservation/' + customerId + '/' + itemId + '/' + isCheckedOut + '/' + date).then(response => {
-            this.reservations.push(response.data)
+            this.refresh()
             this.errorReservation = ''
           }).catch(e => {
             var errorMsg = e.response.data.message
@@ -69,8 +69,8 @@ export default {
 
         deleteReservation: function (reservationId) {
             AXIOS.delete('/deleteReservation/' + reservationId).then(response => {
-                this.reservations.delete(response.data)
                 this.errorReservation = ''
+                this.refresh()
             }).catch(e => {
                 var errorMsg = e.response.data.message
                 console.log(errorMsg)
@@ -80,9 +80,26 @@ export default {
 
         typeFilter (filterValue, row) {
             return (row.type == "Book" || row.type == "Movie" || row.type == "Album")
-        }
+        },
 
-
+        refresh: function () {
+            AXIOS.get('/getAllItems')
+                .then(response => {
+                    // JSON responses are automatically parsed.
+                    this.items = response.data
+                })
+                .catch(e => {
+                    this.errorReservation = e
+                }),
+            AXIOS.get('/getReservationByCustomer/' + this.customerId)
+                .then(response => {
+                    // JSON responses are automatically parsed.
+                    this.reservations = response.data
+                })
+                .catch(e => {
+                    this.errorReservation = e
+            })
+        },
     
       }
 }
