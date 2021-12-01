@@ -128,9 +128,10 @@ export default new Router({
       props: true
     },
     {
-      path: '/CreateBalance',
+      path: '/CreateBalance/:customerIdP',
       name: 'CreateBalance',
-      component: CreateBalance
+      component: CreateBalance,
+      props: true
     }
   ]
 })

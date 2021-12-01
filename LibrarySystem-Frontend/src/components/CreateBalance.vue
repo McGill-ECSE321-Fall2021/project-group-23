@@ -1,7 +1,7 @@
 <template>
   <body>
     <div class="balance">
-      <h1>Balance: 25.00$</h1>
+      <h1>Balance: {{balance}}$</h1>
     </div>
     <div class="container">
       <div class="payment">
@@ -74,12 +74,14 @@
           </div>
         </section>
       </div>
-      <button class="btn btn-light" type="button" onclick="location.href='https://www.youtube.com/watch?v=X_8Nh5XfRw0';">
+      <button class="btn btn-light" style="margin-top: 10px" type="button" onclick="location.href='https://www.youtube.com/watch?v=X_8Nh5XfRw0';">
         Pay Balance Amount Due
       </button>
     </div>
   </body>
 </template>
+<script src="./CreateBalance.js">
+</script>
 <style scoped>
   h1 {text-align: center;}
 </style>

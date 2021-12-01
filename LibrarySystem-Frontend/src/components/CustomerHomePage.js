@@ -30,6 +30,9 @@ export default {
     },
     goToBookings: function () {
       this.$router.push({ path: `/LibraryBooking/` + this.id })
+    },
+    goToBalance: function () {
+      this.$router.push({ path: `/CreateBalance/` + this.id })
     }
   }
 
