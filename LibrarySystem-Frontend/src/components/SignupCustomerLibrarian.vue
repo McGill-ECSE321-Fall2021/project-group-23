@@ -35,7 +35,7 @@
     -->
       <tr>
           <td>
-              <button v-bind:disabled="!firstName || !lastName || !address || !email || !password" @click="SignupCustomerLibrarian(firstName, lastName, address, email, password)">Sign Up</button>
+              <button class="btn btn-light" v-bind:disabled="!firstName || !lastName || !address || !email || !password" @click="SignupCustomerLibrarian(firstName, lastName, address, email, password)">Sign Up</button>
           </td>
       </tr>  
     </table>

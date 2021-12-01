@@ -1,26 +1,27 @@
 <template>
   <div id="Login">
-  <div id="LoginCustomer">
+  <div class="d-flex align-items-center justify-content-center"
+  style="height: 200px;" id="LoginCustomer">
     <table>
       <h2>Customer Login</h2>
       <tr>
           <td>
-              <input type="text" v-model="customerAccountId" placeholder="AccountId">
+              <input style="margin-top: 6px;" type="text" v-model="customerAccountId" placeholder="AccountId">
           </td>
       </tr>
       <tr>
           <td>
-              <input type="text" v-model="customerPassword" placeholder="Password">
+              <input style="margin-top: 6px;" type="text" v-model="customerPassword" placeholder="Password">
           </td>
       </tr>
       <tr>
           <td>
-              <button v-bind:disabled="!customerAccountId || !customerPassword"  @click="loginCustomer(customerAccountId, customerPassword)">Login</button>
+              <button style="margin-top: 8px;" class="btn btn-light" v-bind:disabled="!customerAccountId || !customerPassword"  @click="loginCustomer(customerAccountId, customerPassword)">Login</button>
           </td>
       </tr>
       <tr>
           <td>
-              <button v-on:click="signUpCustomer()">Create new Account</button>
+              <button style="margin-top: 8px;" class="btn btn-light" v-on:click="signUpCustomer()">Create new Account</button>
           </td>
       </tr>  
     </table>
@@ -28,17 +29,19 @@
         <span v-if="errorLoginCustomer" style="color:red">Error: {{errorLoginCustomer}}</span>
     </p>
   </div>
-  <div id="loginLibrarian">
+  <hr>
+  <div class="d-flex align-items-center justify-content-center"
+  style="height: 250px;" id="loginLibrarian">
   <table>
       <h2>Librarian Login</h2>
       <tr>
           <td>
-              <input type="text" v-model="librarianAccountId" placeholder="AccountId">
+              <input style="margin-top: 6px;" type="text" v-model="librarianAccountId" placeholder="AccountId">
           </td>
       </tr>
       <tr>
           <td>
-              <input type="text" v-model="librarianPassword" placeholder="Password">
+              <input style="margin-top: 6px;" type="text" v-model="librarianPassword" placeholder="Password">
           </td>
       </tr>
       <!--
@@ -46,7 +49,7 @@
     -->
       <tr>
           <td>
-              <button v-bind:disabled="!librarianAccountId || !librarianPassword"  @click="loginLibrarian(librarianAccountId, librarianPassword)">Login</button>
+              <button class="btn btn-light" style="margin-top: 8px;" v-bind:disabled="!librarianAccountId || !librarianPassword"  @click="loginLibrarian(librarianAccountId, librarianPassword)">Login</button>
           </td>
       </tr>  
     </table>

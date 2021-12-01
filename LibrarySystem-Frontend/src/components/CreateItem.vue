@@ -1,6 +1,6 @@
 <template>
   <div id="CreateItem">
-    <table>
+    <table class="centerTable">
       <tr>
       <h2>Create Item</h2>
       </tr>
@@ -20,13 +20,14 @@
         </td>
       </tr>
       <tr>
-          <button v-bind:disabled="!newType || !newItem" @click="createItem(newItem, newType)">Create Item</button>
+          <button class="btn btn-light" v-bind:disabled="!newType || !newItem" @click="createItem(newItem, newType)">Create Item</button>
       </tr>
+      <hr>
       <tr>
           <h2>Delete Item</h2>
       </tr>
       <tr>
-          <button @click="deleteItem(selectedItem[0].id)">Delete Item</button>
+          <button class="btn btn-light" @click="deleteItem(selectedItem[0].id)">Delete Item</button>
       </tr>
 
     </table>
@@ -34,7 +35,8 @@
         <span v-if="errorItem" style="color:red"> {{errorItem}} </span>
     </p>
     <input
-      class="form-control"
+      class="form-control center-block"
+      style="margin-top: 20px; margin-bottom: 10px;"
       v-model="filters.title.value"
       placeholder="Search By Title"
     />
@@ -46,7 +48,7 @@
       @totalPagesChanged="totalPages = $event"
       selectedClass="table-info"
       @selectionChanged="selectedItem = $event"
-      class="table-hover"
+      class="table-hover centerTable"
       id="itemm"
     >
       <thead slot="head">
@@ -98,5 +100,7 @@ th {
 input {
   width: 200px;
 }
+
+
 #itemm tr:nth-child(even){background-color: #f2f2f2;}
 </style>

@@ -1,11 +1,11 @@
 <template>
   <div id="Holiday" class="container-fluid">
-    <h1 style="text-align: left">Current Holidays</h1>
-    <v-table :data="holidays">
+    <h1 style="text-align: center">Current Holidays</h1>
+    <v-table :data="holidays" class="centerTable">
       <thead slot="head">
-        <th>NAME</th>
-        <th>START DATE</th>
-        <th>END DATE</th>
+        <th style="padding: 17px">Name</th>
+        <th style="padding: 17px">Start Date</th>
+        <th style="padding: 17px">End Date</th>
       </thead>
       <tbody slot="body">
         <tr v-for="holiday in holidays" :key="holiday.name">
@@ -16,10 +16,10 @@
       </tbody>
     </v-table>
     <hr />
-    <h2 style="text-align: left">Create Holiday</h2>
-    <table>
+    <h2 style="text-align: center">Create Holiday</h2>
+    <table class="centerTable">
       <tr>
-        <th>name</th>
+        <th>Name</th>
         <th>Start Date</th>
         <th>End Date</th>
       </tr>
@@ -37,10 +37,10 @@
       <tr>
         <td>
           <button
-            v-bind:disabled="!cName || !cStartDate || !cEndDate"
+            class="btn btn-light" v-bind:disabled="!cName || !cStartDate || !cEndDate"
             @click="createHoliday(cName, cStartDate, cEndDate)"
           >
-            Make Holiday
+            Add Holiday
           </button>
         </td>
       </tr>
@@ -49,10 +49,10 @@
       <span v-if="errorHoliday" style="color: red"> {{ errorHoliday }} </span>
     </p>
     <hr />
-    <h2 style="text-align: left">Update Holiday</h2>
-    <table>
+    <h2 style="text-align: center">Update Holiday</h2>
+    <table class="centerTable">
       <tr>
-        <th>name</th>
+        <th>Name</th>
         <th>New Start Date</th>
         <th>New End Date</th>
       </tr>
@@ -70,7 +70,7 @@
       <tr>
         <td>
           <button
-            v-bind:disabled="!uName || !uNewStartDate || !uNewEndDate"
+            class="btn btn-light" v-bind:disabled="!uName || !uNewStartDate || !uNewEndDate"
             @click="updateHoliday(uName, uNewStartDate, uNewEndDate)"
           >
             Update Holiday
@@ -82,10 +82,10 @@
       <span v-if="errorHoliday" style="color: red"> {{ errorHoliday }} </span>
     </p>
     <hr />
-    <h2 style="text-align: left">Delete Holiday</h2>
-    <table>
+    <h2 style="text-align: center">Delete Holiday</h2>
+    <table class="centerTable">
       <tr>
-        <th>name</th>
+        <th>Name</th>
       </tr>
       <tr>
         <td>
@@ -94,7 +94,7 @@
       </tr>
       <tr>
         <td>
-          <button v-bind:disabled="!dName" @click="deleteHoliday(dName)">
+          <button class="btn btn-light" v-bind:disabled="!dName" @click="deleteHoliday(dName)">
             Delete Holiday
           </button>
         </td>

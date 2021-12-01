@@ -20,4 +20,29 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+table{
+  border-color: black;
+}
+body {
+  background-color:lightsteelblue;
+}
+
+input {
+  border-radius: 3px;
+  border: none;
+}
+.centerTable { margin: 0px auto; }
+
+td {
+  border-style: hidden!important;
+}
+th {
+  background-color: black;
+  border-style: hidden!important;
+  color: white;
+}
+
+.center-block {display: block; margin-right:auto; margin-left: auto;
+}
+
 </style>

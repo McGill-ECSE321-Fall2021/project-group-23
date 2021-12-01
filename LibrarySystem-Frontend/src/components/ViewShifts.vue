@@ -1,7 +1,7 @@
 <<template>
     <div id="viewshifts" class="container-fluid">
-        <h2 style="text-align:left">Current Shifts</h2>
-        <v-table :data="currentShifts" class="table-hover">
+        <h2 style="text-align:center">Current Shifts</h2>
+        <v-table :data="currentShifts" class="table-hover centerTable">
             <thead slot="head">
                 <th style="padding: 20px">Day of Week</th>
                 <th style="padding: 20px">Start Time</th>

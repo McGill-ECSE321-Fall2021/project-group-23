@@ -1,35 +1,36 @@
 <template>
-<div id="Signup">
+<div class="d-flex align-items-center justify-content-center"
+  style="height: 200px;" id="Signup">
     <table>
       <h2>Sign Up</h2>
       <tr>
           <td>
-              <input type="text" v-model="firstName" placeholder="First name">
+              <input style="margin-top: 6px;" type="text" v-model="firstName" placeholder="First name">
           </td>
       </tr>
       <tr>
           <td>
-              <input type="text" v-model="lastName" placeholder="Last name">
+              <input style="margin-top: 6px;" type="text" v-model="lastName" placeholder="Last name">
           </td>
       </tr>
       <tr>
           <td>
-              <input type="text" v-model="address" placeholder="Address">
+              <input style="margin-top: 6px;" type="text" v-model="address" placeholder="Address">
           </td>
       </tr>
       <tr>
           <td>
-              <input type="text" v-model="email" placeholder="Email">
+              <input style="margin-top: 6px;" type="text" v-model="email" placeholder="Email">
           </td>
       </tr>
       <tr>
           <td>
-              <input type="text" v-model="password" placeholder="Password">
+              <input style="margin-top: 6px;" type="text" v-model="password" placeholder="Password">
           </td>
       </tr>
       <tr>
           <td>
-              <button v-bind:disabled="!firstName || !lastName || !address || !email || !password" @click="signupCustomer(firstName, lastName, address, email, password)">Sign Up</button>
+              <button style="margin-top: 15px;" class="btn btn-light" v-bind:disabled="!firstName || !lastName || !address || !email || !password" @click="signupCustomer(firstName, lastName, address, email, password)">Sign Up</button>
           </td>
       </tr>  
     </table>

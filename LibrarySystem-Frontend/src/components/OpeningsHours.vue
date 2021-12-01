@@ -1,11 +1,11 @@
 <template>
     <div id="OpeningsHours" class="container-fluid">
-         <h1 style="text-align:left">Current Opening Hours</h1>
- <v-table :data="openingsHours">
+         <h1 style="text-align:center">Current Opening Hours</h1>
+ <v-table :data="openingsHours" class="centerTable">
       <thead slot="head">
-        <th>DAY</th>
-        <th>START TIME</th>
-        <th>END TIME</th>
+        <th style="padding: 20px">Day</th>
+        <th style="padding: 20px">Start Time</th>
+        <th style="padding: 20px">End Time</th>
       </thead>
       <tbody slot="body">
         <tr v-for="openingsHour in openingsHours" :key="openingsHour.openingDay">
@@ -15,8 +15,8 @@
         </tr>
       </tbody>
     </v-table>
-        <h2 style="text-align:left">Create Opening Hours</h2>
-            <table>
+        <h2 style="text-align:center">Create Opening Hours</h2>
+            <table class="centerTable">
                 <tr>
                     <th>Day</th>
                     <th>Opening</th>
@@ -44,7 +44,7 @@
                 </tr>
                 <tr>
                     <td>
-                    <button v-bind:disabled="!cDay|| !cStartTime || !cEndTime" @click="createOpeningsHours(cDay, cStartTime, cEndTime)">Make Opening Hours</button>
+                    <button class="btn btn-light" v-bind:disabled="!cDay|| !cStartTime || !cEndTime" @click="createOpeningsHours(cDay, cStartTime, cEndTime)">Make Opening Hours</button>
                     </td>
                 </tr>    
             </table>
@@ -52,8 +52,8 @@
              <span v-if="errorOpeningsHours" style="color:red"> {{errorOpeningsHours}} </span>
             </p>
         <hr>
-        <h2 style="text-align:left">Update Opening Hours</h2>
-            <table>
+        <h2 style="text-align:center">Update Opening Hours</h2>
+            <table class="centerTable">
                 <tr>
                      <th>Day</th>
                     <th>Opening</th>
@@ -81,7 +81,7 @@
                 </tr>
                 <tr>
                     <td>
-                    <button v-bind:disabled="!uDay|| !uStartTime || !uEndTime" @click="updateOpeningsHours(uDay, uStartTime, uEndTime)">Update Opening Hours</button>
+                    <button class="btn btn-light" v-bind:disabled="!uDay|| !uStartTime || !uEndTime" @click="updateOpeningsHours(uDay, uStartTime, uEndTime)">Update Opening Hours</button>
                     </td>
                 </tr>    
             </table>
@@ -89,8 +89,8 @@
              <span v-if="errorOpeningsHours" style="color:red"> {{errorOpeningsHours}} </span>
             </p>
         <hr>
-         <h2 style="text-align:left">Delete Opening Hours</h2>
-            <table>
+         <h2 style="text-align:center">Delete Opening Hours</h2>
+            <table class="centerTable">
                 <tr>
                      <th>Day</th>
                 </tr>
@@ -110,7 +110,7 @@
                 </tr>
                 <tr>
                     <td>
-                    <button v-bind:disabled="!dDay" @click="deleteOpeningsHours(dDay)">delete Opening Hours</button>
+                    <button class="btn btn-light" v-bind:disabled="!dDay" @click="deleteOpeningsHours(dDay)">Delete Opening Hours</button>
                     </td>
                 </tr>    
             </table>

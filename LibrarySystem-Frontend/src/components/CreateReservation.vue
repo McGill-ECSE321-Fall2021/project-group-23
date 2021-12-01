@@ -8,14 +8,15 @@
       @totalPagesChanged="totalPages = $event"
       selectedClass="table-info"
       @selectionChanged="selectedReservation = $event"
-      class="table-hover"
+      class="table-hover centerTable"
       id="ress"
+      style="margin-bottom: 30px;"
     >
       <thead slot="head">
-        <th>RESERVATION ID</th>
-        <th>ITEM TITLE</th>
-        <th>RESERVATION START DATE</th>
-        <th>RESERVATION END DATE</th>
+        <th style="padding: 20px">Reservation ID</th>
+        <th style="padding: 20px">Item Title</th>
+        <th style="padding: 20px">Reservation Start Date</th>
+        <th style="padding: 20px">Reservation End Date</th>
       </thead>
       <tbody slot="body">
         <v-tr v-for="reservation in reservations" :key="reservation.id" :row="reservation">
@@ -35,14 +36,15 @@
       @totalPagesChanged="totalPages = $event"
       selectedClass="table-info"
       @selectionChanged="selectedItem = $event"
-      class="table-hover"
+      class="table-hover centerTable"
       id="itemm"
+      style="margin-bottom: 30px;"
     >
       <thead slot="head">
-        <th>ID</th>
-        <th>TITLE</th>
-        <th>TYPE</th>
-        <th>Status</th>
+        <th style="padding: 20px">ID</th>
+        <th style="padding: 20px">Title</th>
+        <th style="padding: 20px">Type</th>
+        <th style="padding: 20px">Status</th>
       </thead>
       <tbody slot="body" slot-scope="{ displayData }">
         <v-tr v-for="item in displayData" :key="item.id" :row="item">
@@ -58,13 +60,13 @@
       :totalPages="totalPages"
     />
     <button
-      type="button"
+      type="button" class="btn btn-light"
       @click="createReservation(customerId, selectedItem[0].id, false, date)"
     >
       Create Reservation
     </button>
     <button
-      type="button"
+      type="button" class="btn btn-light"
       @click="deleteReservation(selectedReservation[0].id)"
     >
       Delete Reservation
