@@ -6,9 +6,6 @@
       </tr>
       <tr>
         <td>
-          <input type="text" v-model="newItem" placeholder="Title">
-        </td>
-        <td>
           ​<select type="text" v-model="newType">
             ​<option disabled selected value="">Select Type</option>
             <option >Book</option>
@@ -17,6 +14,11 @@
             <option >Newspapers</option>
             <option >Archive</option>
           </select>
+        </td>
+        </tr>
+      <tr>
+        <td>
+          <input type="text" v-model="newItem" placeholder="Title">
         </td>
       </tr>
       <tr>
@@ -80,6 +82,7 @@
 <style scoped>
 select {
  height: 30px;
+  border-radius: 3px;
 }
 v-table {
   font-family: Arial, Helvetica, sans-serif;

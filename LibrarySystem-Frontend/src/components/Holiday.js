@@ -44,7 +44,7 @@ export default {
                     this.holidays = response.data
                 })
                 .catch(e => {
-                    this.errorHoliday= e
+                    this.errorHoliday= "Error: failed to retrieve all holidays"
                 })
         },
         createHoliday: function (name, startDate, endDate) {
@@ -54,7 +54,7 @@ export default {
             }).catch(e => {
                 var errorMsg = e.response.data.message
                 console.log(errorMsg)
-                this.errorHoliday = errorMsg
+                this.errorHoliday = "Error: failed to create holiday"
             })
 
         },
@@ -65,7 +65,7 @@ export default {
             }).catch(e => {
                 var errorMsg = e.response.data.message
                 console.log(errorMsg)
-                this.errorHoliday = errorMsg
+                this.errorHoliday = "Error: failed to update holiday"
             })
 
         },
@@ -77,7 +77,7 @@ export default {
             }).catch(e => {
                 var errorMsg = e.response.data.message
                 console.log(errorMsg)
-                this.errorHoliday = errorMsg
+                this.errorHoliday = "Error: failed to delete holiday"
             })
 
         },

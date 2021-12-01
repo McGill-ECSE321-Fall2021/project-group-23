@@ -44,7 +44,7 @@ export default {
                     this.openingsHours = response.data
                 })
                 .catch(e => {
-                    this.errorOpeningsHours= e
+                    this.errorOpeningsHours= "Error: failed to retrieve all opening hours"
                 })
         },
         createOpeningsHours: function (day, startTime, endTime) {
@@ -54,7 +54,7 @@ export default {
             }).catch(e => {
                 var errorMsg = e.response.data.message
                 console.log(errorMsg)
-                this.errorOpeningsHours = errorMsg
+                this.errorOpeningsHours = "Error: failed to create opening hour"
             })
 
         },
@@ -65,7 +65,7 @@ export default {
             }).catch(e => {
                 var errorMsg = e.response.data.message
                 console.log(errorMsg)
-                this.errorOpeningsHours = errorMsg
+                this.errorOpeningsHours = "Error: failed to update opening hour"
             })
 
         },
@@ -77,7 +77,7 @@ export default {
             }).catch(e => {
                 var errorMsg = e.response.data.message
                 console.log(errorMsg)
-                this.errorOpeningsHours = errorMsg
+                this.errorOpeningsHours = "Error: failed to delete opening hour"
             })
 
         },

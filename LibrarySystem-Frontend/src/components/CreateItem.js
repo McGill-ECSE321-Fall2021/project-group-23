@@ -45,7 +45,7 @@ export default {
                     this.items = response.data
                 })
                 .catch(e => {
-                    this.errorItem = e
+                    this.errorItem = "Error: failed retrieving items from database"
                 })
         },
         createItem: function (title, type) {
@@ -55,7 +55,7 @@ export default {
             }).catch(e => {
                 var errorMsg = e.response.data.message
                 console.log(errorMsg)
-                this.errorItem = errorMsg
+                this.errorItem = "Error: failed creating the item"
             })
 
         },
@@ -67,7 +67,7 @@ export default {
             }).catch(e => {
                 var errorMsg = e.response.data.message
                 console.log(errorMsg)
-                this.errorItem = errorMsg
+                this.errorItem = "Error: failed deleting the Item"
             })
 
         },
