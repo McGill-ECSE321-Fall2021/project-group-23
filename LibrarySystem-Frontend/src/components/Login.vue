@@ -11,7 +11,7 @@
       </tr>
       <tr>
           <td>
-              <input style="margin-top: 6px;" type="text" v-model="customerPassword" placeholder="Password">
+              <input style="margin-top: 6px;" type="password" v-model="customerPassword" placeholder="Password">
           </td>
       </tr>
       <tr>
@@ -41,7 +41,7 @@
       </tr>
       <tr>
           <td>
-              <input style="margin-top: 6px;" type="text" v-model="librarianPassword" placeholder="Password">
+              <input style="margin-top: 6px;" type="password" v-model="librarianPassword" placeholder="Password">
           </td>
       </tr>
       <!--

@@ -1,11 +1,11 @@
 <template>
     <div id="assign-schedule" class="container-fluid">
-        <h1 style="text-align:left">Update Weekly Shifts</h1>
+        <h1 style="text-align:center">Update Weekly Shifts</h1>
         <hr>
-        <h2 style="text-align:left">Shifts to Assign</h2>
+        <h2 style="text-align:center">Shifts to Assign</h2>
         <button class="btn btn-light" style="padding:5px" v-on:click="returnToPrev()">Return to Previous Page</button>
         <p> Please note resetting the shifts removes the previous ones. </p>
-            <table>
+            <table class="centerTable">
                 <tr>
                     <th>Day of Shift</th>
                     <th>Start Time</th>
@@ -31,24 +31,24 @@
                     </td>
                 </tr>
             </table>
-            <table style="text-align:left">
+            <table class="centerTable">
                 <tr>
                     <td></td>
                     <td> <button
-                            class="btn btn-light" v-bind:disabled="!newShift.day || !newShift.startTime || !newShift.endTime" 
+                            style="margin-top: 8px" class="btn btn-light" v-bind:disabled="!newShift.day || !newShift.startTime || !newShift.endTime" 
                             v-on:click="createShift(newShift.day, newShift.startTime, newShift.endTime)">Add Shift to Table
                     </button> </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td> <button
-                            class="btn btn-light" v-on:click="deleteAllShifts()">Clear Shifts
+                            class="btn btn-light" style="margin-top: 8px" v-on:click="deleteAllShifts()">Clear Shifts
                     </button> </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td> <button
-                            class="btn btn-light" v-on:click="updateWeeklySchedule()">Update Schedule
+                            style="margin-top: 8px" class="btn btn-light" v-on:click="updateWeeklySchedule()">Update Schedule
                     </button> </td>
                 </tr>
             </table>
@@ -56,7 +56,7 @@
                 <span v-if="errorShift" style="text-align:center; color:red"> {{errorShift}} </span>
                 <span v-else-if="successShift" style="text-align:center; color:green"> {{successShift}} </span>
             </p>
-            <v-table :data="shifts" selectedClass="table-info" class="table-hover">
+            <v-table :data="shifts" selectedClass="table-info" class="table-hover centerTable">
                 <thead slot="head">
                     <th style="padding: 20px">Day of Week</th>
                     <th style="padding: 20px">Start Time</th>
@@ -73,8 +73,8 @@
                 </tbody>
             </v-table>
         <hr>
-        <h2 style="text-align:left">Current Shifts</h2>
-            <v-table :data="currentShifts" selectedClass="table-info" class="table-hover">
+        <h2 style="text-align:center">Current Shifts</h2>
+            <v-table :data="currentShifts" selectedClass="table-info" class="table-hover centerTable">
                 <thead slot="head">
                     <th style="padding: 20px">Day of Week</th>
                     <th style="padding: 20px">Start Time</th>
