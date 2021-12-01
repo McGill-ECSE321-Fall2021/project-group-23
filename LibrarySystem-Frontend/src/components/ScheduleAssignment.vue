@@ -3,7 +3,7 @@
         <h1 style="text-align:left">Update Weekly Shifts</h1>
         <hr>
         <h2 style="text-align:left">Shifts to Assign</h2>
-        <button style="padding:5px" v-on:click="returnToPrev()">Return to Previous Page</button>
+        <button class="btn btn-light" style="padding:5px" v-on:click="returnToPrev()">Return to Previous Page</button>
         <p> Please note resetting the shifts removes the previous ones. </p>
             <table>
                 <tr>
@@ -35,20 +35,20 @@
                 <tr>
                     <td></td>
                     <td> <button
-                            v-bind:disabled="!newShift.day || !newShift.startTime || !newShift.endTime" 
+                            class="btn btn-light" v-bind:disabled="!newShift.day || !newShift.startTime || !newShift.endTime" 
                             v-on:click="createShift(newShift.day, newShift.startTime, newShift.endTime)">Add Shift to Table
                     </button> </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td> <button
-                            v-on:click="deleteAllShifts()">Clear Shifts
+                            class="btn btn-light" v-on:click="deleteAllShifts()">Clear Shifts
                     </button> </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td> <button
-                            v-on:click="updateWeeklySchedule()">Update Schedule
+                            class="btn btn-light" v-on:click="updateWeeklySchedule()">Update Schedule
                     </button> </td>
                 </tr>
             </table>

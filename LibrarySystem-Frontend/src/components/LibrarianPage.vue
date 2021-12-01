@@ -1,6 +1,6 @@
 <template>
     <div id="hire/fire-librarian" class="container-fluid">
-        <h1 style="text-align:left">Librarian Management</h1>
+        <h1 style="text-align:center">Librarian Management</h1>
         <div>
             <button class="btn btn-light" v-on:click="customerManagement(selectedCustomer[0])">Customer Access</button>
             <button class="btn btn-light" v-on:click="viewShifts()">View Shifts</button>
@@ -9,12 +9,12 @@
         </div>
         
         <hr>
-        <h2 style="text-align:left">Customers</h2>
-        <button class="btn btn-light" v-on:click="updateValues(selectedCustomer[0])">Update Balance and Statuses</button>
+        <h2 style="text-align:center">Customers</h2>
+        <button style="margin-bottom: 6px;" class="btn btn-light" v-on:click="updateValues(selectedCustomer[0])">Update Balance and Statuses</button>
         <div id="customercontrol1" style="text-align:center">
                 <input type="number" min="0" placeholder="New Balance" v-model="newBalance">
         </div>
-        <div id="customercontrol2" style="text-align:center">
+        <div id="customercontrol2">
                 <input type="checkbox" v-model="verificationVal">
                 <span> Verified? </span>
                 <input type="checkbox" v-model="localVal">
@@ -23,7 +23,7 @@
         <p>
             <span v-if="errorCustomer" style="text-align:center; color:red"> {{errorCustomer}} </span>
         </p>
-        <v-table :data="customers" selectedClass="table-info" @selectionChanged="selectedCustomer = $event" class="table-hover">
+        <v-table :data="customers" selectedClass="table-info" @selectionChanged="selectedCustomer = $event" class="table-hover centerTable">
             <thead slot="head">
                 <th style="padding: 20px">First Name</th>
                 <th style="padding: 20px">Last Name</th>

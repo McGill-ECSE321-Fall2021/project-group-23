@@ -14,10 +14,10 @@
       <div id="address">
         <h4>Address : {{ address }}</h4>
       </div>
-      <button type="button" class="btn btn-info" v-on:click="isShow = !isShow">
+      <button type="button" class="btn btn-light" v-on:click="isShow = !isShow">
         Update Account
       </button>
-      <button type="button" class="btn btn-danger" v-on:click="deleteAccount()" id="deleteAccountButton">
+      <button type="button" class="btn btn-light" v-on:click="deleteAccount()" id="deleteAccountButton">
         Delete Account
       </button>
       <div v-show="isShow" id="update-account">

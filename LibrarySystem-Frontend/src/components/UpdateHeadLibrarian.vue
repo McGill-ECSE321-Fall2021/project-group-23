@@ -37,10 +37,10 @@
             </tr>
         </table>
         <button
-            v-bind:disabled="!newFirst || !newLast" 
+            class="btn btn-light" v-bind:disabled="!newFirst || !newLast" 
             v-on:click="updateHeadInfo(newFirst, newLast)">Update Account Information
         </button>
-        <button v-on:click="returnToPrev()">Return to Previous Page</button>
+        <button class="btn btn-light" v-on:click="returnToPrev()">Return to Previous Page</button>
     </div>
 </template>
 
