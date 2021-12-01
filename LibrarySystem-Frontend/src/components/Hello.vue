@@ -1,6 +1,9 @@
 
 <template>
   <div class="hello">
+    <div>
+      <img src="./../assets/LibraryLogo.png" width="200px">
+    </div>
     <h1 style="margin-bottom: 25px;">{{ msg }}</h1>
     <ul>
       <li>
