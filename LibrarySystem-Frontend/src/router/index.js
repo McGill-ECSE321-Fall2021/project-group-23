@@ -17,6 +17,7 @@ import UpdateHeadLibrarian from '@/components/UpdateHeadLibrarian.vue'
 import LibraryBooking from '@/components/LibraryBooking.vue'
 import LibrarianPage from '@/components/LibrarianPage.vue'
 import ViewShifts from '@/components/ViewShifts.vue'
+import CreateBalance from '@/components/CreateBalance.vue'
 
 Vue.use(Router)
 
@@ -126,5 +127,10 @@ export default new Router({
       component: ViewShifts,
       props: true
     },
+    {
+      path: '/CreateBalance',
+      name: 'CreateBalance',
+      component: CreateBalance
+    }
   ]
 })
