@@ -24,3 +24,5 @@ Link to wiki page containing details on our deliverables.
 ![Efforts](Documentation_Files/Efforts.PNG)
 ### Deliverable 2
 ![Efforts](Documentation_Files/EffortsD2.PNG)
+### Deliverable 3
+![Efforts](Documentation_Files/EffortsD3.PNG)
