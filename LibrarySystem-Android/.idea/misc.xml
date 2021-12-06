@@ -3,9 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/user/Desktop/McGill/FALL2021/ECSE321/Dev/project-group-23/LibrarySystem-Android/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/user/Desktop/McGill/FALL2021/ECSE321/Dev/project-group-23/LibrarySystem-Android/app/src/main/res/layout/content_main.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/user/Desktop/McGill/FALL2021/ECSE321/Dev/project-group-23/LibrarySystem-Android/app/src/main/res/layout/customer_home_page.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/user/Desktop/McGill/FALL2021/ECSE321/Dev/project-group-23/LibrarySystem-Android/app/src/main/res/layout/fragment_first.xml" value="0.12681159420289856" />
         <entry key="..\:/Users/user/Desktop/McGill/FALL2021/ECSE321/Dev/project-group-23/LibrarySystem-Android/app/src/main/res/layout/fragment_second.xml" value="0.12681159420289856" />
+        <entry key="..\:/Users/user/Desktop/McGill/FALL2021/ECSE321/Dev/project-group-23/LibrarySystem-Android/app/src/main/res/layout/login.xml" value="0.2859375" />
+        <entry key="..\:/Users/user/Desktop/McGill/FALL2021/ECSE321/Dev/project-group-23/LibrarySystem-Android/app/src/main/res/layout/test.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/user/Desktop/McGill/FALL2021/ECSE321/Dev/project-group-23/LibrarySystem-Android/app/src/main/res/menu/my_navigation_items.xml" value="0.22" />
       </map>
     </option>
   </component>
