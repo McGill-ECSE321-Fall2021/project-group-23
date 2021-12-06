@@ -35,7 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private String error = null;
 
     private JSONObject currentCustomer = null;
+    private JSONObject newCustomer = null;
 
+    // Login Customer
     public void login(View v) {
         final EditText et = (EditText) findViewById(R.id.editTextAccountId);
         String id = et.getText().toString();
@@ -53,6 +55,54 @@ public class MainActivity extends AppCompatActivity {
                         error += e.getMessage();
                     }
                     refreshErrorMessage();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    error += errorResponse.get("message").toString();
+                } catch(Exception e) {
+                    error += e.getMessage();
+                }
+                refreshErrorMessage();
+            }
+
+        });
+
+    }
+
+    // Signup Customer
+    public void signup(View v) {
+        final EditText firstNameInput = (EditText) findViewById(R.id.editTextAccountId3);
+        String firstName = firstNameInput.getText().toString();
+        final EditText lastNameInput = (EditText) findViewById(R.id.editTextAccountId4);
+        String lastName = lastNameInput.getText().toString();
+        final EditText emailInput = (EditText) findViewById(R.id.editTextAccountId5);
+        String email = emailInput.getText().toString();
+        final EditText addressInput = (EditText) findViewById(R.id.editTextAccountId6);
+        String address = addressInput.getText().toString();
+        final EditText passwordInput = (EditText) findViewById(R.id.editTextTextPassword2);
+        String password = passwordInput.getText().toString();
+
+        // auto-generated values on customer creation
+        String isVerified = "false";
+        String isLocal = "false";
+        String balance = "50";
+
+        String createCustomerPath = firstName + "/" + lastName + "/" + password + "/" + email + "/" + isVerified + "/" + isLocal + "/" + address + "/" + balance;
+        createCustomerPath = createCustomerPath.replaceAll(" ", "%20");
+
+        HttpUtils.post("/createCustomer/" + createCustomerPath, new RequestParams(), new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                newCustomer = response;
+                try {
+                    setContentView(R.layout.customer_home_page);
+                } catch(Exception e) {
+                    error += e.getMessage();
+                }
+                refreshErrorMessage();
             }
 
             @Override
