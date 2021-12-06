@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -32,14 +34,52 @@ public class MainActivity extends AppCompatActivity {
     // for error handling, add here ...
     private String error = null;
 
+    private JSONObject currentCustomer = null;
+
+    public void login(View v) {
+        final EditText et = (EditText) findViewById(R.id.editTextAccountId);
+        String id = et.getText().toString();
+        final EditText et2 = (EditText) findViewById(R.id.editTextTextPassword);
+        String password = et2.getText().toString();
+
+        HttpUtils.get("/loginCustomer/" + id+"/"+ password, new RequestParams(), new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                currentCustomer = response;
+                    try {
+                        setContentView(R.layout.customer_home_page);
+                    } catch(Exception e) {
+                        error += e.getMessage();
+                    }
+                    refreshErrorMessage();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    error += errorResponse.get("message").toString();
+                } catch(Exception e) {
+                    error += e.getMessage();
+                }
+                refreshErrorMessage();
+            }
+
+        });
+
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.reserve);
-        initItemTable();
+        setContentView(R.layout.login);
+        //initItemTable();
         //refreshErrorMessage();
     }
+
+
 
     public void initItemTable() {
 
