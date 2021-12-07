@@ -107,6 +107,12 @@ public class MainActivity extends AppCompatActivity {
                 newCustomer = response;
                 try {
                     setContentView(R.layout.customer_home_page);
+                    ((TextView) findViewById(R.id.displayId)).setText(currentCustomer.getString("customerId"));
+                    ((TextView) findViewById(R.id.displayFirstName)).setText(currentCustomer.getString("firstName"));
+                    ((TextView) findViewById(R.id.displayLastName)).setText(currentCustomer.getString("lastName"));
+                    ((TextView) findViewById(R.id.displayAddress)).setText(currentCustomer.getString("address"));
+                    ((TextView) findViewById(R.id.displayEmail)).setText(currentCustomer.getString("email"));
+                    ((TextView) findViewById(R.id.displayBalance)).setText(currentCustomer.getString("accountBalance") + "$");
                 } catch(Exception e) {
                     error += e.getMessage();
                 }
