@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 currentCustomer = response;
                     try {
+                        error = "";
                         setContentView(R.layout.customer_home_page);
                         //test: delete until catch
                         ((TextView) findViewById(R.id.displayId)).setText(currentCustomer.getString("customerId"));
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                         ((TextView) findViewById(R.id.displayEmail)).setText(currentCustomer.getString("email"));
                         ((TextView) findViewById(R.id.displayBalance)).setText(currentCustomer.getString("accountBalance") + "$");
                     } catch(Exception e) {
-                        error += e.getMessage();
+                        error = e.getMessage();
                     }
                     refreshErrorMessage();
             }
@@ -68,9 +69,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    error += errorResponse.get("message").toString();
+                    error = "Invalid input or account does not exist.\nPlease try again.";
                 } catch(Exception e) {
-                    error += e.getMessage();
+                    error = e.getMessage();
                 }
                 refreshErrorMessage();
             }
@@ -106,15 +107,16 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 newCustomer = response;
                 try {
+                    error = "";
                     setContentView(R.layout.customer_home_page);
-                    ((TextView) findViewById(R.id.displayId)).setText(currentCustomer.getString("customerId"));
-                    ((TextView) findViewById(R.id.displayFirstName)).setText(currentCustomer.getString("firstName"));
-                    ((TextView) findViewById(R.id.displayLastName)).setText(currentCustomer.getString("lastName"));
-                    ((TextView) findViewById(R.id.displayAddress)).setText(currentCustomer.getString("address"));
-                    ((TextView) findViewById(R.id.displayEmail)).setText(currentCustomer.getString("email"));
-                    ((TextView) findViewById(R.id.displayBalance)).setText(currentCustomer.getString("accountBalance") + "$");
+                    ((TextView) findViewById(R.id.displayId)).setText(newCustomer.getString("customerId"));
+                    ((TextView) findViewById(R.id.displayFirstName)).setText(newCustomer.getString("firstName"));
+                    ((TextView) findViewById(R.id.displayLastName)).setText(newCustomer.getString("lastName"));
+                    ((TextView) findViewById(R.id.displayAddress)).setText(newCustomer.getString("address"));
+                    ((TextView) findViewById(R.id.displayEmail)).setText(newCustomer.getString("email"));
+                    ((TextView) findViewById(R.id.displayBalance)).setText(newCustomer.getString("accountBalance") + "$");
                 } catch(Exception e) {
-                    error += e.getMessage();
+                    error = e.getMessage();
                 }
                 refreshErrorMessage();
             }
@@ -122,9 +124,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    error += errorResponse.get("message").toString();
+                    error = "Invalid input. Please try again.";
                 } catch(Exception e) {
-                    error += e.getMessage();
+                    error = e.getMessage();
                 }
                 refreshErrorMessage();
             }
@@ -139,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.login);
             currentCustomer = null;
         } catch (Exception e) {
-            error += e.getMessage();
+            error = e.getMessage();
         }
     }
 
@@ -150,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
             initItemTable();
             initReservationTable();
         } catch (Exception e) {
-            error += e.getMessage();
+            error = e.getMessage();
         }
     }
     //go to make res
@@ -164,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.displayEmail)).setText(currentCustomer.getString("email"));
             ((TextView) findViewById(R.id.displayBalance)).setText(currentCustomer.getString("accountBalance") + "$");
         } catch (Exception e) {
-            error += e.getMessage();
+            error = e.getMessage();
         }
     }
 
@@ -231,9 +233,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    error += errorResponse.get("message").toString();
+                    error = errorResponse.get("message").toString();
                 } catch(Exception e) {
-                    error += e.getMessage();
+                    error = e.getMessage();
                 }
                 refreshErrorMessage();
             }
@@ -251,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
             id = item.getInt("id");
             status = item.getString("status");
         } catch(Exception e) {
-            error += e.getMessage();
+            error = e.getMessage();
             refreshErrorMessage();
             return;
         }
@@ -338,9 +340,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    error += errorResponse.get("message").toString();
+                    error = errorResponse.get("message").toString();
                 } catch(Exception e) {
-                    error += e.getMessage();
+                    error = e.getMessage();
                 }
                 refreshErrorMessage();
             }
@@ -406,12 +408,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                error = "";
                 newCustomer = response;
                 try {
                     initItemTable();
                     initReservationTable();
                 } catch(Exception e) {
-                    error += e.getMessage();
+                    error = e.getMessage();
                 }
                 refreshErrorMessage();
             }
@@ -419,9 +422,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    error += errorResponse.get("message").toString();
+                    error = "Reservation id does not exist. Please try again.";
                 } catch(Exception e) {
-                    error += e.getMessage();
+                    error = e.getMessage();
                 }
                 refreshErrorMessage();
             }
@@ -438,12 +441,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                error = "";
                 newCustomer = response;
                 try {
                     initItemTable();
                     initReservationTable();
                 } catch(Exception e) {
-                    error += e.getMessage();
+                    error = e.getMessage();
                 }
                 refreshErrorMessage();
             }
@@ -451,9 +455,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    error += errorResponse.get("message").toString();
+                    error = errorResponse.get("message").toString();
                 } catch(Exception e) {
-                    error += e.getMessage();
+                    error = e.getMessage();
                 }
                 refreshErrorMessage();
             }
