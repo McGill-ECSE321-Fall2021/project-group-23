@@ -38,16 +38,21 @@ public class MainActivity extends AppCompatActivity {
     private JSONObject currentCustomer = null;
     private JSONObject newCustomer = null;
 
-    // Login Customer
+    /**
+     * Logs in Customer with account id and password read from the layout, navigates to 
+     * customer home page on success
+     * @param v View
+     */
     public void login(View v) {
         final EditText et = (EditText) findViewById(R.id.editTextAccountId);
         String id = et.getText().toString();
         final EditText et2 = (EditText) findViewById(R.id.editTextTextPassword);
         String password = et2.getText().toString();
 
+        //http resquest to login Customer
         HttpUtils.get("/loginCustomer/" + id+"/"+ password, new RequestParams(), new JsonHttpResponseHandler() {
 
-            @Override
+            @Override // login successful : display account info
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 currentCustomer = response;
                     try {
@@ -66,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     refreshErrorMessage();
             }
 
-            @Override
+            @Override //login failed, try again
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     error = "Invalid input or account does not exist.\nPlease try again.";
@@ -80,7 +85,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // Signup Customer
+    /**
+     * Signs up customer with firstName, lastName, email, address and password read from layout, logs
+     * the customer in on success and navigates to customer home page
+     * @param v View
+     */
     public void signup(View v) {
         final EditText firstNameInput = (EditText) findViewById(R.id.editTextAccountId3);
         String firstName = firstNameInput.getText().toString();
@@ -103,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
         HttpUtils.post("/createCustomer/" + createCustomerPath, new RequestParams(), new JsonHttpResponseHandler() {
 
-            @Override
+            @Override//signup success: login 
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 newCustomer = response;
                 try {
@@ -121,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 refreshErrorMessage();
             }
 
-            @Override
+            @Override //signup failed, try again
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     error = "Invalid input. Please try again.";
@@ -135,7 +144,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
- //sign out
+    /**
+     * Signs the customer out, navigates to the login page
+     * @param v View
+     */
     public void signout(View v) {
         try {
             setContentView(R.layout.login);
@@ -145,7 +157,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //go to make res
+    /**
+     * navigates to the Reservations page, initializing the Items and Reservations tables
+     * @param v View
+     */
     public void goToReservation(View v) {
         try {
             setContentView(R.layout.reserve);
@@ -155,7 +170,10 @@ public class MainActivity extends AppCompatActivity {
             error = e.getMessage();
         }
     }
-    //go to make res
+    /**
+     * navigates to the customer home page
+     * @param v view
+     */
     public void goToProfile(View v) {
         try {
             setContentView(R.layout.customer_home_page);
@@ -173,15 +191,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //enter the app on the login/signup view
         setContentView(R.layout.login);
-        //initItemTable();
-        //refreshErrorMessage();
     }
 
 
-
+    /**
+     * displays all the items in the library in an Items table
+     */
     public void initItemTable() {
 
+        //create table
         TableLayout tbl = (TableLayout) findViewById(R.id.table_items);
         tbl.removeAllViews();
         TableRow head = new TableRow(this);
@@ -205,9 +225,10 @@ public class MainActivity extends AppCompatActivity {
         head.addView(tv2);
         tbl.addView(head);
 
+        //get all items from backend
         HttpUtils.get("/getAllItems", new RequestParams(), new JsonHttpResponseHandler() {
 
-            @Override
+            @Override//success : add items to the table
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 
                 for(int i = 0; i < response.length(); i++) {
@@ -243,11 +264,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * helper method to add an item to the Items table
+     * @param item  JSONObject
+     * @param color int
+     */
     private void addItemToTable(JSONObject item, int color) {
         String title;
         int id;
         String status;
         TableLayout tbl = (TableLayout) findViewById(R.id.table_items);
+        //get item info
         try {
             title = item.getString("title");
             id = item.getInt("id");
@@ -257,41 +284,46 @@ public class MainActivity extends AppCompatActivity {
             refreshErrorMessage();
             return;
         }
+        //add row
         TableRow row = new TableRow(this);
-        TextView t1v = new TextView(this);
+        TextView t1v = new TextView(this); //column 1 : item id
         t1v.setText(String.valueOf(id));
         t1v.setTextColor(Color.BLACK);
         t1v.setGravity(Gravity.CENTER);
         t1v.setBackgroundColor(color);
         row.addView(t1v);
-        TextView t2v = new TextView(this);
+        TextView t2v = new TextView(this); //column 2: title
         t2v.setText(title);
         t2v.setTextColor(Color.BLACK);
         t2v.setGravity(Gravity.CENTER);
         t2v.setBackgroundColor(color);
         row.addView(t2v);
-        TextView t3v = new TextView(this);
+        TextView t3v = new TextView(this); //column 3 : item status
         t3v.setText(status);
         t3v.setTextColor(Color.BLACK);
         t3v.setGravity(Gravity.CENTER);
         t3v.setBackgroundColor(color);
         row.addView(t3v);
-        //row.setBackground();
+    
         tbl.addView(row);
     }
 
+    /**
+     * initializes the Reservations table, which conatains a customer's reservations
+     */
     public void initReservationTable() {
 
+        //Initialize table structure and header
         TableLayout tbl = (TableLayout) findViewById(R.id.table_reservations);
         tbl.removeAllViews();
         TableRow head = new TableRow(this);
-        TextView tv0 = new TextView(this);
+        TextView tv0 = new TextView(this); 
         tv0.setText("ID");
         tv0.setTextColor(Color.WHITE);
         tv0.setTextSize(20);
         tv0.setBackgroundColor(Color.BLACK);
         head.addView(tv0);
-        TextView tv1 = new TextView(this);
+        TextView tv1 = new TextView(this); 
         tv1.setText(" ITEM ");
         tv1.setTextColor(Color.WHITE);
         tv1.setBackgroundColor(Color.BLACK);
@@ -311,10 +343,10 @@ public class MainActivity extends AppCompatActivity {
             error = e.getMessage();
             refreshErrorMessage();
         }
-
+        //get customer resrevations from backend
         HttpUtils.get("/getReservationByCustomer/" + currentId, new RequestParams(), new JsonHttpResponseHandler() {
 
-            @Override
+            @Override //success: add reservations to table
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 
                 for(int i = 0; i < response.length(); i++) {
@@ -349,13 +381,18 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
-
+    /**
+     * helper method to add a reservation to the reservations table
+     * @param res JSONObject
+     * @param color int
+     */
     private void addReservationToTable(JSONObject res, int color) {
         JSONObject item;
         int id;
         String dueDate;
         String title;
         TableLayout tbl = (TableLayout) findViewById(R.id.table_reservations);
+        //get reservation info
         try {
             item = res.getJSONObject("item");
             title = item.getString("title");
@@ -366,29 +403,33 @@ public class MainActivity extends AppCompatActivity {
             refreshErrorMessage();
             return;
         }
-        TableRow row = new TableRow(this);
-        TextView t1v = new TextView(this);
+        TableRow row = new TableRow(this); //add new row
+        TextView t1v = new TextView(this); //column 1 : reservation id
         t1v.setText(String.valueOf(id));
         t1v.setTextColor(Color.BLACK);
         t1v.setGravity(Gravity.CENTER);
         t1v.setBackgroundColor(color);
         row.addView(t1v);
-        TextView t2v = new TextView(this);
+        TextView t2v = new TextView(this);//column 2 : Item's title
         t2v.setText(title);
         t2v.setTextColor(Color.BLACK);
         t2v.setGravity(Gravity.CENTER);
         t2v.setBackgroundColor(color);
         row.addView(t2v);
-        TextView t3v = new TextView(this);
+        TextView t3v = new TextView(this);//column 3 : due Date
         t3v.setText(dueDate);
         t3v.setTextColor(Color.BLACK);
         t3v.setGravity(Gravity.CENTER);
         t3v.setBackgroundColor(color);
         row.addView(t3v);
-        //row.setBackground();
+    
         tbl.addView(row);
     }
 
+    /**
+     * creates reservation for and item id read from the layout and current Customer Id
+     * @param v View
+     */
     public void makeReservation(View v){
         final EditText firstNameInput = (EditText) findViewById(R.id.editTextAccountId4);
         String itemId = firstNameInput.getText().toString();
@@ -403,10 +444,10 @@ public class MainActivity extends AppCompatActivity {
             error = e.getMessage();
             refreshErrorMessage();
         }
-
+        //post request to create reservation
         HttpUtils.post("/createReservation/" + customerId +"/"+ itemId +"/false/"+ dateString , new RequestParams(), new JsonHttpResponseHandler() {
 
-            @Override
+            @Override//success: initialize Items and Reservations Tables
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 error = "";
                 newCustomer = response;
@@ -432,14 +473,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * deletes reservation who's id is provided by the customer in the layout
+     * @param v
+     */
     public void deleteReservation(View v){
         final EditText resInput = (EditText) findViewById(R.id.editTextResId);
         String resId = resInput.getText().toString();
 
-
+        //delete request to backend
         HttpUtils.delete("/deleteReservation/" + resId , new RequestParams(), new JsonHttpResponseHandler() {
 
-            @Override
+            @Override //success :initialize Items and Reservations Tables
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 error = "";
                 newCustomer = response;
