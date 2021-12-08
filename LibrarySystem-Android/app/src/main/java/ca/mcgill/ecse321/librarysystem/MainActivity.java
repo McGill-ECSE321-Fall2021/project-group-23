@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
             @Override//signup success: login 
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 newCustomer = response;
+                currentCustomer = response;
                 try {
                     error = "";
                     setContentView(R.layout.customer_home_page);
